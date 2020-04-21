@@ -1,0 +1,22 @@
+﻿@model mvCommerce.Models.Product
+
+<h3>Produto -> Visualizar</h3>
+:)
+
+@{
+    string name = "Thales";
+}
+<h1>@name</h1>
+<br />
+<h2>Produto</h2>
+<b>Código: </b> @Model.Id
+<br />
+<b>Nome: </b> @Model.Name
+<br />
+<b>Preço: </b> @Model.Price.ToString("C")
+<br />
+<b>Descrição: </b> @Model.Description
+<br />
+
+<br />
+Todos os direitos reservados &copy; @DateTime.Now.Year
