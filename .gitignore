@@ -358,3 +358,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Class for the send email with my credentials
+ContactEmail.cs
