@@ -16,14 +16,26 @@ namespace mvCommerce.Controllers
         }
         public IActionResult ContactAction()
         {
-            Contact contact = new Contact();
-            contact.Name = HttpContext.Request.Form["name"];
-            contact.Email = HttpContext.Request.Form["email"];
-            contact.Text = HttpContext.Request.Form["text"];
+            try
+            {
+                Contact contact = new Contact();
+                contact.Name = HttpContext.Request.Form["name"];
+                contact.Email = HttpContext.Request.Form["email"];
+                contact.Text = HttpContext.Request.Form["text"];
 
-            ContactEmail.SendContactPerEmail(contact);
+                ContactEmail.SendContactPerEmail(contact);
 
-            return new ContentResult() { Content = string.Format("Dados recebidos com sucesso!<br/> Nome: {0} <br/>E-mail: {1} <br/>Texto: {2}", contact.Name, contact.Email, contact.Text), ContentType = "text/html"};
+                ViewData["MSG_S"] = "Mensagem de contato enviada com sucesso!";
+            }
+            catch (Exception e)
+            {
+                ViewData["MSG_E"] = "Oops! tivemos um erro, tente novamente mais tarde!";
+
+                //TODO - Implement log
+
+            }
+           
+            return View("Contact");
         }
         public IActionResult Contact()
         {
