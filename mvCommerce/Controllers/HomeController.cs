@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using mvCommerce.Libraries.Email;
 using mvCommerce.Models;
+using System.ComponentModel.DataAnnotations;
+using System.Text;
 
 namespace mvCommerce.Controllers
 {
@@ -23,9 +25,24 @@ namespace mvCommerce.Controllers
                 contact.Email = HttpContext.Request.Form["email"];
                 contact.Text = HttpContext.Request.Form["text"];
 
-                ContactEmail.SendContactPerEmail(contact);
+                var listMessages = new List<ValidationResult>();
+                var context = new ValidationContext(contact);
+                bool isValid = Validator.TryValidateObject(contact, context, listMessages, true);
+                if (isValid)
+                {
+                    ContactEmail.SendContactPerEmail(contact);
+                    ViewData["MSG_S"] = "Mensagem de contato enviada com sucesso!";
+                }
+                else
+                {
+                    StringBuilder sb = new StringBuilder();
+                    foreach (var text in listMessages)
+                    {
+                        sb.Append(text.ErrorMessage + "<br />");
+                    }
 
-                ViewData["MSG_S"] = "Mensagem de contato enviada com sucesso!";
+                    ViewData["MSG_E"] = sb.ToString();
+                }
             }
             catch (Exception e)
             {

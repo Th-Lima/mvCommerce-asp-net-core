@@ -47,7 +47,7 @@
                                     }
                                     @if (ViewData["MSG_E"] != null)
                                     {
-                                        <p class="alert alert-danger"><b>@ViewData["MSG_E"]</b></p>
+                                        <p class="alert alert-danger"><b>@Html.Raw(ViewData["MSG_E"])</b></p>
                                     }
 
                                     <form role="form" method="post" action="/Home/ContactAction">
