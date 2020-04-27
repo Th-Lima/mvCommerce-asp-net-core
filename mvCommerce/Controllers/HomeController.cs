@@ -42,6 +42,7 @@ namespace mvCommerce.Controllers
                     }
 
                     ViewData["MSG_E"] = sb.ToString();
+                    ViewData["CONTACT"] = contact;
                 }
             }
             catch (Exception e)

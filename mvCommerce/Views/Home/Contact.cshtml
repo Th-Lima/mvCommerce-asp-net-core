@@ -1,6 +1,7 @@
 ﻿
 @{
     ViewData["Title"] = "Contact";
+    mvCommerce.Models.Contact contact = (mvCommerce.Models.Contact)ViewData["CONTACT"];
 }
     <head>
         <link rel="stylesheet" href="~/css/Contact.css"/>
@@ -57,7 +58,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fa fa-user"></i></span>
                                                 </div>
-                                                <input type="text" id="name" class="form-control" name="name" placeholder="" required="">
+                                                <input type="text" id="name" class="form-control" name="name" placeholder="" required="" value="@(contact != null ? contact.Name : "")">
                                             </div>
                                         </div>
 
@@ -67,17 +68,16 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fa fa-at"></i></span>
                                                 </div>
-                                                <input type="text" class="form-control" name="email" id="email" placeholder="">
+                                                <input type="text" class="form-control" name="email" id="email" placeholder="" value="@(contact != null ? contact.Email : "")">
                                             </div>
                                         </div>
 
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <div class="form-group">
-                                                    <label for="text"><span class="hidden-xs">Texto</span> </label>
+                                                    <label for="text"><span class="hidden-xs">Texto</span></label>
                                                     <div class="form-inline">
-                                                        <textarea class="form-control" name="text" id="text" style="width:100%"></textarea>
-
+                                                        <textarea class="form-control" name="text" id="text" style="width:100%">@(contact != null ? contact.Text : "")</textarea>
                                                     </div>
                                                 </div>
                                             </div>
