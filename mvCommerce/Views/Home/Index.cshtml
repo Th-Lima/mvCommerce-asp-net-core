@@ -1,4 +1,4 @@
-﻿
+﻿@model mvCommerce.Models.NewsletterEmail
 @{
     ViewData["Title"] = "Index";
 }
@@ -154,10 +154,16 @@
         </div> <!-- row.// -->
     </div>
 </main>
-<form role="form" method="post" action="/Home/ContactAction">
+@{
+    /*
+     * Html Helper
+     */
+}
+
+@using (Html.BeginForm("index", "home", FormMethod.Post)) 
+{
     <div class="container">
         <div class="row">
-
             <div class="col-sm-6 offset-sm-2">
                 <div class="form-group">
                     <label for="name">Cadastre seu email e receba promoções</label>
@@ -165,8 +171,9 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-envelope"></i></span>
                         </div>
-                        <input type="text" id="name" class="form-control" name="name" placeholder="E-mail" required="">
+                        @Html.EditorFor(m => m.Email, new { htmlAttributes = new { @class = "form-control"} })
                     </div>
+                    <span style="color:red">@Html.ValidationMessageFor(m => m.Email)</span>
                 </div>
             </div>
             <div class="col-sm-2">
@@ -174,7 +181,7 @@
             </div>
         </div>
     </div>
-</form>
+}
 
 
 

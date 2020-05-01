@@ -12,9 +12,24 @@ namespace mvCommerce.Controllers
 {
     public class HomeController : Controller
     {
+        [HttpGet]
         public IActionResult Index()
         {
             return View();
+        }
+       
+        [HttpPost]
+        public IActionResult Index([FromForm]NewsletterEmail newsletter)
+        {
+            if (ModelState.IsValid)
+            {
+                //TODO = Add in the database
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                return View();
+            }            
         }
         public IActionResult ContactAction()
         {
