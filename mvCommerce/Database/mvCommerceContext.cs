@@ -10,5 +10,6 @@ namespace mvCommerce.Database
 
         }
         public DbSet<Client> Client { get; set; }
+        public DbSet<NewsletterEmail> NewsletterEmails { get; set; }
     }
 }

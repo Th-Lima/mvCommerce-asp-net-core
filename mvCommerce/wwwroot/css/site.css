@@ -20,7 +20,6 @@
 
 #formMenu input[type="search"]:focus {
     width: 350px;
-    border-color: #130f40;
 }
 a {
     color: mediumpurple;
