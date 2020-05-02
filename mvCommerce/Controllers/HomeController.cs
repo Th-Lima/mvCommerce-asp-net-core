@@ -1,17 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using mvCommerce.Libraries.Email;
 using mvCommerce.Models;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
+using mvCommerce.Database;
 
 namespace mvCommerce.Controllers
 {
     public class HomeController : Controller
     {
+        private mvCommerceContext _database;
+        public HomeController(mvCommerceContext database)
+        {
+            _database = database;
+        }
         [HttpGet]
         public IActionResult Index()
         {
@@ -23,7 +27,11 @@ namespace mvCommerce.Controllers
         {
             if (ModelState.IsValid)
             {
-                //TODO = Add in the database
+                _database.NewsletterEmails.Add(newsletter);
+                _database.SaveChanges();
+
+                TempData["MSG_S"] = "PRONTO! Agora você irá receber nossas promoções diárias, fique ligado!";
+
                 return RedirectToAction(nameof(Index));
             }
             else
