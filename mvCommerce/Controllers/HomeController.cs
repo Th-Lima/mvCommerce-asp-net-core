@@ -94,6 +94,16 @@ namespace mvCommerce.Controllers
         [HttpPost]
         public IActionResult RegisterClient([FromForm] Client client)
         {
+            if (ModelState.IsValid)
+            {
+                _database.Add(client);
+                _database.SaveChanges();
+
+                TempData["MSG_S"] = "Agora você é cadastrado no mvCommerce, aproveite!";
+
+                //TODO - Implement difference redirects (Painel, Carrinho de Compras etc.)
+                return RedirectToAction(nameof(RegisterClient));
+            }
             return View();
         }
         public IActionResult ShoppingCart()
