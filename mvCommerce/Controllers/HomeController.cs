@@ -86,7 +86,13 @@ namespace mvCommerce.Controllers
         {
             return View();
         }
+        [HttpGet]
         public IActionResult RegisterClient() 
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult RegisterClient([FromForm] Client client)
         {
             return View();
         }
