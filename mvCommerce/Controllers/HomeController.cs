@@ -6,15 +6,16 @@ using mvCommerce.Models;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using mvCommerce.Database;
+using mvCommerce.Repositories;
 
 namespace mvCommerce.Controllers
 {
     public class HomeController : Controller
     {
-        private mvCommerceContext _database;
-        public HomeController(mvCommerceContext database)
+        private IClientRepository _repository;
+        public HomeController(IClientRepository repository)
         {
-            _database = database;
+            _repository = repository;
         }
         [HttpGet]
         public IActionResult Index()
@@ -27,10 +28,10 @@ namespace mvCommerce.Controllers
         {
             if (ModelState.IsValid)
             {
-                _database.NewsletterEmails.Add(newsletter);
-                _database.SaveChanges();
+                //_database.NewsletterEmails.Add(newsletter);
+                //_database.SaveChanges();
 
-                TempData["MSG_S"] = "PRONTO! Agora você irá receber nossas promoções diárias, fique ligado!";
+                //TempData["MSG_S"] = "PRONTO! Agora você irá receber nossas promoções diárias, fique ligado!";
 
                 return RedirectToAction(nameof(Index));
             }
@@ -96,8 +97,7 @@ namespace mvCommerce.Controllers
         {
             if (ModelState.IsValid)
             {
-                _database.Add(client);
-                _database.SaveChanges();
+                _repository.Register(client);
 
                 TempData["MSG_S"] = "Agora você é cadastrado no mvCommerce, aproveite!";
 
