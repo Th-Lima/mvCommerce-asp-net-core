@@ -1,12 +1,9 @@
 ﻿using mvCommerce.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace mvCommerce.Repositories
+namespace mvCommerce.Repositories.Contracts
 {
-   public interface IClientRepository
+    public interface IClientRepository
     {
         Client Login(string email, string senha);
 
@@ -15,6 +12,6 @@ namespace mvCommerce.Repositories
         void Update(Client client);
         void Delete(int id);
         Client GetClient(int id);
-        List<Client> GetAllClients();
+        IEnumerable<Client> GetAllClients();
     }
 }

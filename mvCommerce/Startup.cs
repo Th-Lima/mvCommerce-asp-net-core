@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using mvCommerce.Database;
 using mvCommerce.Repositories;
+using mvCommerce.Repositories.Contracts;
 
 namespace mvCommerce
 {
@@ -31,6 +32,8 @@ namespace mvCommerce
              * Repository pattern 
              */
             services.AddScoped<IClientRepository, ClientRepository>();
+            services.AddScoped<INewsletterRepository, NewsletterRepository>();
+            
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.

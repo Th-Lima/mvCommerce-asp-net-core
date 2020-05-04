@@ -1,5 +1,6 @@
 ﻿using mvCommerce.Database;
 using mvCommerce.Models;
+using mvCommerce.Repositories.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,7 +41,7 @@ namespace mvCommerce.Repositories
         {
             return _database.Client.Find(id);
         }
-        public List<Client> GetAllClients()
+        public IEnumerable<Client> GetAllClients()
         {
             return _database.Client.ToList();
         }
