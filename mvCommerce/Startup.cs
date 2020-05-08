@@ -42,6 +42,12 @@ namespace mvCommerce
             });
 
 
+            //Session - configuration
+            services.AddMemoryCache(); // Save data in memory
+            services.AddSession(options => {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+            });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddDbContext<mvCommerceContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
@@ -65,7 +71,7 @@ namespace mvCommerce
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
+            app.UseSession();
             
             app.UseMvc(routes =>
             {
