@@ -17,7 +17,7 @@ namespace mvCommerce.Repositories
        }
         public Client Login(string email, string password)
         {
-            Client client = _database.Client.Where(c => c.Email == email && c.Password == password).First();
+            Client client = _database.Client.Where(c => c.Email == email && c.Password == password).FirstOrDefault();
             return client;
         }
        

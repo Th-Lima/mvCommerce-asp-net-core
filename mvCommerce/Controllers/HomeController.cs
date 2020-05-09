@@ -7,6 +7,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 using mvCommerce.Database;
 using mvCommerce.Repositories.Contracts;
+using Microsoft.AspNetCore.Http;
+using mvCommerce.Libraries.Login;
 
 namespace mvCommerce.Controllers
 {
@@ -14,11 +16,15 @@ namespace mvCommerce.Controllers
     {
         private IClientRepository _repositoryClient;
         private INewsletterRepository _repositoryNewsletter;
-        public HomeController(IClientRepository repository, INewsletterRepository repositoryNewsletter)
+        private ClientLogin _clientLogin;
+      
+        public HomeController(IClientRepository repository, INewsletterRepository repositoryNewsletter, ClientLogin clientLogin)
         {
             _repositoryClient = repository;
             _repositoryNewsletter = repositoryNewsletter;
+            _clientLogin = clientLogin;
         }
+      
         [HttpGet]
         public IActionResult Index()
         {
@@ -41,6 +47,7 @@ namespace mvCommerce.Controllers
                 return View();
             }            
         }
+
         public IActionResult ContactAction()
         {
             try
@@ -80,19 +87,55 @@ namespace mvCommerce.Controllers
            
             return View("Contact");
         }
+
         public IActionResult Contact()
         {
             return View();
         }
+
+        [HttpGet]
         public IActionResult Login()
         {
             return View();
         }
+
+        [HttpPost]
+        public IActionResult Login([FromForm]Client client)
+        {
+            Client clientDB = _repositoryClient.Login(client.Email, client.Password);
+            if(clientDB != null)
+            {
+                _clientLogin.Login(clientDB);
+                return new RedirectResult(Url.Action(nameof(Panel)));
+            
+            }
+            else
+            {
+                ViewData["MSG_E"] = "Algo deu errado, verifique seu email e a senha corretamente!";
+                return View();
+              
+            }
+        }
+
+        public IActionResult Panel()
+        {
+            Client client = _clientLogin.GetClient();
+            if (client != null)
+            {
+                return new ContentResult() { Content = "Usuário:" + client.Id  + " Email:" + client.Email + ", logado!" };
+            }
+            else
+            {
+                return new ContentResult() { Content = "Acesso negado!" };
+            }
+        }
+
         [HttpGet]
         public IActionResult RegisterClient() 
         {
             return View();
         }
+
         [HttpPost]
         public IActionResult RegisterClient([FromForm] Client client)
         {
