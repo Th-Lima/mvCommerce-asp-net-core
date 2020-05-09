@@ -8,8 +8,8 @@ namespace mvCommerce.Libraries.Session
 {
     public class Session
     {
-        //Dependancy Injection
-        IHttpContextAccessor _context;
+        //Dependency Injection
+        private IHttpContextAccessor _context;
         public Session(IHttpContextAccessor context)
         {
             _context = context;

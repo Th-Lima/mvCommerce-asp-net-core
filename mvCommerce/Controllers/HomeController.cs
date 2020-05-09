@@ -99,6 +99,9 @@ namespace mvCommerce.Controllers
         {
             if(client.Email == "lthales53@gmail.com" && client.Password == "1234567")
             {
+                //Make consult at database with email and password
+                //Save information(Client) at session
+
                 HttpContext.Session.Set("ID", new byte[] { 52 });
                 HttpContext.Session.SetString("Email", client.Email);
 
