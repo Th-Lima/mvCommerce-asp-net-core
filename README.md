@@ -4,7 +4,7 @@ Aplicação de um e-commerce completo, com as principais funcionalidades de uma 
 categorias de produtos, login de usuários, cálculo de frete, envio de email para contatos e etc ... 
 Contendo também integrações com outros sistemas e bibliotecas,
 utilizando **ASP.NET Core MVC**
-## Recursos e Tecnologias:
+## :dart: Recursos e Tecnologias:
 * Cookie
 * Sessões
 * Filtros
@@ -32,6 +32,7 @@ utilizando **ASP.NET Core MVC**
 * ASP.NET
 * Bootstrap
 * CSS
+* HTML
 * Razor Engine
 * JavaScript
 * SQL Server
