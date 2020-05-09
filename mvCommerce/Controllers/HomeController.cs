@@ -8,6 +8,7 @@ using System.Text;
 using mvCommerce.Database;
 using mvCommerce.Repositories.Contracts;
 using Microsoft.AspNetCore.Http;
+using mvCommerce.Libraries.Login;
 
 namespace mvCommerce.Controllers
 {
@@ -15,11 +16,15 @@ namespace mvCommerce.Controllers
     {
         private IClientRepository _repositoryClient;
         private INewsletterRepository _repositoryNewsletter;
-        public HomeController(IClientRepository repository, INewsletterRepository repositoryNewsletter)
+        private ClientLogin _clientLogin;
+      
+        public HomeController(IClientRepository repository, INewsletterRepository repositoryNewsletter, ClientLogin clientLogin)
         {
             _repositoryClient = repository;
             _repositoryNewsletter = repositoryNewsletter;
+            _clientLogin = clientLogin;
         }
+      
         [HttpGet]
         public IActionResult Index()
         {
@@ -97,30 +102,27 @@ namespace mvCommerce.Controllers
         [HttpPost]
         public IActionResult Login([FromForm]Client client)
         {
-            if(client.Email == "lthales53@gmail.com" && client.Password == "1234567")
+            Client clientDB = _repositoryClient.Login(client.Email, client.Password);
+            if(clientDB != null)
             {
-                //Make consult at database with email and password
-                //Save information(Client) at session
-
-                HttpContext.Session.Set("ID", new byte[] { 52 });
-                HttpContext.Session.SetString("Email", client.Email);
-
-                return new ContentResult() { Content = "Logado!" };
+                _clientLogin.Login(clientDB);
+                return new RedirectResult(Url.Action(nameof(Panel)));
             
             }
             else
             {
-                return new ContentResult() { Content = "Não logado" };
+                ViewData["MSG_E"] = "Algo deu errado, verifique seu email e a senha corretamente!";
+                return View();
               
             }
         }
 
         public IActionResult Panel()
         {
-            byte[] userId;
-            if (HttpContext.Session.TryGetValue("ID", out userId))
+            Client client = _clientLogin.GetClient();
+            if (client != null)
             {
-                return new ContentResult() { Content = "Usuário " + userId[0] + "." + "Email: " + HttpContext.Session.GetString("Email") + " logado!" };
+                return new ContentResult() { Content = "Usuário:" + client.Id  + " Email:" + client.Email + ", logado!" };
             }
             else
             {

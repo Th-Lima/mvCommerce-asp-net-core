@@ -23,8 +23,15 @@ namespace mvCommerce.Libraries.Login
         public Client GetClient()
         {
             //Deserialize
-            string clientJSONString = _session.Consult(Key);
-            return JsonConvert.DeserializeObject<Client>(clientJSONString);
+            if(_session.isExisting(Key))
+            {
+                string clientJSONString = _session.Consult(Key);
+                return JsonConvert.DeserializeObject<Client>(clientJSONString);
+            }
+            else
+            {
+                return null;
+            }
         }
         public void Logout()
         {

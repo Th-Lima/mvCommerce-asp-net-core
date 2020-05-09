@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using mvCommerce.Database;
+using mvCommerce.Libraries.Login;
 using mvCommerce.Libraries.Session;
 using mvCommerce.Repositories;
 using mvCommerce.Repositories.Contracts;
@@ -51,6 +52,7 @@ namespace mvCommerce
             });
 
             services.AddScoped<Session>();
+            services.AddScoped<ClientLogin>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
