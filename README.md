@@ -27,7 +27,7 @@ utilizando **ASP.NET Core MVC**
 * SeriLog (Sistema de registro de Log)
 * Scheduler(Agendador de tarefas - Coravel)
 * AutoMapper
-## :fire: Tecnologias utilizadas
+## :fire: Tecnologias utilizadas:
 * C#
 * ASP.NET
 * Bootstrap
