@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using mvCommerce.Database;
+using mvCommerce.Libraries.Session;
 using mvCommerce.Repositories;
 using mvCommerce.Repositories.Contracts;
 
@@ -31,6 +32,7 @@ namespace mvCommerce
             /*
              * Repository pattern 
              */
+            services.AddHttpContextAccessor();
             services.AddScoped<IClientRepository, ClientRepository>();
             services.AddScoped<INewsletterRepository, NewsletterRepository>();
             
@@ -47,6 +49,8 @@ namespace mvCommerce
             services.AddSession(options => {
                 options.IdleTimeout = TimeSpan.FromMinutes(30);
             });
+
+            services.AddScoped<Session>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 

@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 using mvCommerce.Database;
 using mvCommerce.Repositories.Contracts;
+using Microsoft.AspNetCore.Http;
 
 namespace mvCommerce.Controllers
 {
@@ -41,6 +42,7 @@ namespace mvCommerce.Controllers
                 return View();
             }            
         }
+
         public IActionResult ContactAction()
         {
             try
@@ -80,19 +82,55 @@ namespace mvCommerce.Controllers
            
             return View("Contact");
         }
+
         public IActionResult Contact()
         {
             return View();
         }
+
+        [HttpGet]
         public IActionResult Login()
         {
             return View();
         }
+
+        [HttpPost]
+        public IActionResult Login([FromForm]Client client)
+        {
+            if(client.Email == "lthales53@gmail.com" && client.Password == "1234567")
+            {
+                HttpContext.Session.Set("ID", new byte[] { 52 });
+                HttpContext.Session.SetString("Email", client.Email);
+
+                return new ContentResult() { Content = "Logado!" };
+            
+            }
+            else
+            {
+                return new ContentResult() { Content = "Não logado" };
+              
+            }
+        }
+
+        public IActionResult Panel()
+        {
+            byte[] userId;
+            if (HttpContext.Session.TryGetValue("ID", out userId))
+            {
+                return new ContentResult() { Content = "Usuário " + userId[0] + "." + "Email: " + HttpContext.Session.GetString("Email") + " logado!" };
+            }
+            else
+            {
+                return new ContentResult() { Content = "Acesso negado!" };
+            }
+        }
+
         [HttpGet]
         public IActionResult RegisterClient() 
         {
             return View();
         }
+
         [HttpPost]
         public IActionResult RegisterClient([FromForm] Client client)
         {

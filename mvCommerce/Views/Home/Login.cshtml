@@ -1,4 +1,4 @@
-﻿
+﻿@model mvCommerce.Models.Client
 @{
     ViewData["Title"] = "Login";
 }
@@ -12,36 +12,30 @@
         <section class="container">
             <aside class="col-sm-4">
                 <h3 class="subtitle-doc">
-                    # Login form simple
-                    <a href="#" data-html="code_login_1" class="showcode">[code]</a>
+                    Login
                 </h3>
                 <div id="code_login_1">
                     <div class="card">
                         <article class="card-body">
-                            <a href="/Home/RegisterClient" class="btn btn-outline-warning bg-purple my-2 my-sm-0 float-right" id="signUp">Sign up</a>
-                            <h4 class="card-title mb-4 mt-1">Sign in</h4>
-                            <form>
+                            <a asp-action="RegisterClient" asp-controller="Home" class="btn btn-outline-warning bg-purple my-2 my-sm-0 float-right" id="signUp">Cadastre-se</a>
+                            <h4 class="card-title mb-4 mt-1">Entrar</h4>
+                            <form method="post">
                                 <div class="form-group">
-                                    <label>Your email</label>
-                                    <input name="" class="form-control" placeholder="Email" type="email">
-                                </div> <!-- form-group// -->
+                                    <label>E-mail</label>
+                                    <input asp-for="Email" class="form-control" placeholder="Email" type="email">
+                                </div> 
                                 <div class="form-group">
-                                    <a class="float-right" href="#">Forgot?</a>
-                                    <label>Your password</label>
-                                    <input class="form-control" placeholder="******" type="password">
-                                </div> <!-- form-group// -->
+                                    <a class="float-right" href="#">Esqueceu sua senha?</a>
+                                    <label >Senha</label>
+                                    <input asp-for="Password" class="form-control" type="password">
+                                </div>
                                 <div class="form-group">
-                                    <div class="checkbox">
-                                        <label> <input type="checkbox"> Save password </label>
-                                    </div> <!-- checkbox .// -->
-                                </div> <!-- form-group// -->
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-outline-warning bg-purple my-2 my-sm-0"> Login </button>
-                                </div> <!-- form-group// -->
+                                    <button type="submit" class="btn btn-outline-warning bg-purple my-2 my-sm-0"> Entrar </button>
+                                </div> 
                             </form>
                         </article>
-                    </div> <!-- card.// -->
-                </div> <!-- code-wrap.// -->
+                    </div> 
+                </div> 
             </aside>
         </section>
     </main>
