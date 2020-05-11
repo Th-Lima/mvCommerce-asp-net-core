@@ -9,6 +9,7 @@ using mvCommerce.Database;
 using mvCommerce.Repositories.Contracts;
 using Microsoft.AspNetCore.Http;
 using mvCommerce.Libraries.Login;
+using mvCommerce.Libraries.Filter;
 
 namespace mvCommerce.Controllers
 {
@@ -117,17 +118,11 @@ namespace mvCommerce.Controllers
             }
         }
 
+        [HttpGet]
+        [ClientAuthorization]
         public IActionResult Panel()
         {
-            Client client = _clientLogin.GetClient();
-            if (client != null)
-            {
-                return new ContentResult() { Content = "Usuário:" + client.Id  + " Email:" + client.Email + ", logado!" };
-            }
-            else
-            {
-                return new ContentResult() { Content = "Acesso negado!" };
-            }
+            return new ContentResult() { Content = "Este é o painel do Cliente" };
         }
 
         [HttpGet]
