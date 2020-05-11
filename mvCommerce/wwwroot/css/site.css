@@ -44,3 +44,6 @@ hr {
 .box {
     box-shadow: 1px 2px 10px 3px mediumpurple;
 }
+#categoriesDropdown {
+    background-color: #9980FA;
+}
