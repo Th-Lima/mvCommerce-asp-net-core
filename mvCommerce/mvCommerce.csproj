@@ -34,4 +34,9 @@
     </EmbeddedResource>
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Folder Include="Areas\Collaborator\Models\" />
+  </ItemGroup>
+
 </Project>

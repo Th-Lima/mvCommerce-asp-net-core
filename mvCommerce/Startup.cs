@@ -37,7 +37,7 @@ namespace mvCommerce
             services.AddScoped<IClientRepository, ClientRepository>();
             services.AddScoped<INewsletterRepository, NewsletterRepository>();
             services.AddScoped<ICollaboratorRepository, CollaboratorRepository>();
-            
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -48,12 +48,14 @@ namespace mvCommerce
 
             //Session - configuration
             services.AddMemoryCache(); // Save data in memory
-            services.AddSession(options => {
+            services.AddSession(options =>
+            {
                 options.IdleTimeout = TimeSpan.FromMinutes(30);
             });
 
             services.AddScoped<Session>();
             services.AddScoped<ClientLogin>();
+            services.AddScoped<CollaboratorLogin>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
@@ -79,9 +81,13 @@ namespace mvCommerce
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseSession();
-            
+
             app.UseMvc(routes =>
             {
+                routes.MapRoute(
+                name: "areas",
+                template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+              );
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
