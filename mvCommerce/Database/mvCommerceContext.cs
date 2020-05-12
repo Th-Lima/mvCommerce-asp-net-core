@@ -11,5 +11,6 @@ namespace mvCommerce.Database
         }
         public DbSet<Client> Client { get; set; }
         public DbSet<NewsletterEmail> NewsletterEmails { get; set; }
+        public DbSet<Collaborator> Collaborators { get; set; }
     }
 }
