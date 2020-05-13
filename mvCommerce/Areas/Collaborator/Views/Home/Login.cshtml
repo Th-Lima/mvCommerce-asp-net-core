@@ -1,7 +1,47 @@
-﻿
+﻿@model mvCommerce.Models.Collaborator
 @{
     ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<head>
 
-<h1>Login</h1>
+</head>
+<body>
+    <main role="main">
+        <br />
+        <br />
+        <section class="container">
+            <aside class="col-sm-6">
+                <h3 class="subtitle-doc">
+                    Login do Colaborador
+                </h3>
+                <div id="code_login_1">
+                    <div class="card">
+                        <article class="card-body">
+                            @if (ViewData["MSG_E"] != null)
+                            {
+                                <p class="alert alert-danger"><b>@Html.Raw(ViewData["MSG_E"])</b></p>
+                            }
+                            <h4 class="card-title mb-4 mt-1">Entrar</h4>
+                            <form method="post">
+                                <div class="form-group">
+                                    <label>E-mail</label>
+                                    <input asp-for="Email" class="form-control" placeholder="Email" type="email">
+                                </div>
+                                <div class="form-group">
+                                    <a class="float-right" href="#">Esqueceu sua senha?</a>
+                                    <label>Senha</label>
+                                    <input asp-for="Password" class="form-control" type="password" placeholder="*****">
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-outline-warning bg-purple my-2 my-sm-0"> Entrar </button>
+                                </div>
+                            </form>
+                        </article>
+                    </div>
+                </div>
+            </aside>
+        </section>
+    </main>
+</body>
 
