@@ -22,11 +22,11 @@
     width: 350px;
 }
 a {
-    color: mediumpurple;
+    color: #00CED1;
 }
 
 hr {
-    background-color: mediumpurple;
+    background-color: #00CED1;
 }
 
 #login {
@@ -38,11 +38,11 @@ hr {
 }
 
 .card {
-    box-shadow: 1px 2px 10px 3px mediumpurple;
+    box-shadow: 1px 1px 1px 2px #00CED1;
 }
 
 .box {
-    box-shadow: 1px 2px 10px 3px mediumpurple;
+    box-shadow: 1px 1px 1px 2px #00CED1;
 }
 #categoriesDropdown {
     background-color: #9980FA;
