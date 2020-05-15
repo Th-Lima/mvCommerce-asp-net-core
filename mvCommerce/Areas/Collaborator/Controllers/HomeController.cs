@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using mvCommerce.Libraries.Filter;
 using mvCommerce.Libraries.Login;
 using mvCommerce.Repositories.Contracts;
 
@@ -38,16 +39,25 @@ namespace mvCommerce.Areas.Collaborator.Controllers
 
             }
         }
-        
-        public IActionResult Panel()
+
+        [CollaboratorAuthorization]
+        public IActionResult Logout()
         {
-            return View();
+            _collaboratorLogin.Logout();
+            return RedirectToAction("Login", "Home");
         }
+        
         public IActionResult RecoverPassword()
         {
             return View();
         }
         public IActionResult CreateNewPassword()
+        {
+            return View();
+        }
+
+        [CollaboratorAuthorization]
+        public IActionResult Panel()
         {
             return View();
         }
