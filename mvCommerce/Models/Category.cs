@@ -29,7 +29,7 @@ namespace mvCommerce.Models
         /*
          * ORM - EntityFrameworkCore
          */
-         [ForeignKey("CategoryFather")]
+         [ForeignKey("CategoryFatherId")]
          public virtual Category CategoryFather { get; set; }
     }
 }

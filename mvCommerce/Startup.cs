@@ -37,6 +37,8 @@ namespace mvCommerce
             services.AddScoped<IClientRepository, ClientRepository>();
             services.AddScoped<INewsletterRepository, NewsletterRepository>();
             services.AddScoped<ICollaboratorRepository, CollaboratorRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+
 
             services.Configure<CookiePolicyOptions>(options =>
             {
