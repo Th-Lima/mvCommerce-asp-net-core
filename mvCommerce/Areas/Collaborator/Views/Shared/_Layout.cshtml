@@ -50,7 +50,7 @@
         <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
         <ul class="navbar-nav px-3">
             <li class="nav-item text-nowrap">
-                <a class="nav-link" href="#" asp-action="Logout">Sair</a>
+                <a class="nav-link" asp-action="Logout">Sair</a>
             </li>
         </ul>
     </nav>
@@ -132,6 +132,11 @@
                     </ul>
                 </div>
             </nav>
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+
+                @RenderBody()
+           
+            </main>
         </div>
     </div>
     <script src="~/resources/lib/jquery3.3.1/jquery-3.3.1.min.js"></script>
