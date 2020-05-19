@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using mvCommerce.Libraries.Filter;
 using mvCommerce.Models;
 using mvCommerce.Repositories.Contracts;
+using X.PagedList;
 
 namespace mvCommerce.Areas.Collaborator.Controllers
 {
@@ -17,9 +18,9 @@ namespace mvCommerce.Areas.Collaborator.Controllers
         {
             _categoryRepository = categoryRepository;
         }
-        public IActionResult Index()
+        public IActionResult Index(int? page)
         {
-            List<Category> categories = _categoryRepository.GetAllCategories().ToList();
+            var categories = _categoryRepository.GetAllCategories(page);
             return View(categories);
         }
 

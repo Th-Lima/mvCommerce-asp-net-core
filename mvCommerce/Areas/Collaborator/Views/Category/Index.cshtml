@@ -1,4 +1,4 @@
-﻿@model List<mvCommerce.Models.Category>
+﻿@model X.PagedList.IPagedList<mvCommerce.Models.Category>
 @{
     ViewData["Title"] = "Index";
 }
@@ -8,3 +8,4 @@
 {
     @category.Name<br />
 }
+@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }))

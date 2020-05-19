@@ -5,11 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using X.PagedList;
 
 namespace mvCommerce.Repositories
 {
     public class CategoryRepository : ICategoryRepository
     {
+        const int _registerPerPage = 10;
         mvCommerceContext _database;
         public CategoryRepository(mvCommerceContext database)
         {
@@ -40,9 +42,10 @@ namespace mvCommerce.Repositories
             return _database.Categories.Find(id);
         }
 
-        public IEnumerable<Category> GetAllCategories()
+        public IPagedList<Category> GetAllCategories(int? page)
         {
-            return _database.Categories.ToList();
-        }    
+            int pageNumber = page ?? 1;
+            return _database.Categories.ToPagedList<Category>(pageNumber, _registerPerPage);
+        }
     }
 }
