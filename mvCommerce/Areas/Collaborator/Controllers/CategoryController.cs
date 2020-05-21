@@ -38,7 +38,7 @@ namespace mvCommerce.Areas.Collaborator.Controllers
         }
 
         [HttpGet]
-        public IActionResult Update()
+        public IActionResult Update(int id)
         {
             return View();
         }
