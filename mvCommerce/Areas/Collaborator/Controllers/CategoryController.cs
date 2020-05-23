@@ -33,7 +33,14 @@ namespace mvCommerce.Areas.Collaborator.Controllers
         [HttpPost]
         public IActionResult Register([FromForm]Category category)
         {
-            //TODO - Implement
+            if (ModelState.IsValid)
+            {
+                _categoryRepository.Register(category);
+
+                TempData["MSG_S"] = "Categoria salva com sucesso";
+
+                return RedirectToAction(nameof(Index));
+            }
             return View();
         }
 

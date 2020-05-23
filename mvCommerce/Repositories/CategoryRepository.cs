@@ -1,4 +1,5 @@
-﻿using mvCommerce.Database;
+﻿using Microsoft.EntityFrameworkCore;
+using mvCommerce.Database;
 using mvCommerce.Models;
 using mvCommerce.Repositories.Contracts;
 using System;
@@ -45,7 +46,7 @@ namespace mvCommerce.Repositories
         public IPagedList<Category> GetAllCategories(int? page)
         {
             int pageNumber = page ?? 1;
-            return _database.Categories.ToPagedList<Category>(pageNumber, _registerPerPage);
+            return _database.Categories.Include(a => a.CategoryFather).ToPagedList<Category>(pageNumber, _registerPerPage);
         }
     }
 }
