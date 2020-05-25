@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using mvCommerce.Libraries.Filter;
 using mvCommerce.Models;
 using mvCommerce.Repositories.Contracts;
@@ -27,6 +28,7 @@ namespace mvCommerce.Areas.Collaborator.Controllers
         [HttpGet]
         public IActionResult Register()
         {
+            ViewBag.Categories = _categoryRepository.GetAllCategories().Select(c => new SelectListItem(c.Name, c.Id.ToString()));
             return View();
         }
 
@@ -41,6 +43,7 @@ namespace mvCommerce.Areas.Collaborator.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
+            ViewBag.Categories = _categoryRepository.GetAllCategories().Select(c => new SelectListItem(c.Name, c.Id.ToString()));
             return View();
         }
 

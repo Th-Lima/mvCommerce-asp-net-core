@@ -18,7 +18,10 @@
     </div>
     <div class="form-group">
         <label asp-for="CategoryFatherId">Categoria Pai</label>
-        <input asp-for="CategoryFatherId" class="form-control" placeholder="Digite o ID da categoria pai">
+        <select asp-for="CategoryFatherId" class="form-control" asp-items="@ViewBag.Categories">
+           <option value="" disabled selected>Selecione a categoria pai</option>
+           <option value=""> </option>
+        </select>
         <span asp-validation-for="CategoryFatherId" class="text-danger"></span>
     </div>
     <button type="submit" class="btn btn-info">Salvar</button> <a asp-action="Index" class="btn btn-outline-danger">Cancelar</a>

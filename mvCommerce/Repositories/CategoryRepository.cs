@@ -48,5 +48,10 @@ namespace mvCommerce.Repositories
             int pageNumber = page ?? 1;
             return _database.Categories.Include(a => a.CategoryFather).ToPagedList<Category>(pageNumber, _registerPerPage);
         }
+
+        public IEnumerable<Category> GetAllCategories()
+        {
+            return _database.Categories;
+        }
     }
 }
