@@ -50,13 +50,22 @@ namespace mvCommerce.Areas.Collaborator.Controllers
         [HttpGet]
         public IActionResult Update(int id)
         {
-            return View();
+            var categorie = _categoryRepository.GetCategory(id);
+            ViewBag.Categories = _categoryRepository.GetAllCategories().Where(c => c.Id != id).Select(c => new SelectListItem(c.Name, c.Id.ToString()));
+            return View(categorie);
         }
 
         [HttpPost]
-        public IActionResult Update([FromForm]Category category)
+        public IActionResult Update([FromForm]Category category, int id)
         {
-            //TODO - Implement
+            if (ModelState.IsValid)
+            {
+                _categoryRepository.Update(category);
+                TempData["MSG_S"] = "Categoria salva com sucesso";
+                return RedirectToAction(nameof(Index));
+            }
+
+            ViewBag.Categories = _categoryRepository.GetAllCategories().Where(c => c.Id != id).Select(c => new SelectListItem(c.Name, c.Id.ToString()));
             return View();
         }
 

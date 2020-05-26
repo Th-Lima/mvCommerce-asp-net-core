@@ -1,0 +1,30 @@
+﻿@model mvCommerce.Models.Category
+@{
+    ViewData["Title"] = "Register";
+}
+
+<h1>Editar</h1>
+
+<form method="post">
+    <input type="hidden" asp-for="Id"/>
+   
+    <div class="form-group">
+        <label asp-for="Name">Nome</label>
+        <input asp-for="Name" class="form-control" >
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Slug">Slug</label>
+        <input asp-for="Slug" class="form-control">
+        <span asp-validation-for="Slug" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="CategoryFatherId">Categoria Pai</label>
+        <select asp-for="CategoryFatherId" class="form-control" asp-items="@ViewBag.Categories">
+            <option value="" disabled selected>Selecione a categoria pai</option>
+            <option value=""> </option>
+        </select>
+        <span asp-validation-for="CategoryFatherId" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-info">Salvar</button> <a asp-action="Index" class="btn btn-outline-danger">Cancelar</a>
+</form>
