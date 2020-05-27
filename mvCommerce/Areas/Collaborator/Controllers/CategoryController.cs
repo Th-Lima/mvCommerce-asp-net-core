@@ -72,7 +72,11 @@ namespace mvCommerce.Areas.Collaborator.Controllers
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            return View();
+            _categoryRepository.Delete(id);
+            
+            TempData["MSG_S"] = "Categoria excluída com sucesso";
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }
