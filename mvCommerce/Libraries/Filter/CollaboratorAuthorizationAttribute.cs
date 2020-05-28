@@ -16,7 +16,7 @@ namespace mvCommerce.Libraries.Filter
             Collaborator client = _collaboratorLogin.GetCollaborator();
             if (client == null)
             {
-                context.Result = new ContentResult() { Content = "Acesso negado!" };
+                context.Result = new RedirectToActionResult("Login", "Home", null);
             }
         }
     }

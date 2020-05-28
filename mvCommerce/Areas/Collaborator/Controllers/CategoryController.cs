@@ -10,8 +10,7 @@ using X.PagedList;
 namespace mvCommerce.Areas.Collaborator.Controllers
 {
     [Area("Collaborator")]
-    //TODO - Enable Authorization
-   //[CollaboratorAuthorization]
+    [CollaboratorAuthorization]
     public class CategoryController : Controller
     {
         private ICategoryRepository _categoryRepository;

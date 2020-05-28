@@ -7,17 +7,17 @@
 
 <form method="post">
     <div class="form-group">
-        <label asp-for="Name">Nome</label>
+        <label asp-for="Name"></label>
         <input asp-for="Name" class="form-control" placeholder="Digite o nome da categoria">
         <span asp-validation-for="Name" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="Slug">Slug</label>
+        <label asp-for="Slug"></label>
         <input asp-for="Slug" class="form-control" placeholder="Digite o slug da categoria">
         <span asp-validation-for="Slug" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="CategoryFatherId">Categoria Pai</label>
+        <label asp-for="CategoryFatherId"></label>
         <select asp-for="CategoryFatherId" class="form-control" asp-items="@ViewBag.Categories">
            <option value="" disabled selected>Selecione a categoria pai</option>
            <option value=""> </option>
