@@ -1,19 +1,22 @@
-﻿using mvCommerce.Database;
+﻿using Microsoft.Extensions.Configuration;
+using mvCommerce.Database;
 using mvCommerce.Models;
 using mvCommerce.Repositories.Contracts;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using X.PagedList;
 
 namespace mvCommerce.Repositories
 {
     public class CollaboratorRepository : ICollaboratorRepository
     {
         private mvCommerceContext _database;
-        public CollaboratorRepository(mvCommerceContext database)
+        private IConfiguration _configuration;
+
+        public CollaboratorRepository(mvCommerceContext database, IConfiguration configuration)
         {
             _database = database;
+            _configuration = configuration;
         }
 
         public Collaborator Login(string email, string password)
@@ -50,6 +53,14 @@ namespace mvCommerce.Repositories
         public IEnumerable<Collaborator> GetAllCollaborators()
         {
             return _database.Collaborators.ToList();
+        }
+
+        public IPagedList<Collaborator> GetAllCollaborators(int? page)
+        {
+            int pageNumber = page ?? 1;
+            int registerPerPage = _configuration.GetValue<int>("RegisterPerPage");
+          
+            return _database.Collaborators.ToPagedList(pageNumber, registerPerPage);
         }
     }
 }

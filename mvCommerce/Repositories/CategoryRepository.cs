@@ -1,22 +1,21 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using mvCommerce.Database;
 using mvCommerce.Models;
 using mvCommerce.Repositories.Contracts;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using X.PagedList;
 
 namespace mvCommerce.Repositories
 {
     public class CategoryRepository : ICategoryRepository
     {
-        const int _registerPerPage = 10;
-        mvCommerceContext _database;
-        public CategoryRepository(mvCommerceContext database)
+        private IConfiguration _configuration;
+        private mvCommerceContext _database;
+        public CategoryRepository(mvCommerceContext database, IConfiguration configuration)
         {
             _database = database;
+            _configuration = configuration;
         }
 
         public void Register(Category category)
@@ -46,7 +45,9 @@ namespace mvCommerce.Repositories
         public IPagedList<Category> GetAllCategories(int? page)
         {
             int pageNumber = page ?? 1;
-            return _database.Categories.Include(a => a.CategoryFather).ToPagedList<Category>(pageNumber, _registerPerPage);
+            int registerPerPage = _configuration.GetValue<int>("RegisterPerPage");
+            
+            return _database.Categories.Include(a => a.CategoryFather).ToPagedList(pageNumber, registerPerPage);
         }
 
         public IEnumerable<Category> GetAllCategories()

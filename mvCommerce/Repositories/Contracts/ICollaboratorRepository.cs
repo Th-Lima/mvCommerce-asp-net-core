@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using X.PagedList;
 
 namespace mvCommerce.Repositories.Contracts
 {
@@ -15,5 +16,6 @@ namespace mvCommerce.Repositories.Contracts
         void Delete(int id);
         Collaborator GetCollaborator(int id);
         IEnumerable<Collaborator> GetAllCollaborators();
+        IPagedList<Collaborator> GetAllCollaborators(int? page);
     }
 }

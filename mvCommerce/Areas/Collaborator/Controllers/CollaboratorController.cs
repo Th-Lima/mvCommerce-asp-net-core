@@ -3,12 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using mvCommerce.Repositories.Contracts;
 
 namespace mvCommerce.Areas.Collaborator.Controllers
 {
     public class CollaboratorController : Controller
     {
-        public IActionResult Index()
+        private ICollaboratorRepository _collaboratorRepository { get; set; }
+        
+        public CollaboratorController(ICollaboratorRepository collaboratorRepository)
+        {
+            _collaboratorRepository = collaboratorRepository;
+        }
+      
+        public IActionResult Index(int? page)
         {
             return View();
         }
