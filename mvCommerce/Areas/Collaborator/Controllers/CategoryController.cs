@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using mvCommerce.Libraries.Filter;
+using mvCommerce.Libraries.Lang;
 using mvCommerce.Models;
 using mvCommerce.Repositories.Contracts;
 using X.PagedList;
@@ -38,7 +39,7 @@ namespace mvCommerce.Areas.Collaborator.Controllers
             {
                 _categoryRepository.Register(category);
 
-                TempData["MSG_S"] = "Categoria salva com sucesso";
+                TempData["MSG_S"] = Message.MSG_S001;
 
                 return RedirectToAction(nameof(Index));
             }
@@ -60,7 +61,7 @@ namespace mvCommerce.Areas.Collaborator.Controllers
             if (ModelState.IsValid)
             {
                 _categoryRepository.Update(category);
-                TempData["MSG_S"] = "Categoria salva com sucesso";
+                TempData["MSG_S"] = Message.MSG_S001;
                 return RedirectToAction(nameof(Index));
             }
 
@@ -72,8 +73,8 @@ namespace mvCommerce.Areas.Collaborator.Controllers
         public IActionResult Delete(int id)
         {
             _categoryRepository.Delete(id);
-            
-            TempData["MSG_S"] = "Categoria excluída com sucesso";
+
+            TempData["MSG_S"] = Message.MSG_S002;
 
             return RedirectToAction(nameof(Index));
         }

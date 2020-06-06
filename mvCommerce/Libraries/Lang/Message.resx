@@ -129,4 +129,13 @@
   <data name="MSG_E004" xml:space="preserve">
     <value>O {0} não é válido, digite um {0} válido por favor!</value>
   </data>
+  <data name="MSG_E005" xml:space="preserve">
+    <value>O campo {0} não está igual ao campo {1}, digite novamente.</value>
+  </data>
+  <data name="MSG_S001" xml:space="preserve">
+    <value>Registro salvo com sucesso!</value>
+  </data>
+  <data name="MSG_S002" xml:space="preserve">
+    <value>Registro excluído com sucesso!</value>
+  </data>
 </root>

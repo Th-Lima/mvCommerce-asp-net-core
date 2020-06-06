@@ -24,6 +24,8 @@ namespace mvCommerce.Models
         public string Password { get; set; }
 
         [NotMapped]
+        [Display(Name="Confirme a Senha")]
+        [Compare("Password", ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E005")]
         public string ConfirmationPassword { get; set; }
 
         /*
@@ -31,7 +33,7 @@ namespace mvCommerce.Models
          *  c -> Comum
          *  m -> Manager
          */
-        [Required(ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E001")]
+      //  [Required(ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E001")]
         [Display(Name="Tipo")]
         public string Type { get; set; }
     }
