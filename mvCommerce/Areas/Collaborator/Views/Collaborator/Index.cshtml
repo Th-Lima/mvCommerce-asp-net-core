@@ -1,0 +1,47 @@
+﻿@model X.PagedList.IPagedList<mvCommerce.Models.Collaborator>
+@{
+    ViewData["Title"] = "Index";
+}
+
+@if (TempData["MSG_S"] != null)
+{
+    <p class="alert alert-success"><b>@TempData["MSG_S"]</b></p>
+}
+<h1>Colaborador</h1>
+<a asp-action="Register" class="btn btn-info my-2 my-sm-0">Cadastrar</a>
+<br />
+<br />
+@if (Model.Count > 0)
+{
+    <div class="table-responsive" style="margin-top:10px">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">@Html.DisplayNameFor(model => model.First().Id)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.First().Name)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.First().Email)</th>
+                    <th scope="col">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Collaborator collaborator in Model)
+                {
+                    <tr>
+                        <th scope="row">@collaborator.Id</th>
+                        <td>@collaborator.Name</td>
+                        <td>@Html.DisplayFor(model => collaborator.Email)</td>
+                        <td>
+                            <a asp-action="Update" asp-route-id="@collaborator.Id" class="btn btn-outline-info my-2 my-sm-0" style="margin-right:5px">Editar</a>
+                            <a asp-action="Delete" asp-route-id="@collaborator.Id" class="btn btn-outline-danger alert-danger my-2 my-sm-0" id="delete" onclick="alert_it()">Excluir</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }))
+}
+else
+{
+    <span>Nenhum colaborador cadastrado!</span>
+}

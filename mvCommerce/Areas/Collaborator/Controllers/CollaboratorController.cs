@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using mvCommerce.Repositories.Contracts;
+using X.PagedList;
 
 namespace mvCommerce.Areas.Collaborator.Controllers
 {
+    [Area("Collaborator")]
     public class CollaboratorController : Controller
     {
         private ICollaboratorRepository _collaboratorRepository { get; set; }
@@ -18,7 +16,9 @@ namespace mvCommerce.Areas.Collaborator.Controllers
       
         public IActionResult Index(int? page)
         {
-            return View();
+            IPagedList<Models.Collaborator> collaborators = _collaboratorRepository.GetAllCollaborators(page);
+
+            return View(collaborators);
         }
 
         [HttpGet]

@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
+﻿using mvCommerce.Libraries.Lang;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -6,11 +6,11 @@ namespace mvCommerce.Models
 {
     public class Collaborator
     {
-        [Required(ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E001")]
-        [MinLength(4, ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E002")]
         [Display(Name="Código")]
         public int Id { get; set; }
 
+        [Required(ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E001")]
+        [MinLength(4, ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E002")]
         [Display(Name="Nome")]
         public string Name { get; set; }
 

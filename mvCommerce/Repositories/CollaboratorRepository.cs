@@ -2,7 +2,6 @@
 using mvCommerce.Database;
 using mvCommerce.Models;
 using mvCommerce.Repositories.Contracts;
-using System.Collections.Generic;
 using System.Linq;
 using X.PagedList;
 
@@ -50,17 +49,12 @@ namespace mvCommerce.Repositories
             return _database.Collaborators.Find(id);
         }
 
-        public IEnumerable<Collaborator> GetAllCollaborators()
-        {
-            return _database.Collaborators.ToList();
-        }
-
         public IPagedList<Collaborator> GetAllCollaborators(int? page)
         {
             int pageNumber = page ?? 1;
             int registerPerPage = _configuration.GetValue<int>("RegisterPerPage");
           
-            return _database.Collaborators.ToPagedList(pageNumber, registerPerPage);
+            return _database.Collaborators.Where(c => c.Type != "G").ToPagedList(pageNumber, registerPerPage);
         }
     }
 }

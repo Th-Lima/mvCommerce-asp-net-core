@@ -15,7 +15,6 @@ namespace mvCommerce.Repositories.Contracts
         void Update(Collaborator collaborator);
         void Delete(int id);
         Collaborator GetCollaborator(int id);
-        IEnumerable<Collaborator> GetAllCollaborators();
         IPagedList<Collaborator> GetAllCollaborators(int? page);
     }
 }
