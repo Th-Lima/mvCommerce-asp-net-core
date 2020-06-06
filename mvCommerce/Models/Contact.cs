@@ -7,6 +7,7 @@ namespace mvCommerce.Models
     {
         [Required(ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E001")]
         [MinLength(4, ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E002")]
+        [Display(Name = "Nome")]
         public string Name { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E001")]
@@ -16,6 +17,7 @@ namespace mvCommerce.Models
         [Required(ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E001")]
         [MinLength(10, ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E002")]
         [MaxLength(600, ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E003")]
+        [Display(Name = "Texto")]
         public string Text { get; set; }
     }
 }
