@@ -33,6 +33,7 @@ namespace mvCommerce.Areas.Collaborator.Controllers
         {
             if (ModelState.IsValid)
             {
+                collaborator.Type = "C";
                 _collaboratorRepository.Register(collaborator);
 
                 TempData["MSG_S"] = Message.MSG_S001;
@@ -45,15 +46,23 @@ namespace mvCommerce.Areas.Collaborator.Controllers
         [HttpGet]
         public IActionResult Update(int id)
         {
-            return View();
+            Models.Collaborator collaborator =  _collaboratorRepository.GetCollaborator(id);
+            return View(collaborator);
         }
 
         [HttpPost]
         public IActionResult Update([FromForm] Models.Collaborator collaborator, int id)
         {
+            if (ModelState.IsValid)
+            {
+                _collaboratorRepository.Update(collaborator);
+
+                TempData["MSG_S"] = Message.MSG_S001;
+
+                return RedirectToAction(nameof(Index));
+            }
             return View();
         }
-
         [HttpGet]
         public IActionResult Delete(int id)
         {

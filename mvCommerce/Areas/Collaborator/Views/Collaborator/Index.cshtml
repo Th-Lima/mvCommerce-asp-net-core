@@ -29,7 +29,7 @@
                     <tr>
                         <th scope="row">@collaborator.Id</th>
                         <td>@collaborator.Name</td>
-                        <td>@Html.DisplayFor(model => collaborator.Email)</td>
+                        <td>@collaborator.Email</td>
                         <td>
                             <a asp-action="Update" asp-route-id="@collaborator.Id" class="btn btn-outline-info my-2 my-sm-0" style="margin-right:5px">Editar</a>
                             <a asp-action="Delete" asp-route-id="@collaborator.Id" class="btn btn-outline-danger alert-danger my-2 my-sm-0" id="delete" onclick="alert_it()">Excluir</a>
