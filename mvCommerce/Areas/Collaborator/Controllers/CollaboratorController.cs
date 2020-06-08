@@ -66,7 +66,11 @@ namespace mvCommerce.Areas.Collaborator.Controllers
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            return View();
+            _collaboratorRepository.Delete(id);
+
+            TempData["MSG_S"] = Message.MSG_S002;
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }
