@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -39,6 +41,23 @@ namespace mvCommerce
             services.AddScoped<ICollaboratorRepository, CollaboratorRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
 
+
+            /*
+             * SMTP
+             */
+            services.AddScoped<SmtpClient>(options => {
+                SmtpClient smtp = new SmtpClient()
+                {
+                    Host = Configuration.GetValue<string>("Email:ServerSMTP"),
+                    Port = Configuration.GetValue<int>("Email:ServerPort"),
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential(Configuration.GetValue<string>("Email:Username"), Configuration.GetValue<string>("Email:Password")),
+                    EnableSsl = true
+                };
+                return smtp;
+            });
+
+ 
 
             services.Configure<CookiePolicyOptions>(options =>
             {

@@ -19,15 +19,5 @@
         <input asp-for="Email" class="form-control" placeholder="Digite o email">
         <span asp-validation-for="Email" class="text-danger"></span>
     </div>
-    <div class="form-group">
-        <label asp-for="Password"></label>
-        <input type="password" asp-for="Password" class="form-control" placeholder="Digite a senha">
-        <span asp-validation-for="Password" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="ConfirmationPassword"></label>
-        <input type="password" asp-for="ConfirmationPassword" class="form-control" placeholder="Confirme a senha">
-        <span asp-validation-for="ConfirmationPassword" class="text-danger"></span>
-    </div>
     <button type="submit" class="btn btn-info">Salvar</button> <a asp-action="Index" class="btn btn-outline-danger">Cancelar</a>
 </form>

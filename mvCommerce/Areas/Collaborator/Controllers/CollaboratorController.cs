@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using mvCommerce.Libraries.Lang;
+using mvCommerce.Libraries.Text;
 using mvCommerce.Repositories.Contracts;
 using X.PagedList;
 
@@ -33,6 +34,8 @@ namespace mvCommerce.Areas.Collaborator.Controllers
         {
             if (ModelState.IsValid)
             {
+                //TODO - generate aleatory password, Submit email
+
                 collaborator.Type = "C";
                 _collaboratorRepository.Register(collaborator);
 
@@ -41,6 +44,17 @@ namespace mvCommerce.Areas.Collaborator.Controllers
                return RedirectToAction(nameof(Index));
             }
             return View();
+        }
+        
+        [HttpGet]
+        public IActionResult GeneratePassword(int id)
+        {
+             Models.Collaborator collaborator = _collaboratorRepository.GetCollaborator(id);
+             collaborator.Password = KeyGenerator.GetUniqueKey(8);
+            _collaboratorRepository.Update(collaborator);
+            //TODO - Submit email
+
+
         }
 
         [HttpGet]
