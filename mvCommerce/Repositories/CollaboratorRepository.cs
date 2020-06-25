@@ -34,6 +34,16 @@ namespace mvCommerce.Repositories
         public void Update(Collaborator collaborator)
         {
             _database.Update(collaborator);
+            _database.Entry(collaborator).Property(c => c.Password).IsModified = false;
+            _database.SaveChanges();
+        }
+
+        public void UpdatePassword(Collaborator collaborator)
+        {
+            _database.Entry(collaborator).Property(c => c.Name).IsModified = false;
+            _database.Entry(collaborator).Property(c => c.Type).IsModified = false;
+            _database.Entry(collaborator).Property(c => c.Email).IsModified = false;
+
             _database.SaveChanges();
         }
 

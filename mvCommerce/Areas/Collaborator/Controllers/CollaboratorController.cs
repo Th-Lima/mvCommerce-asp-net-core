@@ -56,7 +56,7 @@ namespace mvCommerce.Areas.Collaborator.Controllers
         {
              Models.Collaborator collaborator = _collaboratorRepository.GetCollaborator(id);
              collaborator.Password = KeyGenerator.GetUniqueKey(8);
-            _collaboratorRepository.Update(collaborator);
+            _collaboratorRepository.UpdatePassword(collaborator);
             
             //send email
             _sendEmail.SendPasswordPerEmail(collaborator);
@@ -76,6 +76,7 @@ namespace mvCommerce.Areas.Collaborator.Controllers
         [HttpPost]
         public IActionResult Update([FromForm] Models.Collaborator collaborator, int id)
         {
+            ModelState.Remove("Password");
             if (ModelState.IsValid)
             {
                 _collaboratorRepository.Update(collaborator);

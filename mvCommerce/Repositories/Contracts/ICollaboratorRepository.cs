@@ -13,6 +13,7 @@ namespace mvCommerce.Repositories.Contracts
 
         void Register(Collaborator collaborator);
         void Update(Collaborator collaborator);
+        void UpdatePassword(Collaborator collaborator);
         void Delete(int id);
         Collaborator GetCollaborator(int id);
         IPagedList<Collaborator> GetAllCollaborators(int? page);
