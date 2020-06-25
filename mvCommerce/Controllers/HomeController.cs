@@ -18,12 +18,14 @@ namespace mvCommerce.Controllers
         private IClientRepository _repositoryClient;
         private INewsletterRepository _repositoryNewsletter;
         private ClientLogin _clientLogin;
+        private SendEmail _sendEmail;
       
-        public HomeController(IClientRepository repository, INewsletterRepository repositoryNewsletter, ClientLogin clientLogin)
+        public HomeController(IClientRepository repository, INewsletterRepository repositoryNewsletter, ClientLogin clientLogin, SendEmail sendEmail)
         {
             _repositoryClient = repository;
             _repositoryNewsletter = repositoryNewsletter;
             _clientLogin = clientLogin;
+            _sendEmail = sendEmail;
         }
       
         [HttpGet]
@@ -63,7 +65,7 @@ namespace mvCommerce.Controllers
                 bool isValid = Validator.TryValidateObject(contact, context, listMessages, true);
                 if (isValid)
                 {
-                    ContactEmail.SendContactPerEmail(contact);
+                    _sendEmail.SendContactPerEmail(contact);
                     ViewData["MSG_S"] = "Mensagem de contato enviada com sucesso!";
                 }
                 else

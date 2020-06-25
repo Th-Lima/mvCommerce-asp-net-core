@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using mvCommerce.Database;
+using mvCommerce.Libraries.Email;
 using mvCommerce.Libraries.Login;
 using mvCommerce.Libraries.Session;
 using mvCommerce.Repositories;
@@ -56,7 +57,7 @@ namespace mvCommerce
                 };
                 return smtp;
             });
-
+            services.AddScoped<SendEmail>();
  
 
             services.Configure<CookiePolicyOptions>(options =>

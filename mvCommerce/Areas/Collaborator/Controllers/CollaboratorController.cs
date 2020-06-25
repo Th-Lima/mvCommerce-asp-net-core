@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using mvCommerce.Libraries.Email;
 using mvCommerce.Libraries.Lang;
 using mvCommerce.Libraries.Text;
 using mvCommerce.Repositories.Contracts;
@@ -9,11 +10,13 @@ namespace mvCommerce.Areas.Collaborator.Controllers
     [Area("Collaborator")]
     public class CollaboratorController : Controller
     {
-        private ICollaboratorRepository _collaboratorRepository { get; set; }
+        private ICollaboratorRepository _collaboratorRepository;
+        private SendEmail _sendEmail;
         
-        public CollaboratorController(ICollaboratorRepository collaboratorRepository)
+        public CollaboratorController(ICollaboratorRepository collaboratorRepository, SendEmail sendEmail)
         {
             _collaboratorRepository = collaboratorRepository;
+            _sendEmail = sendEmail;
         }
       
         public IActionResult Index(int? page)
@@ -32,12 +35,14 @@ namespace mvCommerce.Areas.Collaborator.Controllers
         [HttpPost]
         public IActionResult Register([FromForm] Models.Collaborator collaborator)
         {
+            ModelState.Remove("Password");
             if (ModelState.IsValid)
             {
-                //TODO - generate aleatory password, Submit email
-
                 collaborator.Type = "C";
+                collaborator.Password = KeyGenerator.GetUniqueKey(8);
                 _collaboratorRepository.Register(collaborator);
+
+                _sendEmail.SendPasswordPerEmail(collaborator);
 
                 TempData["MSG_S"] = Message.MSG_S001;
 
@@ -52,9 +57,13 @@ namespace mvCommerce.Areas.Collaborator.Controllers
              Models.Collaborator collaborator = _collaboratorRepository.GetCollaborator(id);
              collaborator.Password = KeyGenerator.GetUniqueKey(8);
             _collaboratorRepository.Update(collaborator);
-            //TODO - Submit email
+            
+            //send email
+            _sendEmail.SendPasswordPerEmail(collaborator);
 
+            TempData["MSG_S"] = Message.MSG_S003;
 
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
