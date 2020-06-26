@@ -20,8 +20,7 @@ namespace mvCommerce.Libraries.Email
             string bodyMsg = string.Format("<h3>Contato mvCommerce</h3>" + 
                 "<b>Nome: </b> {0}<br />" + 
                 "<b>E-mail: </b> {1}<br />" + 
-                "<b>Texto: </b> {2}<br />" + 
-                "<br /> E-mail enviado automáticamente do site mvCommerce", 
+                "<b>Texto: </b> {2}<br />",
                 contact.Name, 
                 contact.Email, 
                 contact.Text
@@ -31,8 +30,8 @@ namespace mvCommerce.Libraries.Email
              * MailMessage -> Construct the message
              */
             MailMessage message = new MailMessage();
-            message.From = new MailAddress(_configuration.GetValue<string>("Email:Username"));
-            message.To.Add("lthales53@gmail.com");
+            message.From = new MailAddress(contact.Email);
+            message.To.Add(_configuration.GetValue<string>("Email:Username"));
             message.Subject = "Contato - mvCommerce -" + "Email: " + contact.Email;
             message.Body = bodyMsg;
             message.IsBodyHtml = true;

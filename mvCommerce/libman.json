@@ -1,0 +1,9 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [],
+  "files": [
+    "toastr.css",
+    "toastr.js."
+  ]
+}

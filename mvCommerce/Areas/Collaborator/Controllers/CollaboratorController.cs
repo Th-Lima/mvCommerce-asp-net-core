@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using mvCommerce.Libraries.Email;
+using mvCommerce.Libraries.Filter;
 using mvCommerce.Libraries.Lang;
 using mvCommerce.Libraries.Text;
 using mvCommerce.Repositories.Contracts;
@@ -8,6 +9,7 @@ using X.PagedList;
 namespace mvCommerce.Areas.Collaborator.Controllers
 {
     [Area("Collaborator")]
+    [CollaboratorAuthorization("G")]
     public class CollaboratorController : Controller
     {
         private ICollaboratorRepository _collaboratorRepository;
