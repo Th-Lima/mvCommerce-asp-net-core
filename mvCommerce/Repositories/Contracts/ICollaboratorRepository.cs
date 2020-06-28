@@ -16,6 +16,7 @@ namespace mvCommerce.Repositories.Contracts
         void UpdatePassword(Collaborator collaborator);
         void Delete(int id);
         Collaborator GetCollaborator(int id);
+        List<Collaborator> GetCollaboratorPerEmail(string email);
         IPagedList<Collaborator> GetAllCollaborators(int? page);
     }
 }
