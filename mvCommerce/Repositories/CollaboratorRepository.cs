@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using mvCommerce.Database;
 using mvCommerce.Models;
 using mvCommerce.Repositories.Contracts;
@@ -70,7 +71,7 @@ namespace mvCommerce.Repositories
 
         public List<Collaborator> GetCollaboratorPerEmail(string email)
         {
-           return _database.Collaborators.Where(c => c.Email == email).ToList();
+           return _database.Collaborators.Where(c => c.Email == email).AsNoTracking().ToList();
         }
     }
 }
