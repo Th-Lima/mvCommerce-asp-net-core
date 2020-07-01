@@ -35,6 +35,7 @@ namespace mvCommerce.Areas.Collaborator.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Register([FromForm] Models.Collaborator collaborator)
         {
             ModelState.Remove("Password");
@@ -76,6 +77,7 @@ namespace mvCommerce.Areas.Collaborator.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Update([FromForm] Models.Collaborator collaborator, int id)
         {
             ModelState.Remove("Password");
