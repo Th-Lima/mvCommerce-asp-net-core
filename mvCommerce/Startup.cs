@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using mvCommerce.Database;
 using mvCommerce.Libraries.Email;
 using mvCommerce.Libraries.Login;
+using mvCommerce.Libraries.Middleware;
 using mvCommerce.Libraries.Session;
 using mvCommerce.Repositories;
 using mvCommerce.Repositories.Contracts;
@@ -99,6 +100,7 @@ namespace mvCommerce
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseSession();
+            app.UseMiddleware<ValidateAntiForgeryTokenMiddleware>();
 
             app.UseMvc(routes =>
             {

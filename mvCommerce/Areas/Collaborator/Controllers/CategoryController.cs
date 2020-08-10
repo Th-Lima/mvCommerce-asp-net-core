@@ -33,7 +33,6 @@ namespace mvCommerce.Areas.Collaborator.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Register([FromForm]Category category)
         {
             if (ModelState.IsValid)
@@ -57,7 +56,6 @@ namespace mvCommerce.Areas.Collaborator.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Update([FromForm]Category category, int id)
         {
             if (ModelState.IsValid)

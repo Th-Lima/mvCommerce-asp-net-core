@@ -35,7 +35,6 @@ namespace mvCommerce.Controllers
         }
        
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Index([FromForm]NewsletterEmail newsletter)
         {
             if (ModelState.IsValid)
@@ -104,7 +103,6 @@ namespace mvCommerce.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Login([FromForm]Client client)
         {
             Client clientDB = _repositoryClient.Login(client.Email, client.Password);
@@ -136,7 +134,6 @@ namespace mvCommerce.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult RegisterClient([FromForm] Client client)
         {
             if (ModelState.IsValid)

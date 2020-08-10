@@ -23,7 +23,6 @@ namespace mvCommerce.Areas.Collaborator.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Login([FromForm]Models.Collaborator collaborator)
         {
             Models.Collaborator collaboratorDB = _collaboratorRepository.Login(collaborator.Email, collaborator.Password);
