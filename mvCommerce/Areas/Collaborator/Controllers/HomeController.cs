@@ -41,6 +41,7 @@ namespace mvCommerce.Areas.Collaborator.Controllers
         }
 
         [CollaboratorAuthorization]
+        [ValidateHttpReferer]
         public IActionResult Logout()
         {
             _collaboratorLogin.Logout();

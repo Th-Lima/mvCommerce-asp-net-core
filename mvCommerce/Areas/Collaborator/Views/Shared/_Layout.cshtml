@@ -72,7 +72,7 @@
                                 Clientes
                             </a>
                         </li>
-                        @if (collaborator.GetCollaborator().Type == "G")
+                        @if (collaborator.GetCollaborator().Type == CollaboratorTypeConstant.Manager)
                         {
                             <li class="nav-item">
                                 <a class="nav-link" asp-action="Index" asp-controller="Collaborator">

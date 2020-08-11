@@ -70,6 +70,7 @@ namespace mvCommerce.Areas.Collaborator.Controllers
         }
 
         [HttpGet]
+        [ValidateHttpReferer]
         public IActionResult Delete(int id)
         {
             _categoryRepository.Delete(id);

@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using mvCommerce.Database;
 using mvCommerce.Models;
+using mvCommerce.Models.Constants;
 using mvCommerce.Repositories.Contracts;
 using System.Collections.Generic;
 using System.Linq;
@@ -66,7 +67,7 @@ namespace mvCommerce.Repositories
             int pageNumber = page ?? 1;
             int registerPerPage = _configuration.GetValue<int>("RegisterPerPage");
           
-            return _database.Collaborators.Where(c => c.Type != "G").ToPagedList(pageNumber, registerPerPage);
+            return _database.Collaborators.Where(c => c.Type != CollaboratorTypeConstant.Manager).ToPagedList(pageNumber, registerPerPage);
         }
 
         public List<Collaborator> GetCollaboratorPerEmail(string email)

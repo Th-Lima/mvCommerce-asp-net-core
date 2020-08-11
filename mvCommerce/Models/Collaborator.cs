@@ -31,11 +31,8 @@ namespace mvCommerce.Models
         public string ConfirmationPassword { get; set; }
 
         /*
-         *  Comum or Manager
-         *  c -> Comum
-         *  m -> Manager
+         *  Type = CollaboratorTypeConstant
          */
-      //  [Required(ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E001")]
         [Display(Name="Tipo")]
         public string Type { get; set; }
     }

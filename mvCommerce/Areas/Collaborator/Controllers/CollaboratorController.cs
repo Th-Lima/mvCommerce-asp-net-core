@@ -3,13 +3,14 @@ using mvCommerce.Libraries.Email;
 using mvCommerce.Libraries.Filter;
 using mvCommerce.Libraries.Lang;
 using mvCommerce.Libraries.Text;
+using mvCommerce.Models.Constants;
 using mvCommerce.Repositories.Contracts;
 using X.PagedList;
 
 namespace mvCommerce.Areas.Collaborator.Controllers
 {
     [Area("Collaborator")]
-    [CollaboratorAuthorization("G")]
+    [CollaboratorAuthorization(CollaboratorTypeConstant.Manager)]
     public class CollaboratorController : Controller
     {
         private ICollaboratorRepository _collaboratorRepository;
@@ -40,7 +41,7 @@ namespace mvCommerce.Areas.Collaborator.Controllers
             ModelState.Remove("Password");
             if (ModelState.IsValid)
             {
-                collaborator.Type = "C";
+                collaborator.Type = CollaboratorTypeConstant.Comum;
                 collaborator.Password = KeyGenerator.GetUniqueKey(8);
                 _collaboratorRepository.Register(collaborator);
 
@@ -54,6 +55,7 @@ namespace mvCommerce.Areas.Collaborator.Controllers
         }
         
         [HttpGet]
+        [ValidateHttpReferer]
         public IActionResult GeneratePassword(int id)
         {
              Models.Collaborator collaborator = _collaboratorRepository.GetCollaborator(id);
@@ -90,6 +92,7 @@ namespace mvCommerce.Areas.Collaborator.Controllers
             return View();
         }
         [HttpGet]
+        [ValidateHttpReferer]
         public IActionResult Delete(int id)
         {
             _collaboratorRepository.Delete(id);

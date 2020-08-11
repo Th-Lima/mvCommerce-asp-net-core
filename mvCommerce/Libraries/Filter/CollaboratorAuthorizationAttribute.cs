@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Filters;
 using mvCommerce.Libraries.Login;
 using mvCommerce.Models;
+using mvCommerce.Models.Constants;
 using System;
 
 namespace mvCommerce.Libraries.Filter
@@ -10,7 +11,7 @@ namespace mvCommerce.Libraries.Filter
     {
         CollaboratorLogin _collaboratorLogin;
         private string _typeCollaboratorAuthorized;
-        public CollaboratorAuthorizationAttribute(string typeCollaboratorAuthorized = "C")
+        public CollaboratorAuthorizationAttribute(string typeCollaboratorAuthorized = CollaboratorTypeConstant.Comum)
         {
             _typeCollaboratorAuthorized = typeCollaboratorAuthorized;
         }
@@ -25,7 +26,7 @@ namespace mvCommerce.Libraries.Filter
             }
             else
             {
-                if(collaborator.Type == "C" && _typeCollaboratorAuthorized == "G")
+                if(collaborator.Type == CollaboratorTypeConstant.Comum && _typeCollaboratorAuthorized == CollaboratorTypeConstant.Manager)
                 {
                     context.Result = new ContentResult() { Content = "Acesso negado!" };
                 }
