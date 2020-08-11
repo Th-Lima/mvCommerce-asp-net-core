@@ -1,6 +1,7 @@
 ﻿using mvCommerce.Libraries.Lang;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace mvCommerce.Models
 {
@@ -32,5 +33,13 @@ namespace mvCommerce.Models
         [Required(ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E001")]
         [MinLength(6, ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E002")]
         public string Password { get; set; }
+
+        [NotMapped]
+        [Display(Name = "Confirme a Senha")]
+        [Compare("Password", ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E005")]
+        public string ConfirmationPassword { get; set; }
+
+        [Display(Name = "Situação")]
+        public string Situation { get; set; }
     }
 }
