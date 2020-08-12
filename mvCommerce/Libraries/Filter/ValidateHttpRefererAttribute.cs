@@ -32,7 +32,6 @@ namespace mvCommerce.Libraries.Filter
         }
         public void OnActionExecuted(ActionExecutedContext context)
         {
-            throw new NotImplementedException();
         }        
     }
 }

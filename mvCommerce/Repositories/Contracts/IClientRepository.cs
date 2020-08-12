@@ -1,5 +1,6 @@
 ﻿using mvCommerce.Models;
 using System.Collections.Generic;
+using X.PagedList;
 
 namespace mvCommerce.Repositories.Contracts
 {
@@ -12,6 +13,6 @@ namespace mvCommerce.Repositories.Contracts
         void Update(Client client);
         void Delete(int id);
         Client GetClient(int id);
-        IEnumerable<Client> GetAllClients();
+        IPagedList<Client> GetAllClients(int? page);
     }
 }

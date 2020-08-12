@@ -1,19 +1,23 @@
-﻿using mvCommerce.Database;
+﻿using Microsoft.Extensions.Configuration;
+using mvCommerce.Database;
 using mvCommerce.Models;
 using mvCommerce.Repositories.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using X.PagedList;
 
 namespace mvCommerce.Repositories
 {
     public class ClientRepository : IClientRepository
     {
+        private IConfiguration _config;
        private mvCommerceContext _database;
-       public ClientRepository(mvCommerceContext database)
+       public ClientRepository(mvCommerceContext database, IConfiguration config)
        {
             _database = database;
+            _config = config;
        }
         public Client Login(string email, string password)
         {
@@ -41,9 +45,12 @@ namespace mvCommerce.Repositories
         {
             return _database.Client.Find(id);
         }
-        public IEnumerable<Client> GetAllClients()
+        public IPagedList<Client> GetAllClients(int? page)
         {
-            return _database.Client.ToList();
+            int pageNumber = page ?? 1;
+            int registerPerPage = _config.GetValue<int>("RegisterPerPage");
+
+            return _database.Client.ToPagedList<Client>(pageNumber, registerPerPage);
         }
     }
 }
