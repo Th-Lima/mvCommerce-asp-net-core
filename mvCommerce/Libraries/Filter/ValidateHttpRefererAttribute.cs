@@ -27,8 +27,6 @@ namespace mvCommerce.Libraries.Filter
                     context.Result = new ContentResult() { Content = "Acesso negado!" };
                 }
             }
-            
-            
         }
         public void OnActionExecuted(ActionExecutedContext context)
         {

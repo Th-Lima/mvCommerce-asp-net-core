@@ -13,6 +13,6 @@ namespace mvCommerce.Repositories.Contracts
         void Update(Client client);
         void Delete(int id);
         Client GetClient(int id);
-        IPagedList<Client> GetAllClients(int? page);
+        IPagedList<Client> GetAllClients(int? page, string search);
     }
 }

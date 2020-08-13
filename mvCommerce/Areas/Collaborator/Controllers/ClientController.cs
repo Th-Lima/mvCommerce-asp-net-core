@@ -19,9 +19,9 @@ namespace mvCommerce.Areas.Collaborator.Controllers
             _clientRepository = clientRepository;
         }
 
-        public IActionResult Index(int? page)
+        public IActionResult Index(int? page, string search)
         {
-            IPagedList<Client> clients = _clientRepository.GetAllClients(page);
+            IPagedList<Client> clients = _clientRepository.GetAllClients(page, search);
             return View(clients);
         }
 

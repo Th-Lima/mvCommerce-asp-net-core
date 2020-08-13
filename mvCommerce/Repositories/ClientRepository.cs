@@ -45,12 +45,18 @@ namespace mvCommerce.Repositories
         {
             return _database.Client.Find(id);
         }
-        public IPagedList<Client> GetAllClients(int? page)
+        public IPagedList<Client> GetAllClients(int? page, string search)
         {
             int pageNumber = page ?? 1;
             int registerPerPage = _config.GetValue<int>("RegisterPerPage");
 
-            return _database.Client.ToPagedList<Client>(pageNumber, registerPerPage);
+            var clientDatabase = _database.Client.AsQueryable();
+            if (!string.IsNullOrEmpty(search))
+            {
+                clientDatabase = clientDatabase.Where(a => a.Name.Contains(search.Trim()) || a.Email.Contains(search.Trim()));
+            }
+
+            return clientDatabase.ToPagedList<Client>(pageNumber, registerPerPage);
         }
     }
 }
