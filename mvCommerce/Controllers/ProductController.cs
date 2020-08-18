@@ -9,22 +9,22 @@ namespace mvCommerce.Controllers
 {
     public class ProductController : Controller
     {
-        public ActionResult Visualize()
-        {
-           Product product =  GetProduct();
+        //public ActionResult Visualize()
+        //{
+        //   Product product =  GetProduct();
 
 
-            return View(product);
-        }
-        private Product GetProduct()
-        {
-            return new Product()
-            {
-                Id = 1,
-                Name = "TV",
-                Price = 1500.00,
-                Description = "LED 40 POLEGADAS"
-            };
-        }
+        //    return View(product);
+        //}
+        ////private Product GetProduct()
+        ////{
+        ////    //return new Product()
+        ////    //{
+        ////    //    Id = 1,
+        ////    //    Name = "TV",
+        ////    //    Price = 1500.00,
+        ////    //    Description = "LED 40 POLEGADAS"
+        ////    //};
+        ////}
     }
 }
