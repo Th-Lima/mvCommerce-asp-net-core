@@ -1,11 +1,9 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using mvCommerce.Database;
 using mvCommerce.Models;
 using mvCommerce.Repositories.Contracts;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using X.PagedList;
 
 namespace mvCommerce.Repositories
@@ -38,7 +36,7 @@ namespace mvCommerce.Repositories
         }
         public Product GetProduct(int id)
         {
-            return _database.Products.Find(id);
+            return _database.Products.Include(p => p.Images).Where(p => p.Id == id).FirstOrDefault();
         }
 
         public IPagedList<Product> GetAllProducts(int? page, string search)
@@ -52,7 +50,7 @@ namespace mvCommerce.Repositories
                 productDatabase = productDatabase.Where(p => p.Name.Contains(search.Trim()));
             }
 
-            return productDatabase.ToPagedList<Product>(pageNumber, registerPerPage);
+            return productDatabase.Include(p => p.Images).ToPagedList<Product>(pageNumber, registerPerPage);
         }
     }
 }
