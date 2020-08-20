@@ -2,7 +2,9 @@
     width: 100% !important;
 }
 .btn-image-delete{
-    width:77%;
+    width:75%;
+    border-top-left-radius:0px;
+    border-top-right-radius:0px;
 }
 .images div {
     text-align: center;
