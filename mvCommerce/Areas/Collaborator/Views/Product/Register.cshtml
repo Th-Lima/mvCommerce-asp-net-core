@@ -31,7 +31,7 @@
                     <div class="input-group-prepend">
                         <div class="input-group-text">R$</div>
                     </div>
-                    <input asp-for="Price" class="form-control" placeholder="Preço" />
+                    <input asp-for="Price" class="form-control money" placeholder="Preço" />
                 </div>
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
@@ -41,7 +41,7 @@
             <div class="form-group">
                 <label asp-for="Amount"></label>
                 <div class="input-group mb-2">
-                    <input type="number" asp-for="Amount" class="form-control">
+                    <input type="number" asp-for="Amount" value="0" class="form-control">
                     <div class="input-group-prepend">
                         <div class="input-group-text">Un</div>
                     </div>
@@ -56,9 +56,6 @@
         <textarea asp-for="Description" class="form-control"></textarea>
         <span asp-validation-for="Description" class="text-danger"></span>
     </div>
-
-
-
 
 
     <!--Fields of Freight-->
@@ -81,7 +78,7 @@
             <div class="form-group">
                 <label asp-for="Width"></label>
                 <div class="input-group mb-2">
-                    <input asp-for="Width" class="form-control">
+                    <input asp-for="Width" type="number" class="form-control">
                     <div class="input-group-prepend">
                         <div class="input-group-text">cm</div>
                     </div>
@@ -94,7 +91,7 @@
             <div class="form-group">
                 <label asp-for="Height"></label>
                 <div class="input-group mb-2">
-                    <input asp-for="Height" class="form-control">
+                    <input asp-for="Height" type="number" class="form-control">
                     <div class="input-group-prepend">
                         <div class="input-group-text">cm</div>
                     </div>
@@ -107,7 +104,7 @@
             <div class="form-group">
                 <label asp-for="Length"></label>
                 <div class="input-group mb-2">
-                    <input asp-for="Length" class="form-control">
+                    <input asp-for="Length" type="number" class="form-control">
                     <div class="input-group-prepend">
                         <div class="input-group-text">cm</div>
                     </div>
