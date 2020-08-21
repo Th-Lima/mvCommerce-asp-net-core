@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using mvCommerce.Libraries.Lang;
+using mvCommerce.Models;
 using mvCommerce.Repositories.Contracts;
 using System.Linq;
 
@@ -23,6 +25,39 @@ namespace mvCommerce.Areas.Collaborator.Controllers
         [HttpGet]
         public IActionResult Register()
         {
+            ViewBag.Categories = _categoryRepository.GetAllCategories().Select(c => new SelectListItem(c.Name, c.Id.ToString()));
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Register(Product product)
+        {
+            if (ModelState.IsValid)
+            {
+                _productRepository.Register(product);
+                TempData["MSG_S"] = Message.MSG_S001;
+                return RedirectToAction(nameof(Index));
+            }
+           
+            ViewBag.Categories = _categoryRepository.GetAllCategories().Select(c => new SelectListItem(c.Name, c.Id.ToString()));
+            return View();
+        }
+        [HttpGet]
+        public IActionResult Update(int id)
+        {
+            ViewBag.Categories = _categoryRepository.GetAllCategories().Select(c => new SelectListItem(c.Name, c.Id.ToString()));
+            Product product = _productRepository.GetProduct(id);
+            return View(product);
+        }
+        [HttpPost]
+        public IActionResult Update(Product product, int id)
+        {
+            if (ModelState.IsValid)
+            {
+                _productRepository.Update(product);
+                TempData["MSG_S"] = Message.MSG_S001;
+
+                return RedirectToAction(nameof(Index));
+            }
             ViewBag.Categories = _categoryRepository.GetAllCategories().Select(c => new SelectListItem(c.Name, c.Id.ToString()));
             return View();
         }

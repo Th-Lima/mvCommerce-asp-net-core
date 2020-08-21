@@ -1,9 +1,9 @@
 ﻿@model mvCommerce.Models.Product
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Update";
 }
-    <link rel="stylesheet" href="~/css/ProductRegister.css" />
-<h1>Cadastrar</h1>
+<link rel="stylesheet" href="~/css/ProductRegister.css" />
+<h1>Editar</h1>
 
 <form method="post">
     <div class="row">
@@ -41,7 +41,7 @@
             <div class="form-group">
                 <label asp-for="Amount"></label>
                 <div class="input-group mb-2">
-                    <input type="number" asp-for="Amount" value="0" class="form-control">
+                    <input type="number" asp-for="Amount" class="form-control">
                     <div class="input-group-prepend">
                         <div class="input-group-text">Un</div>
                     </div>
