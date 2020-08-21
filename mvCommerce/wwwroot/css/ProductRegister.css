@@ -9,3 +9,9 @@
 .images div {
     text-align: center;
 }
+.input-file{
+    display:none;
+}
+.img-upload{
+    cursor:pointer;
+}

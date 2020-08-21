@@ -7,6 +7,7 @@ namespace mvCommerce.Areas.Collaborator.Controllers
     [Area("Collaborator")]
     public class ImageController : Controller
     {
+        [HttpPost]
         public IActionResult Storage(IFormFile file)
         {
            var path = FileManager.RegisterProductImage(file);

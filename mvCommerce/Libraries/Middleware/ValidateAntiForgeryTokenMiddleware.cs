@@ -20,9 +20,11 @@ namespace mvCommerce.Libraries.Middleware
 
         public async Task Invoke(HttpContext context)
         {
-            if (HttpMethods.IsPost(context.Request.Method))
+            var header = context.Request.Headers["x-requested-with"];
+            var AJAX = (header == "XMLHttpRequest") ? true : false;
+            if (HttpMethods.IsPost(context.Request.Method) && !(context.Request.Form.Files.Count == 1 && AJAX))
             {
-                await _antiforgery.ValidateRequestAsync(context);
+                await _antiforgery.ValidateRequestAsync(context);               
             }
             await _next(context);
         }
