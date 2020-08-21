@@ -39,6 +39,7 @@
 
   <ItemGroup>
     <Folder Include="Areas\Collaborator\Models\" />
+    <Folder Include="wwwroot\uploads\temp\" />
   </ItemGroup>
 
 </Project>
