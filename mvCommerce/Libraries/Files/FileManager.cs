@@ -14,7 +14,7 @@ namespace mvCommerce.Libraries.Files
             {
                 file.CopyTo(stream);
             }
-            return Path.Combine("/uploads/temp", fileName);
+            return Path.Combine("/uploads/temp", fileName).Replace("\\", "/");
         }
         public static bool DeleteProductImage(string path)
         {

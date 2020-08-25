@@ -16,6 +16,21 @@ function AjaxUploadImageProduct() {
     $(".img-upload").click(function () {
         $(this).parent().find(".input-file").click();
     });
+    $(".btn-image-delete").click(function () {
+        var fieldHidden = $(this).parent().find("input[name=image]");
+        var image = $(this).parent().find(".img-upload");
+
+        $.ajax({
+            type: "POST",
+            url: "/Collaborator/Image/Delete?path=" + fieldHidden.val(),
+            error: function () {
+
+            },
+            success: function () {
+                image.attr("src", "/img/image-default.png")
+            }
+        });
+    });
 
     $(".input-file").change(function () {
         //Form of data js
@@ -23,6 +38,9 @@ function AjaxUploadImageProduct() {
         var form = new FormData();
         form.append("file", binary);
 
+
+        var fieldHidden = $(this).parent().find("input[name=image]");
+        var image = $(this).parent().find(".img-upload");
         $.ajax({
             type: "POST",
             url: "/Collaborator/Image/Storage",
@@ -33,7 +51,9 @@ function AjaxUploadImageProduct() {
                 alert("Erro ao enviar imagem");
             },
             success: function (data) {
-                alert("Arquivo enviado com sucesso" + data.path);
+                var path = data.path;
+                image.attr("src", path);
+                fieldHidden.val(path);
             }
         })
     });
