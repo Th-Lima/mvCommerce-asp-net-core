@@ -19,9 +19,9 @@ namespace mvCommerce.Libraries.Files
         public static bool DeleteProductImage(string path)
         {
             string pathFile = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", path.TrimStart('/'));
-            if (File.Exists(path))
+            if (File.Exists(pathFile))
             {
-                File.Delete(path);
+                File.Delete(pathFile);
                 return true;
             }
             else

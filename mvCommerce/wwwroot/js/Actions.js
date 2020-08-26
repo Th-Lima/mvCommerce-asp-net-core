@@ -17,8 +17,11 @@ function AjaxUploadImageProduct() {
         $(this).parent().find(".input-file").click();
     });
     $(".btn-image-delete").click(function () {
+
         var fieldHidden = $(this).parent().find("input[name=image]");
         var image = $(this).parent().find(".img-upload");
+        var btnDelete = $(this).parent().find(".btn-image-delete");
+        var inputFile = $(this).parent().find(".input-file");
 
         $.ajax({
             type: "POST",
@@ -27,7 +30,10 @@ function AjaxUploadImageProduct() {
 
             },
             success: function () {
-                image.attr("src", "/img/image-default.png")
+                image.attr("src", "/img/image-default.png");
+                btnDelete.addClass("btn-hide");
+                fieldHidden.val("");
+                inputFile.val("");
             }
         });
     });
@@ -41,6 +47,8 @@ function AjaxUploadImageProduct() {
 
         var fieldHidden = $(this).parent().find("input[name=image]");
         var image = $(this).parent().find(".img-upload");
+        var btnDelete = $(this).parent().find(".btn-image-delete");
+
         $.ajax({
             type: "POST",
             url: "/Collaborator/Image/Storage",
@@ -54,6 +62,7 @@ function AjaxUploadImageProduct() {
                 var path = data.path;
                 image.attr("src", path);
                 fieldHidden.val(path);
+                btnDelete.removeClass("btn-hide")
             }
         })
     });
