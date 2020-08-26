@@ -24,7 +24,7 @@ function AjaxUploadImageProduct() {
         var inputFile = $(this).parent().find(".input-file");
 
         $.ajax({
-            type: "POST",
+            type: "GET",
             url: "/Collaborator/Image/Delete?path=" + fieldHidden.val(),
             error: function () {
 
