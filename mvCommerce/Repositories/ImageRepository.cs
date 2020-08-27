@@ -22,6 +22,13 @@ namespace mvCommerce.Repositories
             _database.Add(image);
             _database.SaveChanges();
         }
+        public void RegisterImage(List<Image> listImages, int productId)
+        {
+            foreach (var image in listImages)
+            {
+                Register(image);
+            }
+        }
         public void Delete(int id)
         {
             Image image = _database.Images.Find(id);

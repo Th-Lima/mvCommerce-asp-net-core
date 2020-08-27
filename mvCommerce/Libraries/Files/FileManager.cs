@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using mvCommerce.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -32,12 +33,12 @@ namespace mvCommerce.Libraries.Files
             }
         }
 
-        public static List<string> MoveProductImage(List<string> listTemporaryPath, string productId)
+        public static List<Image> MoveProductImage(List<string> listTemporaryPath, int productId)
         {
             /**
              * Create product folder
              */
-            var definitivePathProductFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads", productId);
+            var definitivePathProductFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads", productId.ToString());
             if (!Directory.Exists(definitivePathProductFolder))
             {
                 Directory.CreateDirectory(definitivePathProductFolder);
@@ -46,7 +47,7 @@ namespace mvCommerce.Libraries.Files
             /**
              *Move image to definitive folder
              */
-            List<string> ListPathDefinitive = new List<string>();
+            List<Image> listImagesDefinitives = new List<Image>();
             foreach (var pathTemp in listTemporaryPath)
             {
                 if (!string.IsNullOrEmpty(pathTemp))
@@ -54,7 +55,7 @@ namespace mvCommerce.Libraries.Files
 
                     var fileName = Path.GetFileName(pathTemp);
                     var pathAbsoluteTemp = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", pathTemp);
-                    var pathAbsoluteDefinitive = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uplodas", productId, fileName);
+                    var pathAbsoluteDefinitive = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uplodas", productId.ToString(), fileName);
 
                     if (File.Exists(pathAbsoluteTemp))
                     {
@@ -63,7 +64,7 @@ namespace mvCommerce.Libraries.Files
                         {
                             File.Delete(pathAbsoluteTemp);
                         }
-                        ListPathDefinitive.Add(Path.Combine("/uplodas", productId, fileName).Replace("\\", "/"));
+                        listImagesDefinitives.Add(new Image(){ Path = Path.Combine("/uplodas", productId.ToString(), fileName).Replace("\\", "/"), ProductId = productId });
                     }
                     else
                     {
@@ -71,7 +72,7 @@ namespace mvCommerce.Libraries.Files
                     }
                 }
             }
-            return ListPathDefinitive;
+            return listImagesDefinitives;
         }
     }
 }
