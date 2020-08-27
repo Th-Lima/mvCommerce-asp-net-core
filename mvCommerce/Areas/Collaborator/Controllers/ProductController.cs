@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using mvCommerce.Libraries.Files;
 using mvCommerce.Libraries.Lang;
 using mvCommerce.Models;
 using mvCommerce.Repositories.Contracts;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace mvCommerce.Areas.Collaborator.Controllers
@@ -34,6 +36,14 @@ namespace mvCommerce.Areas.Collaborator.Controllers
             if (ModelState.IsValid)
             {
                 _productRepository.Register(product);
+
+                
+                List<string>ListDefinitivePath = FileManager.MoveProductImage(new List<string>(Request.Form["image"]), product.Id.ToString());
+                //TODO - Caminho temporario e mover para caminho definitivo
+                
+                //TODO - Salvar o caminho da imagem no banco de dados.
+
+
                 TempData["MSG_S"] = Message.MSG_S001;
                 return RedirectToAction(nameof(Index));
             }
