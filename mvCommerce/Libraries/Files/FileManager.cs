@@ -54,8 +54,8 @@ namespace mvCommerce.Libraries.Files
                 {
 
                     var fileName = Path.GetFileName(pathTemp);
-                    var pathAbsoluteTemp = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", pathTemp);
-                    var pathAbsoluteDefinitive = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uplodas", productId.ToString(), fileName);
+                    var pathAbsoluteTemp = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads/temp", fileName);
+                    var pathAbsoluteDefinitive = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads", productId.ToString(), fileName);
 
                     if (File.Exists(pathAbsoluteTemp))
                     {

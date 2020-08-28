@@ -10,26 +10,32 @@ namespace mvCommerce.Models
         // PK
         public int Id { get; set; }
 
+        [Display(Name = "Nome")]
         [Required(ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E001")]
         [MinLength(4, ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E002")]
         public string Name { get; set; }
 
+        [Display(Name = "Data de Nascimento")]
         [Required(ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E001")]
         public DateTime BirthDate { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E001")]
         public string CPF { get; set; }
 
+        [Display(Name = "Sexo")]
         [Required(ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E001")]
         public string Sex { get; set; }
 
+        [Display(Name = "Telefone")]
         [Required(ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E001")]
         public string Phone { get; set; }
 
+        [Display(Name = "Email")]
         [Required(ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E001")]
         [EmailAddress(ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E004")]
         public string Email { get; set; }
 
+        [Display(Name = "Senha")]
         [Required(ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E001")]
         [MinLength(6, ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E002")]
         public string Password { get; set; }

@@ -24,10 +24,14 @@ namespace mvCommerce.Repositories
         }
         public void RegisterImage(List<Image> listImages, int productId)
         {
-            foreach (var image in listImages)
+            if(listImages != null && listImages.Count > 0)
             {
-                Register(image);
+                foreach (var image in listImages)
+                {
+                    Register(image);
+                }
             }
+         
         }
         public void Delete(int id)
         {
