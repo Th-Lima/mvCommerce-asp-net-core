@@ -21,9 +21,9 @@ namespace mvCommerce.Areas.Collaborator.Controllers
             _categoryRepository = categoryRepository;
             _imageRepository = imageRepository;
         }
-        public IActionResult Index(int? pageNumber, string search)
+        public IActionResult Index(int? page, string search)
         {
-            var products = _productRepository.GetAllProducts(pageNumber, search);
+            var products = _productRepository.GetAllProducts(page, search);
             return View(products);
         }
 
@@ -46,9 +46,14 @@ namespace mvCommerce.Areas.Collaborator.Controllers
                 TempData["MSG_S"] = Message.MSG_S001;
                 return RedirectToAction(nameof(Index));
             }
+            else
+            {
+                ViewBag.Categories = _categoryRepository.GetAllCategories().Select(c => new SelectListItem(c.Name, c.Id.ToString()));
+                product.Images = new List<string>(Request.Form["image"]).Where(i => i.Trim().Length > 0).Select(i => new Image() { Path = i }).ToList();
+
+                return View(product);
+            }
            
-            ViewBag.Categories = _categoryRepository.GetAllCategories().Select(c => new SelectListItem(c.Name, c.Id.ToString()));
-            return View();
         }
 
         [HttpGet]
