@@ -53,7 +53,6 @@ namespace mvCommerce.Areas.Collaborator.Controllers
 
                 return View(product);
             }
-           
         }
 
         [HttpGet]
@@ -70,12 +69,22 @@ namespace mvCommerce.Areas.Collaborator.Controllers
             if (ModelState.IsValid)
             {
                 _productRepository.Update(product);
-                TempData["MSG_S"] = Message.MSG_S001;
 
+                List<Image> listImagesDefinitives = FileManager.MoveProductImage(new List<string>(Request.Form["image"]), product.Id);
+                _imageRepository.DeleteImageOfProduct(product.Id);
+                _imageRepository.RegisterImage(listImagesDefinitives, product.Id);
+                
+
+                TempData["MSG_S"] = Message.MSG_S001;
                 return RedirectToAction(nameof(Index));
             }
-            ViewBag.Categories = _categoryRepository.GetAllCategories().Select(c => new SelectListItem(c.Name, c.Id.ToString()));
-            return View();
+            else
+            {
+                ViewBag.Categories = _categoryRepository.GetAllCategories().Select(c => new SelectListItem(c.Name, c.Id.ToString()));
+                product.Images = new List<string>(Request.Form["image"]).Where(i => i.Trim().Length > 0).Select(i => new Image() { Path = i }).ToList();
+
+                return View(product);
+            }
         }
     }
 }

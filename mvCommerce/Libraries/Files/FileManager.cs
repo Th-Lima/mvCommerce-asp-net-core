@@ -13,7 +13,7 @@ namespace mvCommerce.Libraries.Files
             var fileName = Path.GetFileName(file.FileName);
             var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads/temp", fileName);
 
-            using(var stream = new FileStream(path, FileMode.Create))
+            using (var stream = new FileStream(path, FileMode.Create))
             {
                 file.CopyTo(stream);
             }
@@ -52,23 +52,39 @@ namespace mvCommerce.Libraries.Files
             {
                 if (!string.IsNullOrEmpty(pathTemp))
                 {
-
                     var fileName = Path.GetFileName(pathTemp);
-                    var pathAbsoluteTemp = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads/temp", fileName);
-                    var pathAbsoluteDefinitive = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads", productId.ToString(), fileName);
+                    var pathDef = Path.Combine("/uploads", productId.ToString(), fileName).Replace("\\", "/");
 
-                    if (File.Exists(pathAbsoluteTemp))
+                    if (pathDef != pathTemp)
                     {
-                        File.Copy(pathAbsoluteTemp, pathAbsoluteDefinitive);
-                        if (File.Exists(pathAbsoluteDefinitive))
+                        var pathAbsoluteTemp = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads/temp", fileName);
+                        var pathAbsoluteDefinitive = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads", productId.ToString(), fileName);
+
+                        if (File.Exists(pathAbsoluteTemp))
                         {
-                            File.Delete(pathAbsoluteTemp);
+                            //Delete File in destiny path 
+                            if (File.Exists(pathAbsoluteDefinitive))
+                            {
+                                File.Delete(pathAbsoluteDefinitive);
+                            }
+                            //Copy temporary folder to destiny
+                            File.Copy(pathAbsoluteTemp, pathAbsoluteDefinitive);
+                           
+                            //Delete file of temporary folder
+                            if (File.Exists(pathAbsoluteDefinitive))
+                            {
+                                File.Delete(pathAbsoluteTemp);
+                            }
+                            listImagesDefinitives.Add(new Image() { Path = Path.Combine("/uploads", productId.ToString(), fileName).Replace("\\", "/"), ProductId = productId });
                         }
-                        listImagesDefinitives.Add(new Image(){ Path = Path.Combine("/uplodas", productId.ToString(), fileName).Replace("\\", "/"), ProductId = productId });
+                        else
+                        {
+                            return null;
+                        }
                     }
                     else
                     {
-                        return null;
+                        listImagesDefinitives.Add(new Image() { Path = Path.Combine("/uploads", productId.ToString(), fileName).Replace("\\", "/"), ProductId = productId });
                     }
                 }
             }
