@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using mvCommerce.Libraries.Files;
+using mvCommerce.Libraries.Filter;
 using mvCommerce.Libraries.Lang;
 using mvCommerce.Models;
 using mvCommerce.Repositories.Contracts;
@@ -10,6 +11,7 @@ using System.Linq;
 namespace mvCommerce.Areas.Collaborator.Controllers
 {
     [Area("Collaborator")]
+    [CollaboratorAuthorization]
     public class ProductController : Controller
     {
         private IProductRepository _productRepository;
@@ -85,6 +87,22 @@ namespace mvCommerce.Areas.Collaborator.Controllers
 
                 return View(product);
             }
+        }
+        [HttpGet]
+        [ValidateHttpReferer]
+        public IActionResult Delete(int id)
+        {
+            Product product = _productRepository.GetProduct(id);
+            
+            FileManager.DeleteAllProductsImages(product.Images.ToList());
+            
+            _imageRepository.DeleteImageOfProduct(id);
+            
+            _productRepository.Delete(id);
+            
+            TempData["MSG_S"] = Message.MSG_S002;
+            
+            return RedirectToAction(nameof(Index));
         }
     }
 }

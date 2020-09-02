@@ -90,5 +90,20 @@ namespace mvCommerce.Libraries.Files
             }
             return listImagesDefinitives;
         }
+
+        public static void DeleteAllProductsImages(List<Image> listImage)
+        {
+            int productId = 0;
+            foreach (var image in listImage)
+            {
+                DeleteProductImage(image.Path);
+                productId = image.ProductId;
+            }
+            var folderProduct = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads", productId.ToString());
+            if (Directory.Exists(folderProduct))
+            {
+                Directory.Delete(folderProduct);
+            }
+        }
     }
 }
