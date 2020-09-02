@@ -14,7 +14,7 @@
 
 function AjaxUploadImageProduct() {
     $(".img-upload").click(function () {
-        $(this).parent().find(".input-file").click();
+        $(this).parent().parent().find(".input-file").click();
     });
     $(".btn-image-delete").click(function () {
 
@@ -49,6 +49,9 @@ function AjaxUploadImageProduct() {
         var image = $(this).parent().find(".img-upload");
         var btnDelete = $(this).parent().find(".btn-image-delete");
 
+        //Show load image
+        image.attr("src", "/img/loader.gif");
+
         $.ajax({
             type: "POST",
             url: "/Collaborator/Image/Storage",
@@ -57,6 +60,7 @@ function AjaxUploadImageProduct() {
             processData: false,
             error: function () {
                 alert("Erro ao enviar imagem");
+                image.attr("src", "/img/image-default.png");
             },
             success: function (data) {
                 var path = data.path;
