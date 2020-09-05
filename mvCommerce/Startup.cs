@@ -78,7 +78,10 @@ namespace mvCommerce
             services.AddScoped<ClientLogin>();
             services.AddScoped<CollaboratorLogin>();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc(options =>
+            {
+                options.ModelBindingMessageProvider.SetValueMustNotBeNullAccessor(x => "Este campo não pode ser vazio");
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddDbContext<mvCommerceContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
         }
