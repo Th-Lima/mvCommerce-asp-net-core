@@ -1,0 +1,41 @@
+﻿@model List<Category>
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-info" id="navMenu">
+    <a class="navbar-brand" href="/"> mvCommerce</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/"><i class="fas fa-home"></i> Home <span class="sr-only">(current)</span></a>
+            </li>
+            @if (Model != null && Model.Count > 0)
+            {
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-list-ul"></i> Categorias
+                    </a>
+                    <div id="categoriesDropdown" class="dropdown-menu bg-info" aria-labelledby="navbarDropdown">
+                        @foreach (var category in Model)
+                        {
+                            <a class="dropdown-item" href="#"><b>@category.Name</b></a>
+                        }
+                    </div>
+                </li>
+            }
+            <li class="nav-item">
+                <a class="nav-link" href="/Home/Contact"><i class="far fa-address-book"></i> Contato </a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0" id="formMenu">
+            <input class="form-control mr-sm-2" type="text" placeholder="O que você está procurando?">
+            <div id="searchButton" class="btn btn-outline-warning my-2 my-sm-0"><i class="fas fa-search"></i></div>
+            @*<button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Pesquisar</button>*@
+            <a class="btn btn-outline-warning my-2 my-sm-0" href="/Home/Login" id="login"><i class="fas fa-user-alt"></i> Login</a>
+            <a class="btn btn-outline-warning my-2 my-sm-0" href="/Home/ShoppingCart" id="cart"><i class="fas fa-shopping-cart"></i> Carrinho</a>
+        </form>
+    </div>
+</nav>

@@ -62,7 +62,7 @@ namespace mvCommerce.Areas.Collaborator.Controllers
              collaborator.Password = KeyGenerator.GetUniqueKey(8);
             _collaboratorRepository.UpdatePassword(collaborator);
             
-            //send email
+            //send email with password
             _sendEmail.SendPasswordPerEmail(collaborator);
 
             TempData["MSG_S"] = Message.MSG_S003;
