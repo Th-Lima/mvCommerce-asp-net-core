@@ -51,6 +51,12 @@ namespace mvCommerce.Controllers
             }            
         }
 
+        [HttpGet]
+        public IActionResult Category()
+        {
+            return View();
+        }
+
         public IActionResult ContactAction()
         {
             try
