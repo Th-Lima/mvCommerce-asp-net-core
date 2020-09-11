@@ -1,0 +1,33 @@
+﻿
+@{
+    var allCategories = (List<Category>)ViewData["AllCategories"];
+    var fatherCategory = (Category)ViewData["FatherCategory"];
+    
+    var sonCategories = allCategories.Where(c => c.CategoryFatherId == fatherCategory.Id);
+}
+@if (sonCategories.Count() > 0)
+{
+    <li class="dropdown-submenu">
+        <a class="dropdown-item" href="#">@fatherCategory.Name</a>
+        <ul class="dropdown-menu">
+            @foreach (var sonCategory in sonCategories)
+            {
+                @if (allCategories.Where(c => c.CategoryFatherId == sonCategory.Id).Count() > 0)
+                {
+                    ViewData.Remove("FatherCategory");
+                    //Presentation submenu - Recursive
+                    @await Html.PartialAsync("~/Views/Shared/Components/Menu/_SubMenu.cshtml", new ViewDataDictionary(ViewData) { { "FatherCategory", sonCategory } })
+                }
+                else
+                {
+                    <li class="dropdown-item"><a href="#">@sonCategory.Name</a></li>
+                }
+            }
+
+        </ul>
+    </li>
+}
+else
+{
+    <li class="dropdown-item"><a href="#">@fatherCategory.Name</a></li>
+}
