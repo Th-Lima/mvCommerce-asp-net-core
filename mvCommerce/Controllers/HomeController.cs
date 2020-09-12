@@ -57,6 +57,7 @@ namespace mvCommerce.Controllers
             return View();
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult ContactAction()
         {
             try

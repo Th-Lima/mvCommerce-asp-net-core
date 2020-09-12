@@ -2,94 +2,97 @@
 @{
     ViewData["Title"] = "Contact";
     mvCommerce.Models.Contact contact = (mvCommerce.Models.Contact)ViewData["CONTACT"];
+    
 }
-    <head>
-        <link rel="stylesheet" href="~/css/Contact.css"/>
-    </head>
-    <body>
-        <main role="main">
-            <br />
-            <br />
-            <div class="container">
-                <div class="row">
-                    <aside class="col-md-6">
-                        <h4 class="subtitle-doc">
-                            # Outros contatos
-                            <a href="#" data-html="code_desc_simple" class="showcode">[code]</a>
-                        </h4>
-                        <div id="code_desc_simple" class="box">
-                            <div class="box">
-                                <dl>
-                                    <dt>Devolução/Garantia: </dt>
-                                    <dd>devolucao@lojavirtual.com.br</dd>
-                                </dl>
-                                <dl>
-                                    <dt>Televendas: </dt>
-                                    <dd>(61) 4000-2000</dd>
-                                </dl>
-                                <dl>
-                                    <dt>SAC:</dt>
-                                    <dd>sac@lojavirtual.com.br</dd>
-                                </dl>
+<head>
+    <link rel="stylesheet" href="~/css/Contact.css" />
+</head>
+<body>
+    <main role="main">
+        <br />
+        <br />
+        <div class="container">
+            <div class="row">
+                <aside class="col-md-6">
+                    <h4 class="subtitle-doc">
+                        # Outros contatos
+                        <a href="#" data-html="code_desc_simple" class="showcode">[code]</a>
+                    </h4>
+                    <div id="code_desc_simple" class="box">
+                        <div class="box">
+                            <dl>
+                                <dt>Devolução/Garantia: </dt>
+                                <dd>devolucao@lojavirtual.com.br</dd>
+                            </dl>
+                            <dl>
+                                <dt>Televendas: </dt>
+                                <dd>(61) 4000-2000</dd>
+                            </dl>
+                            <dl>
+                                <dt>SAC:</dt>
+                                <dd>sac@lojavirtual.com.br</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </aside>
+                <aside class="col-sm-6">
+                    <span>Para propostas de melhorias, sugestões e reclamações,</span>
+                    <h4 class="subtitle-doc">
+                       Faça contato conosco!
+                    </h4>
+                    <div id="contact">
+                        <article class="card">
+                            <div class="card-body p-5">
+                                @if (ViewData["MSG_S"] != null)
+                                {
+                                    <p class="alert alert-success"><b>@ViewData["MSG_S"]</b></p>
+                                }
+                                @if (ViewData["MSG_E"] != null)
+                                {
+                                    <p class="alert alert-danger"><b>@Html.Raw(ViewData["MSG_E"])</b></p>
+                                }
+
+
+                                <form role="form" method="post" action="/Home/ContactAction">
+                                    @Html.AntiForgeryToken()
+                                    <div class="form-group">
+                                        <label for="name">Nome</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                            </div>
+                                            <input type="text" id="name" class="form-control" name="name" placeholder="" required="" value="@(contact != null ? contact.Name : "")">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="email">E-mail</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-at"></i></span>
+                                            </div>
+                                            <input type="text" class="form-control" name="email" id="email" placeholder="" value="@(contact != null ? contact.Email : "")">
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label for="text"><span class="hidden-xs">Mensagem</span></label>
+                                                <div class="form-inline">
+                                                    <textarea class="form-control" name="text" id="text" style="width:100%">@(contact != null ? contact.Text : "")</textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="subscribe btn btn-block btn-info my-2 my-sm-0" type="submit"> Enviar </button>
+                                </form>
                             </div>
-                        </div>
-                    </aside>
-                    <aside class="col-sm-6">
-
-                        <h4 class="subtitle-doc">
-                            # Contato
-                        </h4>
-                        <div id="contact">
-                            <article class="card">
-                                <div class="card-body p-5">
-                                    @if (ViewData["MSG_S"] != null)
-                                    {
-                                        <p class="alert alert-success"><b>@ViewData["MSG_S"]</b></p>
-                                    }
-                                    @if (ViewData["MSG_E"] != null)
-                                    {
-                                        <p class="alert alert-danger"><b>@Html.Raw(ViewData["MSG_E"])</b></p>
-                                    }
-
-                                    <form role="form" method="post" action="/Home/ContactAction">
-                                        <div class="form-group">
-                                            <label for="name">Nome</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="fa fa-user"></i></span>
-                                                </div>
-                                                <input type="text" id="name" class="form-control" name="name" placeholder="" required="" value="@(contact != null ? contact.Name : "")">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="email">E-mail</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="fa fa-at"></i></span>
-                                                </div>
-                                                <input type="text" class="form-control" name="email" id="email" placeholder="" value="@(contact != null ? contact.Email : "")">
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <div class="form-group">
-                                                    <label for="text"><span class="hidden-xs">Mensagem</span></label>
-                                                    <div class="form-inline">
-                                                        <textarea class="form-control" name="text" id="text" style="width:100%">@(contact != null ? contact.Text : "")</textarea>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <button class="subscribe btn btn-block btn-info my-2 my-sm-0" type="submit"> Enviar </button>
-                                    </form>
-                                </div>
-                            </article>
-                        </div>
-                    </aside>
-                </div>
+                        </article>
+                    </div>
+                </aside>
             </div>
-        </main>
-    </body>
+        </div>
+    </main>
+</body>
 
