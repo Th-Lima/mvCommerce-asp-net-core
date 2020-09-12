@@ -42,9 +42,10 @@ namespace mvCommerce.Libraries.Email
 
         public void SendPasswordPerEmail(Collaborator collaborator)
         {
-            string bodyMsg = string.Format("<h3>Colaborador mvCommerce</h3>" +
-               "Sua senha é: " +
-               "<h3>{0}</h3>", collaborator.Password);
+            string bodyMsg = string.Format($"<h3>Colaborador mvCommerce</h3>" +
+                $"Olá {collaborator.Name}, " +
+                $" sua senha é: <h3>{collaborator.Password}</h3>" +
+                $"Seja muito bem vindo a nossa empresa! :)");
 
             /*
              * MailMessage -> Construct the message

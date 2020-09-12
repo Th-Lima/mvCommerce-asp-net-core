@@ -1,0 +1,19 @@
+﻿body {
+}
+label {
+    color: black;
+    text-shadow: 0.5px 0px 0px black;
+}
+button {
+    box-shadow: 1px 1px 1px #a9a9a9;
+}
+nav.navbar{
+    height:60px;
+}
+#logo{
+    color:white;
+    font-family:Calibri;
+}
+a.logo{
+    text-decoration:none;
+}

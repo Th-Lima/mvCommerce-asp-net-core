@@ -30,7 +30,7 @@ function AjaxUploadImageProduct() {
 
             },
             success: function () {
-                image.attr("src", "/img/image-default.png");
+                image.attr("src", "/img/default-img.png");
                 btnDelete.addClass("btn-hide");
                 fieldHidden.val("");
                 inputFile.val("");
