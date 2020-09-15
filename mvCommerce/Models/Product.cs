@@ -18,6 +18,8 @@ namespace mvCommerce.Models
         public decimal Price { get; set; }
        
         [Display(Name = "Descrição")]
+        [Required(ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E001")]
+        [Range(15, 240, ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E006")]
         public string Description { get; set; }
         
         [Display(Name = "Quantidade")]

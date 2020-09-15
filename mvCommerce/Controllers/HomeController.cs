@@ -5,11 +5,11 @@ using mvCommerce.Libraries.Email;
 using mvCommerce.Models;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
-using mvCommerce.Database;
 using mvCommerce.Repositories.Contracts;
 using Microsoft.AspNetCore.Http;
 using mvCommerce.Libraries.Login;
 using mvCommerce.Libraries.Filter;
+using mvCommerce.Models.ViewModels;
 
 namespace mvCommerce.Controllers
 {
@@ -17,25 +17,33 @@ namespace mvCommerce.Controllers
     {
         private IClientRepository _repositoryClient;
         private INewsletterRepository _repositoryNewsletter;
+        private IProductRepository _productRepository;
         private ClientLogin _clientLogin;
         private SendEmail _sendEmail;
       
-        public HomeController(IClientRepository repository, INewsletterRepository repositoryNewsletter, ClientLogin clientLogin, SendEmail sendEmail)
+        public HomeController(
+            IClientRepository repository, 
+            INewsletterRepository repositoryNewsletter, 
+            IProductRepository productRepository, 
+            ClientLogin clientLogin, 
+            SendEmail sendEmail)
         {
             _repositoryClient = repository;
             _repositoryNewsletter = repositoryNewsletter;
             _clientLogin = clientLogin;
             _sendEmail = sendEmail;
+            _productRepository = productRepository;
         }
       
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index(int? page, string search)
         {
-            return View();
+            var viewModel = new IndexViewModel() { List = _productRepository.GetAllProducts(page, search) }; 
+            return View(viewModel);
         }
        
         [HttpPost]
-        public IActionResult Index([FromForm]NewsletterEmail newsletter)
+        public IActionResult Index(int? page, string search, [FromForm]NewsletterEmail newsletter)
         {
             if (ModelState.IsValid)
             {
@@ -47,7 +55,8 @@ namespace mvCommerce.Controllers
             }
             else
             {
-                return View();
+                var viewModel = new IndexViewModel() { List = _productRepository.GetAllProducts(page, search) };
+                return View(viewModel);
             }            
         }
 
