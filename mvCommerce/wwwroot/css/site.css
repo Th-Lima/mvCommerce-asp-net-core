@@ -33,6 +33,9 @@ button {
 #formMenu input[type="text"]:focus {
     width: 350px;
 }
+.search::-webkit-input-placeholder {
+    color: black;
+}
 
 a{
     color: #00CED1;
@@ -72,6 +75,7 @@ aside {
     width: 100%;
     height: 95%;
 }
+
 /**
 * CSS - Menu Multilevel Bootstrap 4
 */

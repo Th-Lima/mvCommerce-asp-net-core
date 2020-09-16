@@ -1,12 +1,12 @@
 ﻿@model mvCommerce.Models.ViewModels.IndexViewModel
 @{
     ViewData["Title"] = "Index";
+    var search = Context.Request.Query["search"];
 }
     <head>
         <link rel="stylesheet" href="~/css/Index.css" />
     </head>
     <main role="main">
-
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
                 <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -67,11 +67,16 @@
             </a>
         </div>
 
+       
         <!-- Lista de Produtos -->
-
         @if (Model.List.Count > 0)
         {
     <div class="container" id="code_prod_complex">
+        <div class="row">
+            <div class="offset-md-10 col-md-2">
+                <i class="fas fa-filter"></i> Filtar<select id="ordering" asp-items="Model.Ordering"> </select>
+            </div>
+        </div>
         <div class="row">
             @foreach (var product in Model.List)
             {
@@ -112,7 +117,7 @@
 
             }
         </div>
-        @Html.PagedListPager((IPagedList)Model.List, page => Url.Action("Index", new { page }))
+        @Html.PagedListPager((IPagedList)Model.List, page => Url.Action("Index", new { page  = page, search = search}))
     </div>
            
         }
