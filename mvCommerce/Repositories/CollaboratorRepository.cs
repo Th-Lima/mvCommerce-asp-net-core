@@ -70,10 +70,9 @@ namespace mvCommerce.Repositories
             var collaboratorDatabase = _database.Collaborators.AsQueryable();
             if (!string.IsNullOrEmpty(search))
             {
-                collaboratorDatabase = collaboratorDatabase.Where(a => a.Name.Contains(search.Trim()) || a.Email.Contains(search.Trim()));
+                collaboratorDatabase = collaboratorDatabase.Where(a => a.Name.Contains(search.Trim()) || a.Email.Equals(search.Trim()));
             }
             return collaboratorDatabase.Where(c => c.Type != CollaboratorTypeConstant.Manager).ToPagedList<Collaborator>(pageNumber, registerPerPage);
-            //return _database.Collaborators.Where(c => c.Type != CollaboratorTypeConstant.Manager).ToPagedList(pageNumber, registerPerPage);
         }
 
         public List<Collaborator> GetCollaboratorPerEmail(string email)

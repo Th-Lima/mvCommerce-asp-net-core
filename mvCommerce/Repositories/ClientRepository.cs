@@ -53,7 +53,7 @@ namespace mvCommerce.Repositories
             var clientDatabase = _database.Client.AsQueryable();
             if (!string.IsNullOrEmpty(search))
             {
-                clientDatabase = clientDatabase.Where(a => a.Name.Contains(search.Trim()) || a.Email.Contains(search.Trim()));
+                clientDatabase = clientDatabase.Where(a => a.Name.Contains(search.Trim()) || a.Email.Equals(search.Trim()));
             }
 
             return clientDatabase.ToPagedList<Client>(pageNumber, registerPerPage);
