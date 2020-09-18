@@ -62,12 +62,18 @@ namespace mvCommerce.Repositories
             return _database.Collaborators.Find(id);
         }
 
-        public IPagedList<Collaborator> GetAllCollaborators(int? page)
+        public IPagedList<Collaborator> GetAllCollaborators(int? page, string search)
         {
             int pageNumber = page ?? 1;
             int registerPerPage = _configuration.GetValue<int>("RegisterPerPage");
-          
-            return _database.Collaborators.Where(c => c.Type != CollaboratorTypeConstant.Manager).ToPagedList(pageNumber, registerPerPage);
+
+            var collaboratorDatabase = _database.Collaborators.AsQueryable();
+            if (!string.IsNullOrEmpty(search))
+            {
+                collaboratorDatabase = collaboratorDatabase.Where(a => a.Name.Contains(search.Trim()) || a.Email.Contains(search.Trim()));
+            }
+            return collaboratorDatabase.Where(c => c.Type != CollaboratorTypeConstant.Manager).ToPagedList<Collaborator>(pageNumber, registerPerPage);
+            //return _database.Collaborators.Where(c => c.Type != CollaboratorTypeConstant.Manager).ToPagedList(pageNumber, registerPerPage);
         }
 
         public List<Collaborator> GetCollaboratorPerEmail(string email)

@@ -22,9 +22,9 @@ namespace mvCommerce.Areas.Collaborator.Controllers
             _sendEmail = sendEmail;
         }
       
-        public IActionResult Index(int? page)
+        public IActionResult Index(int? page, string search)
         {
-            IPagedList<Models.Collaborator> collaborators = _collaboratorRepository.GetAllCollaborators(page);
+            IPagedList<Models.Collaborator> collaborators = _collaboratorRepository.GetAllCollaborators(page, search);
 
             return View(collaborators);
         }
