@@ -36,14 +36,14 @@ namespace mvCommerce.Controllers
         }
       
         [HttpGet]
-        public IActionResult Index(int? page, string search)
+        public IActionResult Index(int? page, string search, string ordering)
         {
-            var viewModel = new IndexViewModel() { List = _productRepository.GetAllProducts(page, search) }; 
+            var viewModel = new IndexViewModel() { List = _productRepository.GetAllProducts(page, search, ordering) }; 
             return View(viewModel);
         }
        
         [HttpPost]
-        public IActionResult Index(int? page, string search, [FromForm]NewsletterEmail newsletter)
+        public IActionResult Index(int? page, string search, string ordering, [FromForm]NewsletterEmail newsletter)
         {
             if (ModelState.IsValid)
             {
@@ -55,7 +55,7 @@ namespace mvCommerce.Controllers
             }
             else
             {
-                var viewModel = new IndexViewModel() { List = _productRepository.GetAllProducts(page, search) };
+                var viewModel = new IndexViewModel() { List = _productRepository.GetAllProducts(page, search, ordering) };
                 return View(viewModel);
             }            
         }

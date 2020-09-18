@@ -36,10 +36,10 @@ namespace mvCommerce.Repositories
         }
         public Product GetProduct(int id)
         {
-            return _database.Products.Include(p => p.Images).Where(p => p.Id == id).FirstOrDefault();
+            return _database.Products.Include(p => p.Images).OrderBy(p => p.Name).Where(p => p.Id == id).FirstOrDefault();
         }
 
-        public IPagedList<Product> GetAllProducts(int? page, string search)
+        public IPagedList<Product> GetAllProducts(int? page, string search, string ordering)
         {
             int pageNumber = page ?? 1;
             int registerPerPage = _configuration.GetValue<int>("RegisterPerPage");
@@ -50,7 +50,28 @@ namespace mvCommerce.Repositories
                 productDatabase = productDatabase.Where(p => p.Name.Contains(search.Trim()));
             }
 
+            //Verify ordering
+            if (ordering == "A")
+            {
+                productDatabase = productDatabase.OrderBy(p => p.Name);
+            }
+            if (ordering == "ME")
+            {
+                productDatabase = productDatabase.OrderBy(p => p.Price);
+            }
+            if (ordering == "MA")
+            {
+                productDatabase = productDatabase.OrderByDescending(p => p.Price);
+            }
+
             return productDatabase.Include(p => p.Images).ToPagedList<Product>(pageNumber, registerPerPage);
         }
+
+        public IPagedList<Product> GetAllProducts(int? page, string search)
+        {
+            return GetAllProducts(page, search, "A");
+        }
+
+
     }
 }

@@ -12,5 +12,6 @@ namespace mvCommerce.Repositories.Contracts
 
         Product GetProduct(int id);
         IPagedList<Product> GetAllProducts(int? page, string search);
+        IPagedList<Product> GetAllProducts(int? page, string search, string ordering);
     }
 }
