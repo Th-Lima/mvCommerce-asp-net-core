@@ -1,8 +1,6 @@
-﻿@model mvCommerce.Models.ViewModels.IndexViewModel
+﻿@model NewsletterEmail
 @{
     ViewData["Title"] = "Index";
-    var search = Context.Request.Query["search"];
-    var ordering = Context.Request.Query["ordering"].ToString();
 }
     <head>
         <link rel="stylesheet" href="~/css/Index.css" />
@@ -68,69 +66,9 @@
             </a>
         </div>
 
-       
-        <!-- Lista de Produtos -->
-        @if (Model.List.Count > 0)
-        {
-    <div class="container" id="code_prod_complex">
-        <div class="row mb-5">
-            <div class="offset-md-9 mb-5 col-md-3">
-                 <i class="fas fa-filter"></i> Ordenar<select asp-for="@ordering" class="form-control"   id="ordering" asp-items="Model.Ordering"></select>
-            </div>
-        </div>
-        <div class="row">
-            @foreach (var product in Model.List)
-            {
-                <div class="col-md-3 mb-2">
-                    <figure class="card card-product">
-                        <div class="img-wrap">
-                            @if (product.Images != null && product.Images.Count() > 0)
-                            {
-                                <img src="@product.Images.ElementAt(0).Path" />
-                            }
-                            else
-                            {
-                                <img src="~/img/default-img.png" />
-                            }
-                        </div>
-                        <figcaption class="info-wrap">
-                            <h4 class="title">@product.Name</h4>
-                            @if (product.Description.Length >= 5)
-                            {
-                                string value = product.Description.Substring(0, Math.Min(25, product.Description.Length));
-                                <span>@value ...</span>
-                            }
-
-                        </figcaption>
-                        <div class="bottom-wrap">
-                            <div class="price-wrap h5">
-                                <span class="price-new">@product.Price.ToString("C")</span>
-                                <button class="btn btn-outline-success" title="Adiconar no carrinho"><img src="~/icons/cart.png"/></button>
-                            </div>
-                            @{
-                                var division = product.Price / 12;
-                            }
-                            <span>12x de @division.ToString("N2") sem juros</span>
-                        </div>
-
-                    </figure>
-                </div>
-
-            }
-        </div>
-        @Html.PagedListPager((IPagedList)Model.List, page => Url.Action("Index", new { page  = page, search = search, ordering = ordering}))
-    </div>
-        }
+        <!--Lisiting products-->
+        <vc:listing-product></vc:listing-product>
     </main>
-    @{
-    /*
-     * Html Helper 
-     */
-
-    /*
-     * URL: #Fragment
-     */
-    }
 
 
     @using(Html.BeginForm(null, null, null, FormMethod.Post, true, new { @action = @Url.Action("index", "home") + "#formNewsletter"}))
@@ -153,9 +91,9 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-envelope"></i></span>
                             </div>
-                            @Html.EditorFor(m => m.Newsletter.Email, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(m => m.Email, new { htmlAttributes = new { @class = "form-control" } })
                         </div>
-                        <span style="color:red">@Html.ValidationMessageFor(m => m.Newsletter.Email)</span>
+                        <span style="color:red">@Html.ValidationMessageFor(m => m.Email)</span>
                     </div>
                 </div>
                 <div class="col-sm-2">

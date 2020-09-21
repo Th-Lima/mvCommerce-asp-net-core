@@ -7,9 +7,8 @@ using X.PagedList;
 
 namespace mvCommerce.Models.ViewModels
 {
-    public class IndexViewModel
+    public class ListingProductViewModel
     {
-        public NewsletterEmail Newsletter { get; set; }
         public IPagedList<Product> List { get; set; }
         public List<SelectListItem> Ordering
         {
@@ -25,6 +24,5 @@ namespace mvCommerce.Models.ViewModels
             private set { }
 
         }
-
     }
 }
