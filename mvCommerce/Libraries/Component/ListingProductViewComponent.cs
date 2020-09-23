@@ -22,21 +22,20 @@ namespace mvCommerce.Libraries.Component
             string search = "";
             string ordering = "A";
 
-            if (HttpContext.Request.Query.ContainsKey("page"))
-            {
+            if (HttpContext.Request.Query.ContainsKey("page") && !string.IsNullOrEmpty(HttpContext.Request.Query["page"]))
+            { 
                 page = int.Parse(HttpContext.Request.Query["page"]);
             }
-            
-            if (HttpContext.Request.Query.ContainsKey("search"))
+
+            if (HttpContext.Request.Query.ContainsKey("search") && !string.IsNullOrEmpty(HttpContext.Request.Query["search"]))
             {
                 search = HttpContext.Request.Query["search"].ToString();
             }
 
-            if (HttpContext.Request.Query.ContainsKey("ordering"))
+            if (HttpContext.Request.Query.ContainsKey("ordering") && !string.IsNullOrEmpty(HttpContext.Request.Query["ordering"]))
             {
                 ordering = HttpContext.Request.Query["ordering"].ToString();
             }
-
 
             var viewModel = new ListingProductViewModel(){ List = _productRepository.GetAllProducts(page, search, ordering) };
            

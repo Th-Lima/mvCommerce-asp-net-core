@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
-    MoveScrollOrdering();
     ChangeOrdering();
+    MoveScrollOrdering();
 });
 function MoveScrollOrdering() {
     if (window.location.hash.length > 0) {
@@ -12,7 +12,6 @@ function MoveScrollOrdering() {
 }
 function ChangeOrdering() {
     $("#ordering").change(function () {
-        //TODO - REDIRECIONAR HOME/INDEX PASSANDO QUERYSTRING DE ORDENAÇÃO MANTENDO A PAGINA E A PESQUISA.
         var page = 1;
         var search = "";
         var ordering = $(this).val();
@@ -22,7 +21,7 @@ function ChangeOrdering() {
             page = queryString.get("page");
         }
         if (queryString.has("search")) {
-            page = queryString.get("search");
+            search = queryString.get("search");
         }
 
         var URL = window.location.protocol + "//" + window.location.host  + window.location.pathname;
