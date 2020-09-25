@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using mvCommerce.Models;
+using System;
 
 namespace mvCommerce.Database
 {
@@ -15,5 +16,10 @@ namespace mvCommerce.Database
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Image> Images { get; set; }
+
+        internal mvCommerceContext Where()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

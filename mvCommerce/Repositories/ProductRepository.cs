@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using mvCommerce.Database;
 using mvCommerce.Models;
 using mvCommerce.Repositories.Contracts;
+using System.Collections.Generic;
 using System.Linq;
 using X.PagedList;
 
@@ -39,7 +40,7 @@ namespace mvCommerce.Repositories
             return _database.Products.Include(p => p.Images).OrderBy(p => p.Name).Where(p => p.Id == id).FirstOrDefault();
         }
 
-        public IPagedList<Product> GetAllProducts(int? page, string search, string ordering)
+        public IPagedList<Product> GetAllProducts(int? page, string search, string ordering, IEnumerable<Category> categories)
         {
             int pageNumber = page ?? 1;
             int registerPerPage = _configuration.GetValue<int>("RegisterPerPage");
@@ -64,12 +65,21 @@ namespace mvCommerce.Repositories
                 productDatabase = productDatabase.OrderByDescending(p => p.Price);
             }
 
+            if(categories != null && categories.Count() > 0)
+            {
+                /*
+                 * IEnumerable Category
+                 * SQL: Whrer CategoryId IN (1,5...)
+                 */
+                productDatabase = productDatabase.Where(p => categories.Select(c => c.Id).Contains(p.CategoryId));
+            }
+
             return productDatabase.Include(p => p.Images).ToPagedList<Product>(pageNumber, registerPerPage);
         }
 
         public IPagedList<Product> GetAllProducts(int? page, string search)
         {
-            return GetAllProducts(page, search, "A");
+            return GetAllProducts(page, search, "A", null);
         }
 
 

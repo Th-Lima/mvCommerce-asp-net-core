@@ -1,7 +1,8 @@
 ﻿@model ListingProductViewModel
-@{ 
-     var search = Context.Request.Query["search"];
+@{
+    var search = Context.Request.Query["search"];
     var ordering = Context.Request.Query["ordering"].ToString();
+    var action = ViewContext.RouteData.Values["action"].ToString();
 }
 
 @if (Model.List.Count > 0)
@@ -52,6 +53,6 @@
 
             }
         </div>
-        @Html.PagedListPager((IPagedList)Model.List, page => Url.Action("Index", new { page = page, search = search, ordering = ordering }))
+        @Html.PagedListPager((IPagedList)Model.List, page => Url.Action(action, new { page = page, search = search, ordering = ordering }))
     </div>
 }

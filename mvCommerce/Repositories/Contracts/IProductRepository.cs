@@ -1,4 +1,5 @@
 ﻿using mvCommerce.Models;
+using System.Collections.Generic;
 using X.PagedList;
 
 namespace mvCommerce.Repositories.Contracts
@@ -12,6 +13,6 @@ namespace mvCommerce.Repositories.Contracts
 
         Product GetProduct(int id);
         IPagedList<Product> GetAllProducts(int? page, string search);
-        IPagedList<Product> GetAllProducts(int? page, string search, string ordering);
+        IPagedList<Product> GetAllProducts(int? page, string search, string ordering, IEnumerable<Category> categories);
     }
 }

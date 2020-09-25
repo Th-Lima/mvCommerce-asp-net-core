@@ -19,9 +19,9 @@ namespace mvCommerce.Libraries.Component
         
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var categoriesList = _categoryRepository.GetAllCategories().ToList();
+            var categoriesList =  _categoryRepository.GetAllCategories().ToList();
             
-            return View(categoriesList);
+            return  View(categoriesList);
         }
     }
 }

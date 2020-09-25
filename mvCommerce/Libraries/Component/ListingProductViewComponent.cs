@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using mvCommerce.Models;
 using mvCommerce.Models.ViewModels;
 using mvCommerce.Repositories.Contracts;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace mvCommerce.Libraries.Component
@@ -8,9 +10,12 @@ namespace mvCommerce.Libraries.Component
     public class ListingProductViewComponent : ViewComponent
     {
         private IProductRepository _productRepository;
-        public ListingProductViewComponent(IProductRepository productRepository)
+        private ICategoryRepository _categoryRepository;
+
+        public ListingProductViewComponent(IProductRepository productRepository, ICategoryRepository categoryRepository)
         {
             _productRepository = productRepository;
+            _categoryRepository = categoryRepository;
         }
 
         public async Task<IViewComponentResult> InvokeAsync()
@@ -18,6 +23,7 @@ namespace mvCommerce.Libraries.Component
             int? page = 1;
             string search = "";
             string ordering = "A";
+            IEnumerable<Category> categories = null;
 
             if (HttpContext.Request.Query.ContainsKey("page") && !string.IsNullOrEmpty(HttpContext.Request.Query["page"]))
             { 
@@ -33,8 +39,14 @@ namespace mvCommerce.Libraries.Component
             {
                 ordering = HttpContext.Request.Query["ordering"].ToString();
             }
+            if (ViewContext.RouteData.Values.ContainsKey("slug") && !string.IsNullOrEmpty(ViewContext.RouteData.Values["slug"].ToString()))
+            {
+                string slug = ViewContext.RouteData.Values["slug"].ToString();
+                Category mainCategory = _categoryRepository.GetCategory(slug);
+                categories =  _categoryRepository.GetCategoryRecursively(mainCategory);
+            }
 
-            var viewModel = new ListingProductViewModel(){ List = _productRepository.GetAllProducts(page, search, ordering) };
+            var viewModel = new ListingProductViewModel(){ List = _productRepository.GetAllProducts(page, search, ordering, categories) };
            
             return View(viewModel);
         }
