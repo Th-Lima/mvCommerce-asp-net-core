@@ -89,6 +89,9 @@ aside {
 ul{
     color:white;
 }
+li#categories{
+    color:black;
+}
 .carousel-inner {
     margin: auto;
 }

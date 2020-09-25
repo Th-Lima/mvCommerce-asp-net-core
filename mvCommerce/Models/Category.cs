@@ -23,7 +23,8 @@ namespace mvCommerce.Models
          * www.mvCommerce.com.br/category/1
          * EX -> www.mvCommerce.com.br/category/toys -> friendly url with slug
          */
-         [Display(Name = "Slug")]
+         //TODO - CRIAR VALIDAÇÃO DE SLUG ÚNICO OU GERAÇÃO AUTOMÁTICO DO SLUG
+        [Display(Name = "Slug")]
         [Required(ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E001")]
         [MinLength(4, ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E002")]
         public string Slug { get; set; }

@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewData["Title"] = "CategoryList";
+    var slug = ViewContext.RouteData.Values["slug"];
+}
+
+<h1>Listagem Categoria - @slug</h1>
+<ul >
+    @foreach (Category category in ViewBag.Categories)
+    {
+    <li id="categories">@category.Id -  @category.Name</li>
+    }
+</ul>
+

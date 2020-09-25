@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using mvCommerce.Models.ViewModels;
 using mvCommerce.Repositories.Contracts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace mvCommerce.Libraries.Component

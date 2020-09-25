@@ -4,6 +4,7 @@ using mvCommerce.Database;
 using mvCommerce.Models;
 using mvCommerce.Repositories.Contracts;
 using System.Collections.Generic;
+using System.Linq;
 using X.PagedList;
 
 namespace mvCommerce.Repositories
@@ -12,6 +13,9 @@ namespace mvCommerce.Repositories
     {
         private IConfiguration _configuration;
         private mvCommerceContext _database;
+        private List<Category> _listCategoryRecursively = new List<Category>();
+        private List<Category> _categories;
+        
         public CategoryRepository(mvCommerceContext database, IConfiguration configuration)
         {
             _database = database;
@@ -36,10 +40,54 @@ namespace mvCommerce.Repositories
             _database.Remove(category);
             _database.SaveChanges();
         }
-
+        
+        /// <summary>
+        /// Get category find by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public Category GetCategory(int id)
         {
             return _database.Categories.Find(id);
+        }
+        
+        /// <summary>
+        /// Get category find by slug
+        /// </summary>
+        /// <param name="slug"></param>
+        /// <returns></returns>
+        public Category GetCategory(string slug)
+        {
+            return _database.Categories.Where(c => c.Slug == slug).FirstOrDefault();
+        }
+
+        /// <summary>
+        /// Get Categories recursively
+        /// </summary>
+        /// <param name="fatherCategory"></param>
+        /// <returns></returns>
+        public IEnumerable<Category> GetCategoryRecursively(Category fatherCategory)
+        {
+            if(_categories == null) _categories = GetAllCategories().ToList();
+
+            var childCategory = _categories.Where(c => c.CategoryFatherId == fatherCategory.Id);
+          
+            if (!_listCategoryRecursively.Exists(c => c.Id == fatherCategory.Id))
+            {
+                _listCategoryRecursively.Add(fatherCategory);
+            }
+            
+           
+            if (childCategory.Count() > 0)
+            {
+                _listCategoryRecursively.AddRange(childCategory.ToList());
+                foreach (var category in childCategory)
+                {
+                    GetCategoryRecursively(category);
+                }
+            }
+
+            return _listCategoryRecursively;
         }
 
         public IPagedList<Category> GetAllCategories(int? page)
