@@ -19,7 +19,8 @@ namespace mvCommerce.Models
        
         [Display(Name = "Descrição")]
         [Required(ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E001")]
-        [Range(15, 240, ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E006")]
+        [MinLength(15, ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E002")]
+        [MaxLength(240)]
         public string Description { get; set; }
         
         [Display(Name = "Quantidade")]

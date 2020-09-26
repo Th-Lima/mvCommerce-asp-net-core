@@ -17,9 +17,9 @@ namespace mvCommerce.Controllers
 
         [HttpGet]
         [Route("Product/Category/{slug}")]
-        public IActionResult CategoryList()
+        public IActionResult CategoryList(string slug)
         {
-            return View();
+            return View(_categoryRepository.GetCategory(slug));
         }
         
        

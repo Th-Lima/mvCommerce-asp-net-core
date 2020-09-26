@@ -15,6 +15,7 @@ function ChangeOrdering() {
         var page = 1;
         var search = "";
         var ordering = $(this).val();
+        var fragment = "#positionProduct";
 
         var queryString = new URLSearchParams(window.location.search);
         if (queryString.has("page")) {
@@ -24,9 +25,13 @@ function ChangeOrdering() {
             search = queryString.get("search");
         }
 
+        if ($("#breadcrumbs").length > 0) {
+            fragment = "";
+        }
+
         var URL = window.location.protocol + "//" + window.location.host  + window.location.pathname;
 
-        var urlWithParameters = URL + "?page=" + page + "&search=" + search + "&ordering=" + ordering + "#positionProduct";
+        var urlWithParameters = URL + "?page=" + page + "&search=" + search + "&ordering=" + ordering + fragment;
 
         window.location.href = urlWithParameters;
     });

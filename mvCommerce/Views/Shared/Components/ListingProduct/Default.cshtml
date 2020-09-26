@@ -56,3 +56,14 @@
         @Html.PagedListPager((IPagedList)Model.List, page => Url.Action(action, new { page = page, search = search, ordering = ordering }))
     </div>
 }
+else
+{
+<br class="clearfix"/>
+<br class="clearfix" />
+<br class="clearfix" />
+    <div class="container">
+        <div class="alert alert-warning">
+            <strong>Oops,</strong> Nenhum produto encontrado para esta categoria!
+        </div>
+    </div>
+}
