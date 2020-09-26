@@ -7,12 +7,15 @@ label {
 button {
     box-shadow: 1px 1px 1px #a9a9a9;
 }
-nav.navbar{
-    height:60px;
+nav.navbar {
+    height: 60px;
+    opacity: 0.9;
+    height:70px;
 }
 #logo{
     color:white;
     font-family:Calibri;
+    font-size:20px;
 }
 a.logo{
     text-decoration:none;
