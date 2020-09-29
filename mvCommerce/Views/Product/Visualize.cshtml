@@ -1,22 +1,98 @@
 ﻿@model mvCommerce.Models.Product
 
-<h3>Produto -> Visualizar</h3>
-:)
+<br  style="clear:both" />
+<br  style="clear:both" />
+<br  style="clear:both" />
 
-@{
-    string name = "Thales";
-}
-<h1>@name</h1>
-<br />
-<h2>Produto</h2>
-<b>Código: </b> @Model.Id
-<br />
-<b>Nome: </b> @Model.Name
-<br />
-<b>Preço: </b> @Model.Price.ToString("C")
-<br />
-<b>Descrição: </b> @Model.Description
-<br />
+<div class="container">
+    <a href="/">< Voltar</a>
+    <br style="clear:both" />
+    <br style="clear:both" />
+    <section id="product_detail" >
+        <div id="code_prod_detail">
+            <div class="card">
+                <div class="row no-gutters">
+                    <aside class="col-sm-7 border-right">
+                        <article class="gallery-wrap">
+                            <div class="img-big-wrap" >
+                                <div>
+                                    @if (Model.Images != null && Model.Images.Count > 0)
+                                    {
+                                        <a class="big-image" href="@Model.Images.ElementAt(0).Path" data-fancybox><img src="@Model.Images.ElementAt(0).Path"></a>
+                                    }
+                                    else
+                                    {
+                                        <a href="~/img/default-img.png" data-fancybox><img src="~/img/default-img.png"></a>
+                                    }
+                                </div>
+                            </div> 
+                            <div class="img-small-wrap">
+                                @if (Model.Images != null && Model.Images.Count > 0)
+                                {
+                                    @foreach (Image image in Model.Images)
+                                    {
+                                        <div class="item-gallery"> <img src="@image.Path"></div>
+                                    }
+                                }
+                            </div> 
+                        </article> 
+                    </aside>
+                    <aside class="col-sm-5">
+                        <article class="p-5">
+                            <h3 class="title mb-3">@Model.Name</h3>
+                            <div class="mb-3">
+                                <var class="price h3 text-warning">
+                                    <span class="num">@Model.Price.ToString("C")</span>
+                                </var>
+                                <span>/ un</span>
+                            </div>
+                            <dl>
+                                <dt>Descrição:</dt>
+                                <dd>
+                                    <p>
+                                        @Model.Description
+                                    </p>
+                                </dd>
+                            </dl>
+                            <dl class="row">
+                                <dt class="col-sm-4">Peso: (Kg)</dt>
+                                <dd class="col-sm-8">@Model.Weight</dd>
 
-<br />
-Todos os direitos reservados &copy; @DateTime.Now.Year
+                                <dt class="col-sm-4">Largura:</dt>
+                                <dd class="col-sm-8">@Model.Width</dd>
+
+                                <dt class="col-sm-4">Altura:</dt>
+                                <dd class="col-sm-8">@Model.Height</dd>
+
+                                <dt class="col-sm-4">Comprimento:</dt>
+                                <dd class="col-sm-8">@Model.Length</dd>
+
+                                <dt class="col-sm-4">Quantidade:</dt>
+                                <dd class="col-sm-8">@Model.Amount</dd>
+                            </dl>
+
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-5">
+                                    <dl class="dlist-inline">
+                                        <dt>Quantity: </dt>
+                                        <dd>
+                                            <select class="form-control form-control-sm" style="width:70px;">
+                                                <option> 1 </option>
+                                                <option> 2 </option>
+                                                <option> 3 </option>
+                                            </select>
+                                        </dd>
+                                    </dl>  
+                                </div> 
+                     
+                            </div> 
+                            <hr>
+                            <a href="#" class="btn  btn-outline-info"> <i class="fas fa-shopping-cart"></i>Adicionar no Carrinho</a>
+                        </article>
+                    </aside>
+                </div> 
+            </div>
+        </div> 
+    </section>
+</div>

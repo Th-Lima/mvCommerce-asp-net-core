@@ -16,18 +16,22 @@
         <div class="row">
             @foreach (var product in Model.List)
             {
+
                 <div class="col-md-3 mb-2">
+
                     <figure class="card card-product">
-                        <div class="img-wrap">
-                            @if (product.Images != null && product.Images.Count() > 0)
-                            {
-                                <img src="@product.Images.ElementAt(0).Path" />
-                            }
-                            else
-                            {
-                                <img src="~/img/default-img.png" />
-                            }
-                        </div>
+                        <a asp-controller="Product" asp-action="Visualize" asp-route-id="@product.Id">
+                            <div class="img-wrap">
+                                @if (product.Images != null && product.Images.Count() > 0)
+                                {
+                                    <img src="@product.Images.ElementAt(0).Path" />
+                                }
+                                else
+                                {
+                                    <img src="~/img/default-img.png" />
+                                }
+                            </div>
+                        </a>
                         <figcaption class="info-wrap">
                             <h4 class="title">@product.Name</h4>
                             @if (product.Description.Length >= 5)
@@ -49,6 +53,7 @@
                         </div>
 
                     </figure>
+
                 </div>
 
             }
@@ -58,9 +63,9 @@
 }
 else
 {
-<br class="clearfix"/>
-<br class="clearfix" />
-<br class="clearfix" />
+    <br class="clearfix" />
+    <br class="clearfix" />
+    <br class="clearfix" />
     <div class="container">
         <div class="alert alert-warning">
             <strong>Oops,</strong> Nenhum produto encontrado para esta categoria!

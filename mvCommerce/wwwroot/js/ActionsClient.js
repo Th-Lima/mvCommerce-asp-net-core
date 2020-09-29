@@ -1,7 +1,16 @@
 ﻿$(document).ready(function () {
     ChangeOrdering();
     MoveScrollOrdering();
+    ChangeImageProduct();
 });
+function ChangeImageProduct() {
+    $(".img-small-wrap img").click(function () {
+        var path = $(this).attr("src");
+        $(".img-big-wrap img").attr("src", path);
+        $(".img-big-wrap a").attr("href", path);
+    });
+}
+
 function MoveScrollOrdering() {
     if (window.location.hash.length > 0) {
         var hash = window.location.hash;

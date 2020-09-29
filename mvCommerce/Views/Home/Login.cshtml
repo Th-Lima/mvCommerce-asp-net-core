@@ -26,12 +26,31 @@
                             <form method="post">
                                 <div class="form-group">
                                     <label>E-mail</label>
-                                    <input asp-for="Email" class="form-control" placeholder="Email" type="email">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="fa fa-user"></i>
+                                                </span>
+                                            </div>
+                                            <input asp-for="Email" class="form-control" placeholder="Email" type="email">
+                                        </div>
+                                    </div>
+                                    
                                 </div>
                                 <div class="form-group">
                                     <a class="float-right" href="#">Esqueceu sua senha?</a>
                                     <label>Senha</label>
-                                    <input asp-for="Password" class="form-control" type="password" placeholder="*****">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="fa fa-lock"></i>
+                                                </span>
+                                            </div>
+                                            <input asp-for="Password" class="form-control" type="password" placeholder="*****">
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-info my-2 my-sm-0"> Entrar </button>

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using mvCommerce.Models;
 using mvCommerce.Repositories.Contracts;
 
 namespace mvCommerce.Controllers
@@ -21,24 +22,11 @@ namespace mvCommerce.Controllers
         {
             return View(_categoryRepository.GetCategory(slug));
         }
-        
-       
-        //public ActionResult Visualize()
-        //{
-        //   Product product =  GetProduct();
 
-
-        //    return View(product);
-        //}
-        ////private Product GetProduct()
-        ////{
-        ////    //return new Product()
-        ////    //{
-        ////    //    Id = 1,
-        ////    //    Name = "TV",
-        ////    //    Price = 1500.00,
-        ////    //    Description = "LED 40 POLEGADAS"
-        ////    //};
-        ////}
+        [HttpGet]
+        public ActionResult Visualize(int id)
+        {
+            return View(_productRepository.GetProduct(id));
+        }
     }
 }
