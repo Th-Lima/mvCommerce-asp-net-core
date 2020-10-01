@@ -15,7 +15,7 @@ namespace mvCommerce.Models
         
         [Display(Name = "Nome")]
         [Required(ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E001")]
-        [MinLength(4, ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E002")]
+        [MinLength(1, ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E002")]
         //TODO - Criate validation - Category name unique on database
         public string Name { get; set; }
       
@@ -26,7 +26,7 @@ namespace mvCommerce.Models
          //TODO - CRIAR VALIDAÇÃO DE SLUG ÚNICO OU GERAÇÃO AUTOMÁTICO DO SLUG
         [Display(Name = "Slug")]
         [Required(ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E001")]
-        [MinLength(4, ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E002")]
+        [MinLength(1, ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E002")]
         public string Slug { get; set; }
 
         /*
