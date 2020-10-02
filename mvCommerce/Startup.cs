@@ -15,6 +15,7 @@ using mvCommerce.Libraries.Middleware;
 using mvCommerce.Repositories;
 using mvCommerce.Repositories.Contracts;
 using mvCommerce.Libraries.Session;
+using mvCommerce.Libraries.ShoppingCart;
 
 namespace mvCommerce
 {
@@ -57,7 +58,8 @@ namespace mvCommerce
                 return smtp;
             });
             services.AddScoped<SendEmail>();
- 
+            services.AddScoped<ShoppingCart>();
+            services.AddScoped<Libraries.Cookie.Cookie>();
 
             services.Configure<CookiePolicyOptions>(options =>
             {
