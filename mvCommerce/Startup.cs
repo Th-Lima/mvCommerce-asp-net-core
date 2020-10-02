@@ -12,9 +12,9 @@ using mvCommerce.Database;
 using mvCommerce.Libraries.Email;
 using mvCommerce.Libraries.Login;
 using mvCommerce.Libraries.Middleware;
-using mvCommerce.Libraries.Session;
 using mvCommerce.Repositories;
 using mvCommerce.Repositories.Contracts;
+using mvCommerce.Libraries.Session;
 
 namespace mvCommerce
 {
@@ -76,6 +76,7 @@ namespace mvCommerce
             });
 
             services.AddScoped<Session>();
+            services.AddScoped<Libraries.Cookie.Cookie>();
             services.AddScoped<ClientLogin>();
             services.AddScoped<CollaboratorLogin>();
 
