@@ -36,7 +36,7 @@ namespace mvCommerce.Controllers
             }
             else
             {
-                var item = new ProductItem() { Id = id, Amount = 1 };
+                var item = new ProductItem() { Id = id, AmountProductsCart = 1 };
                 _shoppingCart.Register(item);
 
                 return RedirectToAction(nameof(Index));
@@ -45,7 +45,7 @@ namespace mvCommerce.Controllers
 
         public IActionResult UpdateAmount(int id, int amount)
         {
-            var item = new ProductItem() { Id = id, Amount = amount };
+            var item = new ProductItem() { Id = id, AmountProductsCart = amount };
             _shoppingCart.Update(item);
             return RedirectToAction(nameof(Index));
         }
