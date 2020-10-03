@@ -23,6 +23,25 @@ namespace mvCommerce.Controllers
 
         public IActionResult Index()
         {
+            List<ProductItem> productItemInCart = _shoppingCart.Consult();
+            List<ProductItem> productItemComplete = new List<ProductItem>();
+
+            foreach (var item in productItemInCart)
+            {
+                //TODO - Implement AutoMapper
+                Product product =  _productRepository.GetProduct(item.Id);
+
+                ProductItem productItem = new ProductItem();
+                productItem.Id = product.Id;
+                productItem.Name = product.Name;
+                productItem.Description = product.Description;
+                productItem.Images = product.Images;
+                productItem.Price = product.Price;
+                productItem.AmountProductsCart = item.AmountProductsCart;
+
+                productItemComplete.Add(productItem);
+            }
+
             return View();
         }
 
