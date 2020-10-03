@@ -16,8 +16,11 @@ label {
 button {
     box-shadow: 3px 3px 3px #a9a9a9;
 }
-#dropdownMenu1{
-    box-shadow:none;
+#addCart {
+    box-shadow: 3px 3px 3px #a9a9a9;
+}
+#dropdownMenu1 {
+    box-shadow: none;
 }
 
 #formMenu input[type= "text"] {

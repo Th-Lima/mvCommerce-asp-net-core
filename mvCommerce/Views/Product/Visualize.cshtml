@@ -71,24 +71,8 @@
                                 <dd class="col-sm-8">@Model.Amount</dd>
                             </dl>
 
-                            <hr>
-                            <div class="row">
-                                <div class="col-sm-5">
-                                    <dl class="dlist-inline">
-                                        <dt>Quantity: </dt>
-                                        <dd>
-                                            <select class="form-control form-control-sm" style="width:70px;">
-                                                <option> 1 </option>
-                                                <option> 2 </option>
-                                                <option> 3 </option>
-                                            </select>
-                                        </dd>
-                                    </dl>  
-                                </div> 
-                     
-                            </div> 
-                            <hr>
-                            <a href="#" class="btn  btn-outline-info"> <i class="fas fa-shopping-cart"></i>Adicionar no Carrinho</a>
+                           
+                            <button asp-controller="ShoppingCart" asp-action="AddItem" asp-route-id="@Model.Id" class="btn  btn-outline-info"> <i class="fas fa-shopping-cart"></i>Adicionar no Carrinho</button>
                         </article>
                     </aside>
                 </div> 

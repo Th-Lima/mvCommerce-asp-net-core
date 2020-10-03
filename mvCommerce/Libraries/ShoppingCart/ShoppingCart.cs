@@ -33,7 +33,6 @@ namespace mvCommerce.Libraries.ShoppingCart
                 {
                     itemLocalized.Amount = itemLocalized.Amount++; 
                 }
-                list.Add(item);
             }
             else
             {

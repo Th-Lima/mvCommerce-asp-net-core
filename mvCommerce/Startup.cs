@@ -85,7 +85,8 @@ namespace mvCommerce
             services.AddMvc(options =>
             {
                 options.ModelBindingMessageProvider.SetValueMustNotBeNullAccessor(x => "Este campo não pode ser vazio");
-            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2).AddSessionStateTempDataProvider();
+            //services.AddSession(options => { options.Cookie.IsEssential = true; });
 
             services.AddDbContext<mvCommerceContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
         }

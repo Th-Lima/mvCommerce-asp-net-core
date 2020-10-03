@@ -42,7 +42,7 @@ namespace mvCommerce.Controllers
                 productItemComplete.Add(productItem);
             }
 
-            return View();
+            return View(productItemComplete);
         }
 
         //Item ID = ID Product
@@ -55,6 +55,7 @@ namespace mvCommerce.Controllers
             }
             else
             {
+                //TODO - Caso o produto já exista deve ser adicionado uma quantidade maior
                 var item = new ProductItem() { Id = id, AmountProductsCart = 1 };
                 _shoppingCart.Register(item);
 

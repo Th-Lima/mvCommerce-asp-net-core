@@ -44,7 +44,7 @@
                         <div class="bottom-wrap">
                             <div class="price-wrap h5">
                                 <span class="price-new">@product.Price.ToString("C")</span>
-                                <button class="btn btn-outline-success" title="Adiconar no carrinho"><img src="~/icons/cart.png" /></button>
+                                <a asp-controller="ShoppingCart" asp-action="AddItem" asp-route-id="@product.Id"  class="btn btn-outline-success" title="Adicionar no carrinho" id="addCart"><img src="~/icons/cart.png" /></a>
                             </div>
                             @{
                                 var division = product.Price / 12;
