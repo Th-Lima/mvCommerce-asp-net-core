@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using mvCommerce.Database;
 using mvCommerce.Models;
+using mvCommerce.Models.ProductAggregator;
 using mvCommerce.Repositories.Contracts;
 using System.Collections.Generic;
 using System.Linq;

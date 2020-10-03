@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using mvCommerce.Models.ProductAggregator;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -14,13 +15,12 @@ namespace mvCommerce.Libraries.ShoppingCart
             _cookie = cookie;
         }
 
-
         /*
          * CRUD
          */
-        public void Register(Item item)
+        public void Register(ProductItem item)
         {
-            List<Item> list;
+            List<ProductItem> list;
             if (_cookie.isExisting(Key))
             {
                 list = Consult();
@@ -37,13 +37,13 @@ namespace mvCommerce.Libraries.ShoppingCart
             }
             else
             {
-                list = new List<Item>();
+                list = new List<ProductItem>();
                 list.Add(item);
             }
 
             Save(list);
         }
-        public void Update(Item item)
+        public void Update(ProductItem item)
         {
             var list = Consult();
             var itemLocalized = list.SingleOrDefault(i => i.Id == item.Id);
@@ -53,7 +53,7 @@ namespace mvCommerce.Libraries.ShoppingCart
                 Save(list);
             }
         }
-        public void Remove(Item item)
+        public void Remove(ProductItem item)
         {
             var list = Consult();
             var itemLocalized = list.SingleOrDefault(i => i.Id == item.Id);
@@ -63,21 +63,21 @@ namespace mvCommerce.Libraries.ShoppingCart
                 Save(list);
             }
         }
-        public List<Item> Consult()
+        public List<ProductItem> Consult()
         {
             if (_cookie.isExisting(Key))
             {
                 string value = _cookie.Consult(Key);
-                return JsonConvert.DeserializeObject<List<Item>>(value);
+                return JsonConvert.DeserializeObject<List<ProductItem>>(value);
             }
             else
             {
-                return new List<Item>();
+                return new List<ProductItem>();
             }
             
         }
 
-        public void Save(List<Item> list)
+        public void Save(List<ProductItem> list)
         {
             string value = JsonConvert.SerializeObject(list);
             _cookie.Register(Key, value);
@@ -94,11 +94,5 @@ namespace mvCommerce.Libraries.ShoppingCart
         {
             _cookie.Remove(Key);
         }
-    }
-
-    public class Item
-    {
-        public int? Id { get; set; }
-        public int? Amount { get; set; }
     }
 }

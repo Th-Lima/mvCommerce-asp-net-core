@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using mvCommerce.Models;
+using mvCommerce.Models.ProductAggregator;
 using System;
 
 namespace mvCommerce.Database

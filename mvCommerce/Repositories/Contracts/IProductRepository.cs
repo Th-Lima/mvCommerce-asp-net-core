@@ -1,4 +1,5 @@
 ﻿using mvCommerce.Models;
+using mvCommerce.Models.ProductAggregator;
 using System.Collections.Generic;
 using X.PagedList;
 
