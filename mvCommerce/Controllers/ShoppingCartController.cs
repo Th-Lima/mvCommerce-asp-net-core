@@ -61,6 +61,7 @@ namespace mvCommerce.Controllers
 
         public IActionResult UpdateAmount(int id, int amount)
         {
+            //TODO - VALIDAR SE EXISTE ESSA QUANTIDADE NO ESTOQUE
             var item = new ProductItem() { Id = id, AmountProductsCart = amount };
             _shoppingCart.Update(item);
             return RedirectToAction(nameof(Index));

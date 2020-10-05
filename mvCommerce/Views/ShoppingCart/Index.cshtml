@@ -40,21 +40,23 @@
                                 </td>
                                 <td>
                                     <div class="col-auto">
-                                        <label class="sr-only" for="inlineFormInputGroup">Username</label>
                                         <div class="input-group mb-2">
+                                            <input type="hidden" value="@item.Id" class="inputProductId"/>
+                                            <input type="hidden" value="@item.Amount" class="inputAmountStore"/>
+                                            <input type="hidden" value="@item.Price" class="inputValueUnit"/>
                                             <div class="input-group-prepend">
-                                                <a class="btn btn-outline-info" style="width: 60px"> + </a>
+                                                <a class="btn btn-outline-info amount amountLarger" style="width: 60px"> + </a>
                                             </div>
-                                            <input readonly="readonly" type="text" value="@item.AmountProductsCart" style="width: 60px; border:none; text-align:center;" />
-                                            <div class="input-group-append">
-                                                <a  class="btn btn-outline-info" style="width: 60px"> - </a>
+                                            <input class="inputAmountProductCart" readonly="readonly" type="text" value="@item.AmountProductsCart" style="width: 60px; border:none; text-align:center;" />
+                                            <div class="input-group-append"> 
+                                                <a  class="btn btn-outline-info amount amountLess" style="width: 60px"> - </a>
                                             </div>
                                         </div>
                                     </div>
                                 </td>
                                 <td>
-                                    <div class="price-wrap">
-                                        <var class="price"><small>Total: </small> @((item.Price * item.AmountProductsCart).ToString("C"))</var>
+                                    <div class="price-wrap col-md-12" style="width:250px;">
+                                        <var class="price"><small>Total: </small> <span style="font-size:x-large" class="priceProduct">@((item.Price * item.AmountProductsCart).ToString("C"))</span></var>
                                         <small class="text-muted">(@item.Price.ToString("C") cada)</small>
                                     </div> <!-- price-wrap .// -->
                                 </td>
