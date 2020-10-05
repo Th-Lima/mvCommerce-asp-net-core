@@ -161,10 +161,5 @@ namespace mvCommerce.Controllers
             }
             return View();
         }
-        public IActionResult ShoppingCart()
-        {
-            return View();
-        }
-
     }
 }

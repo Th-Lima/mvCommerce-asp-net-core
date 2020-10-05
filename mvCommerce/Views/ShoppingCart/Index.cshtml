@@ -1,5 +1,5 @@
 ﻿@model List<mvCommerce.Models.ProductAggregator.ProductItem>
-@{ 
+@{
     ViewData["Title"] = "Index";
 }
 
@@ -14,8 +14,8 @@
                         <tr>
                             <th scope="col">Produto</th>
                             <th scope="col" width="120">Quantidade</th>
-                            <th scope="col" width="120">Preço</th>
-                            <th scope="col" width="200" class="text-right">Ação</th>
+                            <th scope="col" width="170">Preço</th>
+                            <th scope="col" width="280" class="text-right">Ação</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -32,28 +32,34 @@
                                                 <dd>XXL</dd>
                                             </dl>
                                             <dl class="dlist-inline small">
-                                                <dt>Color: </dt>
-                                                <dd>Orange color</dd>
+                                                <dt>Quantidade: </dt>
+                                                <dd>@item.AmountProductsCart</dd>
                                             </dl>
                                         </figcaption>
                                     </figure>
                                 </td>
                                 <td>
-                                    <select class="form-control">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                    </select>
+                                    <div class="col-auto">
+                                        <label class="sr-only" for="inlineFormInputGroup">Username</label>
+                                        <div class="input-group mb-2">
+                                            <div class="input-group-prepend">
+                                                <a class="btn btn-outline-info" style="width: 60px"> + </a>
+                                            </div>
+                                            <input readonly="readonly" type="text" value="@item.AmountProductsCart" style="width: 60px; border:none; text-align:center;" />
+                                            <div class="input-group-append">
+                                                <a  class="btn btn-outline-info" style="width: 60px"> - </a>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </td>
                                 <td>
                                     <div class="price-wrap">
-                                        <var class="price">@((item.Price * item.AmountProductsCart).ToString("C"))</var>
+                                        <var class="price"><small>Total: </small> @((item.Price * item.AmountProductsCart).ToString("C"))</var>
                                         <small class="text-muted">(@item.Price.ToString("C") cada)</small>
                                     </div> <!-- price-wrap .// -->
                                 </td>
                                 <td class="text-right">
-                                <a asp-controller="ShoppingCart" asp-action="RemoveItem" asp-route-id="@item.Id" class="btn btn-outline-danger"> × Remover</a>
+                                    <a asp-controller="ShoppingCart" asp-action="RemoveItem" asp-route-id="@item.Id" class="btn btn-outline-danger"> × Remover</a>
                                 </td>
                             </tr>
 
@@ -67,7 +73,7 @@
     <br />
     <section class="container">
         <div class="row">
-           
+
             <aside class="col-md-4">
                 <h4 class="subtitle-doc">
                     Frete
@@ -79,7 +85,7 @@
                             <dd><input class="form-control" type="text" name="cep" /></dd>
                         </dl>
                         <dl class="dlist-align">
-                            <dt><input type="radio" name="frete" value="sedex"/> </dt>
+                            <dt><input type="radio" name="frete" value="sedex" /> </dt>
                             <dd>SEDEX - R$ 99,95</dd>
                         </dl>
                         <dl class="dlist-align">

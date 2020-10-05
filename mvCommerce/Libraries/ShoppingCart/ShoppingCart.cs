@@ -25,13 +25,13 @@ namespace mvCommerce.Libraries.ShoppingCart
             {
                 list = Consult();
                 var itemLocalized = list.SingleOrDefault(i => i.Id == item.Id);
-                if (itemLocalized != null)
+                if (itemLocalized == null)
                 {
                     list.Add(item);
                 }
                 else
                 {
-                    itemLocalized.Amount = itemLocalized.Amount++; 
+                    itemLocalized.AmountProductsCart = itemLocalized.AmountProductsCart + 1;
                 }
             }
             else
@@ -48,7 +48,7 @@ namespace mvCommerce.Libraries.ShoppingCart
             var itemLocalized = list.SingleOrDefault(i => i.Id == item.Id);
             if (itemLocalized != null)
             {
-                itemLocalized.Amount = item.Amount;
+                itemLocalized.AmountProductsCart = item.AmountProductsCart;
                 Save(list);
             }
         }

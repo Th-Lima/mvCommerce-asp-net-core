@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using mvCommerce.Libraries.ShoppingCart;
 using mvCommerce.Models;
@@ -14,11 +15,13 @@ namespace mvCommerce.Controllers
     {
         private ShoppingCart _shoppingCart;
         private IProductRepository _productRepository;
+        private IMapper _mapper;
 
-        public ShoppingCartController (ShoppingCart shoppingCart, IProductRepository productRepository)
+        public ShoppingCartController (ShoppingCart shoppingCart, IProductRepository productRepository, IMapper mapper)
         {
             _shoppingCart = shoppingCart;
             _productRepository = productRepository;
+            _mapper = mapper;
         }
 
         public IActionResult Index()
@@ -28,15 +31,9 @@ namespace mvCommerce.Controllers
 
             foreach (var item in productItemInCart)
             {
-                //TODO - Implement AutoMapper
                 Product product =  _productRepository.GetProduct(item.Id);
 
-                ProductItem productItem = new ProductItem();
-                productItem.Id = product.Id;
-                productItem.Name = product.Name;
-                productItem.Description = product.Description;
-                productItem.Images = product.Images;
-                productItem.Price = product.Price;
+                ProductItem productItem = _mapper.Map<ProductItem>(product);
                 productItem.AmountProductsCart = item.AmountProductsCart;
 
                 productItemComplete.Add(productItem);
@@ -55,7 +52,6 @@ namespace mvCommerce.Controllers
             }
             else
             {
-                //TODO - Caso o produto já exista deve ser adicionado uma quantidade maior
                 var item = new ProductItem() { Id = id, AmountProductsCart = 1 };
                 _shoppingCart.Register(item);
 

@@ -16,6 +16,8 @@ using mvCommerce.Repositories;
 using mvCommerce.Repositories.Contracts;
 using mvCommerce.Libraries.Session;
 using mvCommerce.Libraries.ShoppingCart;
+using AutoMapper;
+using mvCommerce.Libraries.AutoMapper;
 
 namespace mvCommerce
 {
@@ -32,8 +34,15 @@ namespace mvCommerce
         public void ConfigureServices(IServiceCollection services)
         {
             /*
+             * AutoMapper
+             */
+           
+            services.AddAutoMapper(config => config.AddProfile<MappingProfile>());
+
+            /*
              * Repository pattern 
              */
+            
             services.AddHttpContextAccessor();
             services.AddScoped<IClientRepository, ClientRepository>();
             services.AddScoped<INewsletterRepository, NewsletterRepository>();
@@ -46,7 +55,8 @@ namespace mvCommerce
             /*
              * SMTP
              */
-            services.AddScoped<SmtpClient>(options => {
+            services.AddScoped<SmtpClient>(options =>
+            {
                 SmtpClient smtp = new SmtpClient()
                 {
                     Host = Configuration.GetValue<string>("Email:ServerSMTP"),
