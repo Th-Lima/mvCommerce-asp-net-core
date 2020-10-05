@@ -4,13 +4,17 @@
     ChangeImageProduct();
     ChangeAmountProductCart();
 });
+function numberToReal(numero) {
+    var numero = numero.toFixed(2).split('.');
+    numero[0] = "R$ " + numero[0].split(/(?=(?:...)*$)/).join('.');
+    return numero.join(',');
+}
+
 function ChangeAmountProductCart() {
     $("#order .amount").click(function () {
-        var father = $(this).parent().parent();
 
         if ($(this).hasClass("amountLess")) {
             ChangeAmount("amountLess", $(this));
-           // var id = father.find(".inputProductId").val();
         }
 
         if ($(this).hasClass("amountLarger")) {
@@ -24,7 +28,7 @@ function ChangeAmount(operation, button) {
 
     var producId = father.find(".inputProductId").val();
     var amountStore = parseInt(father.find(".inputAmountStore").val());
-    var unitValue = parseFloat(father.find(".inputValueUnit").val());
+    var unitValue = parseFloat(father.find(".inputValueUnit").val().replace(",", "."));
 
     var inputAmountProductCart = father.find(".inputAmountProductCart");
     var amountProductCart = parseInt(inputAmountProductCart.val());
@@ -43,11 +47,12 @@ function ChangeAmount(operation, button) {
         else
         {
 
-        amountProductCart++;
+            amountProductCart++;
 
-        inputAmountProductCart.val(amountProductCart);
+            inputAmountProductCart.val(amountProductCart);
 
-        fieldPrice.text(unitValue * amountProductCart);
+            var result = unitValue * amountProductCart;
+            fieldPrice.text(numberToReal(result));
 
         }
 
@@ -64,7 +69,8 @@ function ChangeAmount(operation, button) {
 
             inputAmountProductCart.val(amountProductCart);
 
-            fieldPrice.text(unitValue * amountProductCart);
+            var result = unitValue * amountProductCart;
+            fieldPrice.text(numberToReal(result));
         }
     }
 

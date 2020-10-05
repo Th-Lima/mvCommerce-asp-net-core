@@ -16,7 +16,7 @@ namespace mvCommerce.Libraries.Cookie
         public void Register(string key, string value)
         {
             CookieOptions options = new CookieOptions();
-            options.IsEssential = true;
+            options.IsEssential = true; //Is necessary for work in google chrome
             options.Expires = DateTime.Now.AddDays(7);
 
             _context.HttpContext.Response.Cookies.Append(key, value, options);
