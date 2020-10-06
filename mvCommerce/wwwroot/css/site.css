@@ -17,7 +17,7 @@ button {
     box-shadow: 3px 3px 3px #a9a9a9;
 }
 #addCart {
-    box-shadow: 3px 3px 3px #a9a9a9;
+    border:none;
 }
 #dropdownMenu1 {
     box-shadow: none;

@@ -20,6 +20,7 @@
                 <div class="col-md-3 mb-2">
 
                     <figure class="card card-product">
+                        <a asp-controller="ShoppingCart" asp-action="AddItem" asp-route-id="@product.Id" class="btn btn-outline-success" title="Adicionar no carrinho" id="addCart"><span>Adicionar no carrinho</span><img src="~/icons/cart.png" /></a>
                         <a asp-controller="Product" asp-action="Visualize" asp-route-id="@product.Id">
                             <div class="img-wrap">
                                 @if (product.Images != null && product.Images.Count() > 0)
@@ -44,16 +45,14 @@
                         <div class="bottom-wrap">
                             <div class="price-wrap h5">
                                 <span class="price-new">@product.Price.ToString("C")</span>
-                                <a asp-controller="ShoppingCart" asp-action="AddItem" asp-route-id="@product.Id"  class="btn btn-outline-success" title="Adicionar no carrinho" id="addCart"><img src="~/icons/cart.png" /></a>
+
                             </div>
                             @{
                                 var division = product.Price / 12;
                             }
                             <span>12x de @division.ToString("N2") sem juros</span>
                         </div>
-
                     </figure>
-
                 </div>
 
             }

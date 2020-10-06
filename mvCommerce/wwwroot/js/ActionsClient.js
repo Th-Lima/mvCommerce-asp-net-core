@@ -14,16 +14,24 @@ function ChangeAmountProductCart() {
     $("#order .amount").click(function () {
 
         if ($(this).hasClass("amountLess")) {
-            ChangeAmount("amountLess", $(this));
+            ActionsManager("amountLess", $(this));
         }
 
         if ($(this).hasClass("amountLarger")) {
-            ChangeAmount("amountLarger", $(this));
+            ActionsManager("amountLarger", $(this));
         }
     });
 }
 
-function ChangeAmount(operation, button) {
+
+
+function ActionsManager(operation, button) {
+    /**
+     * 
+     * Load Values
+     * 
+     * */
+
     var father = button.parent().parent();
 
     var producId = father.find(".inputProductId").val();
@@ -31,51 +39,56 @@ function ChangeAmount(operation, button) {
     var unitValue = parseFloat(father.find(".inputValueUnit").val().replace(",", "."));
 
     var inputAmountProductCart = father.find(".inputAmountProductCart");
-    var amountProductCart = parseInt(inputAmountProductCart.val());
+    var amountProductCartOld = parseInt(inputAmountProductCart.val());
 
     var fieldPrice = button.parent().parent().parent().parent().parent().find(".priceProduct");
 
-    //TODO - Add validation
-    if (operation == "amountLarger")
-    {
+    var product = new ProductAmountAndPrice(producId, amountStore, unitValue, amountProductCartOld, 0, inputAmountProductCart, fieldPrice);
 
-        if (amountProductCart == amountStore)
-        {
+    /*
+     * 
+     * Call methods
+     * 
+     */
+    ChangeScreenProductCart(product, operation);
+   
+
+    //TODO - Update subValue
+}
+
+function ChangeScreenProductCart(product, operation) {
+    //TODO - Add validation
+    if (operation == "amountLarger") {
+
+        if (product.amountProductCartOld == product.amountStore) {
             alert("Oops, não possuimos estoque suficiente para este produto!")
         }
 
-        else
-        {
+        else {
+            product.amountProductCartNew = product.amountProductCartOld + 1;
 
-            amountProductCart++;
-
-            inputAmountProductCart.val(amountProductCart);
-
-            var result = unitValue * amountProductCart;
-            fieldPrice.text(numberToReal(result));
+            UpdateAmountAndValue(product);
 
         }
 
-    } else if (operation == "amountLess")
-
-    {
-        if (amountProductCart == 1)
-        {
+    } else if (operation == "amountLess") {
+        if (product.amountProductCartOld == 1) {
             alert("Oops, caso não deseje mais esse produto, clique em remover")
         }
-        else
-        {
-            amountProductCart--;
+        else {
+            product.amountProductCartNew = product.amountProductCartOld - 1;
 
-            inputAmountProductCart.val(amountProductCart);
-
-            var result = unitValue * amountProductCart;
-            fieldPrice.text(numberToReal(result));
+            UpdateAmountAndValue(product);
         }
     }
+}
 
-    //TODO - Update subValue
+function UpdateAmountAndValue(product) {
 
+    product.inputAmountProductCart.val(product.amountProductCartNew);
+
+    var result = product.unitValue * product.amountProductCartNew;
+    product.fieldPrice.text(numberToReal(result));
 }
 
 function ChangeImageProduct() {
@@ -119,4 +132,25 @@ function ChangeOrdering() {
 
         window.location.href = urlWithParameters;
     });
+}
+
+
+
+
+/*
+ * ---------- Classes --------------
+ */
+
+class ProductAmountAndPrice {
+    constructor(producId, amountStore, unitValue, amountProductCartOld, amountProductCartNew, inputAmountProductCart, fieldPrice) {
+        this.producId = producId;
+        this.amountStore = amountStore;
+        this.unitValue = unitValue;
+
+        this.amountProductCartOld = amountProductCartOld;
+        this.amountProductCartNew = amountProductCartNew;
+
+        this.inputAmountProductCart = inputAmountProductCart;
+        this.fieldPrice = fieldPrice;
+    }
 }
