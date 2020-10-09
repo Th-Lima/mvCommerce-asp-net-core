@@ -4,7 +4,12 @@
     var ordering = Context.Request.Query["ordering"].ToString();
     var action = ViewContext.RouteData.Values["action"].ToString();
 }
-
+<br />
+<br />
+@if (TempData["MSG_S"] != null)
+{
+    <p class="alert alert-success text-center col-md-5 mb-5" style="margin:auto; border:1px solid green"><b>@TempData["MSG_S"]</b></p>
+}
 @if (Model.List.Count > 0)
 {
     <div class="container" id="code_prod_complex">
@@ -20,7 +25,7 @@
                 <div class="col-md-3 mb-2">
 
                     <figure class="card card-product">
-                        <a asp-controller="ShoppingCart" asp-action="AddItem" asp-route-id="@product.Id" class="btn btn-outline-success" title="Adicionar no carrinho" id="addCart"><span>Adicionar no carrinho</span><img src="~/icons/cart.png" /></a>
+                        <a asp-controller="ShoppingCart" asp-action="AddItem" asp-route-id="@product.Id" class="btn btn-outline-success" title="Adicionar no carrinho" id="addCart"><span>Adicionar no carrinho </span><img src="~/icons/cart.png" /></a>
                         <a asp-controller="Product" asp-action="Visualize" asp-route-id="@product.Id">
                             <div class="img-wrap">
                                 @if (product.Images != null && product.Images.Count() > 0)

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using mvCommerce.Libraries.Lang;
 using mvCommerce.Libraries.ShoppingCart;
 using mvCommerce.Models;
 using mvCommerce.Models.ProductAggregator;
@@ -55,16 +56,32 @@ namespace mvCommerce.Controllers
                 var item = new ProductItem() { Id = id, AmountProductsCart = 1 };
                 _shoppingCart.Register(item);
 
-                return RedirectToAction(nameof(Index));
+                TempData["MSG_S"] = Message.MSG_S004;
+                return RedirectToAction("Index", "Home");
             }
         }
 
         public IActionResult UpdateAmount(int id, int amount)
         {
-            //TODO - VALIDAR SE EXISTE ESSA QUANTIDADE NO ESTOQUE
-            var item = new ProductItem() { Id = id, AmountProductsCart = amount };
-            _shoppingCart.Update(item);
-            return RedirectToAction(nameof(Index));
+            Product product  = _productRepository.GetProduct(id);
+            if(amount < 1)
+            {
+                //Error
+                return BadRequest(new { message = Message.MSG_E007 });
+            
+            } 
+            else if (amount > product.Amount)
+            {
+                //Error
+                return BadRequest(new { message = Message.MSG_E008 });
+            }
+            else
+            {
+                //Ok
+                var item = new ProductItem() { Id = id, AmountProductsCart = amount };
+                _shoppingCart.Update(item);
+                return RedirectToAction(nameof(Index));
+            }
         }
 
         public IActionResult RemoveItem(int id)

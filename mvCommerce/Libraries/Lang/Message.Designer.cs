@@ -70,7 +70,7 @@ namespace mvCommerce.Libraries.Lang {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to O campo {0} deve ter no mínimo {1} caracteres.
+        ///   Looks up a localized string similar to O campo {0} deve ter no mínimo {1} caracteres..
         /// </summary>
         public static string MSG_E002 {
             get {
@@ -79,7 +79,7 @@ namespace mvCommerce.Libraries.Lang {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to O campo {0} deve ter no máximo {1} caracteres.
+        ///   Looks up a localized string similar to O campo {0} deve ter no máximo {1} caracteres..
         /// </summary>
         public static string MSG_E003 {
             get {
@@ -106,11 +106,29 @@ namespace mvCommerce.Libraries.Lang {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to O valor do campo {0} não está entre {1} e {2}.
+        ///   Looks up a localized string similar to O valor do campo {0} não está entre {1} e {2}..
         /// </summary>
         public static string MSG_E006 {
             get {
                 return ResourceManager.GetString("MSG_E006", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quantidade não pode ser 0, se não deseja mais o produto, por favor, remova do carrinho..
+        /// </summary>
+        public static string MSG_E007 {
+            get {
+                return ResourceManager.GetString("MSG_E007", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quantidade do produto solicitado é maior do que temos em estoque deste produto..
+        /// </summary>
+        public static string MSG_E008 {
+            get {
+                return ResourceManager.GetString("MSG_E008", resourceCulture);
             }
         }
         
@@ -138,6 +156,15 @@ namespace mvCommerce.Libraries.Lang {
         public static string MSG_S003 {
             get {
                 return ResourceManager.GetString("MSG_S003", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Produto adicionado ao carrinho!!.
+        /// </summary>
+        public static string MSG_S004 {
+            get {
+                return ResourceManager.GetString("MSG_S004", resourceCulture);
             }
         }
     }

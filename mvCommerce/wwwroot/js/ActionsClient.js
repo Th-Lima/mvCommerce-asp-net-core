@@ -1,4 +1,5 @@
-﻿$(document).ready(function () {
+﻿
+$(document).ready(function () {
     ChangeOrdering();
     MoveScrollOrdering();
     ChangeImageProduct();
@@ -26,6 +27,7 @@ function ChangeAmountProductCart() {
 
 
 function ActionsManager(operation, button) {
+    HideErrorMessage();
     /**
      * 
      * Load Values
@@ -60,27 +62,58 @@ function ChangeScreenProductCart(product, operation) {
     //TODO - Add validation
     if (operation == "amountLarger") {
 
-        if (product.amountProductCartOld == product.amountStore) {
-            alert("Oops, não possuimos estoque suficiente para este produto!")
+        /*if (product.amountProductCartOld == product.amountStore) {
+            alert("Oops, não possuimos estoque suficiente para este produto!");
         }
 
-        else {
+        else*/ {
             product.amountProductCartNew = product.amountProductCartOld + 1;
 
             UpdateAmountAndValue(product);
 
+            AJAXToCommunicateUpdateAmountProduct(product);
         }
 
     } else if (operation == "amountLess") {
-        if (product.amountProductCartOld == 1) {
+        /*if (product.amountProductCartOld == 1) {
             alert("Oops, caso não deseje mais esse produto, clique em remover")
         }
-        else {
+        else*/ {
             product.amountProductCartNew = product.amountProductCartOld - 1;
 
             UpdateAmountAndValue(product);
+
+            AJAXToCommunicateUpdateAmountProduct(product);
         }
     }
+}
+
+function AJAXToCommunicateUpdateAmountProduct(product) {
+
+    $.ajax({
+        type: "GET",
+        url: "/ShoppingCart/UpdateAmount?id=" + product.producId + "&amount=" + product.amountProductCartNew,
+        error: function (data) {
+            ShowErrorMesssage(data.responseJSON.message);
+            //Rollback
+            product.amountProductCartNew = product.amountProductCartOld;
+            UpdateAmountAndValue(product);
+        },
+        success: function () {
+
+        }
+    });
+}
+
+function ShowErrorMesssage(message) {
+    $(".alert-danger").css("display", "block");
+    $(".alert-danger").text(message);
+
+    setTimeout(HideErrorMessage, 6000);
+}
+
+function HideErrorMessage() {
+    $(".alert-danger").css("display", "none");
 }
 
 function UpdateAmountAndValue(product) {
