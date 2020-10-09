@@ -122,6 +122,20 @@ function UpdateAmountAndValue(product) {
 
     var result = product.unitValue * product.amountProductCartNew;
     product.fieldPrice.text(numberToReal(result));
+
+    UpdateSubTotal();
+}
+
+function UpdateSubTotal() {
+    var subTotal = 0;
+    
+    var tagsWithClassPrice = $(".price");
+
+    tagsWithClassPrice.each(function(){
+        var valueReal = parseFloat($(this).text().replace("R$", "").replace(".", "").replace(" ", "").replace(",", "."));
+        subTotal = subTotal + valueReal;
+    });
+    $(".subtotal").text(numberToReal(subTotal));
 }
 
 function ChangeImageProduct() {

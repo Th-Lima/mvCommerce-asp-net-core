@@ -1,6 +1,7 @@
 ﻿@model List<mvCommerce.Models.ProductAggregator.ProductItem>
 @{
     ViewData["Title"] = "Index";
+    decimal subTotal = 0;
 }
 
 <div class="container">
@@ -26,7 +27,16 @@
                             <tr>
                                 <td>
                                     <figure class="media">
-                                        <div class="img-wrap"><img src="images/items/1.jpg" class="img-thumbnail img-sm"></div>
+                                        <div class="img-wrap">
+                                            @if (item.Images != null && item.Images.Count > 0)
+                                            {
+                                                <a class="big-image" href="@item.Images.ElementAt(0).Path" data-fancybox><img src="@item.Images.ElementAt(0).Path"></a>
+                                            }
+                                            else
+                                            {
+                                                <a href="~/img/default-img.png" data-fancybox><img src="~/img/default-img.png"></a>
+                                            }
+                                        </div>
                                         <figcaption class="media-body">
                                             <h6 class="title text-truncate">@item.Name</h6>
                                             <dl class="dlist-inline small">
@@ -56,9 +66,13 @@
                                         </div>
                                     </div>
                                 </td>
+                                @{ 
+                                    var subTotalItem = item.Price * item.AmountProductsCart;
+                                    subTotal += subTotalItem;
+                                }
                                 <td>
                                     <div class="price-wrap col-md-12" style="width:250px;">
-                                        <var class="price"><small>Total: </small> <span style="font-size:x-large" class="priceProduct">@((item.Price * item.AmountProductsCart).ToString("C"))</span></var>
+                                        <var class="price"><small>Total: </small> <span style="font-size:x-large" class="priceProduct">@subTotalItem.ToString("C")</span></var>
                                         <small class="text-muted">(@item.Price.ToString("C") cada)</small>
                                     </div> <!-- price-wrap .// -->
                                 </td>
@@ -108,7 +122,7 @@
                     <div class="box">
                         <dl class="dlist-align">
                             <dt>Subtotal: </dt>
-                            <dd class="text-right">R$120,00</dd>
+                            <dd class="text-right subtotal">@subTotal.ToString("C")</dd>
                         </dl>
                         <dl class="dlist-align">
                             <dt>Frete:</dt>
