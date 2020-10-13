@@ -18,6 +18,8 @@ using mvCommerce.Libraries.Session;
 using mvCommerce.Libraries.ShoppingCart;
 using AutoMapper;
 using mvCommerce.Libraries.AutoMapper;
+using mvCommerce.Libraries.Manager.Freight;
+using WSCorreios;
 
 namespace mvCommerce
 {
@@ -67,9 +69,15 @@ namespace mvCommerce
                 };
                 return smtp;
             });
+            services.AddScoped<CalcPrecoPrazoWSSoap>(options => {
+                var service = new CalcPrecoPrazoWSSoapClient(CalcPrecoPrazoWSSoapClient.EndpointConfiguration.CalcPrecoPrazoWSSoap);
+                return service;
+            });
             services.AddScoped<SendEmail>();
             services.AddScoped<ShoppingCart>();
             services.AddScoped<Libraries.Cookie.Cookie>();
+            services.AddScoped<WSCorreiosCalculateFreight>();
+            services.AddScoped<CalculatePackage>();
 
             services.Configure<CookiePolicyOptions>(options =>
             {
