@@ -21,9 +21,21 @@ function AJAXCalculateFreight() {
             type: "GET",
             url: "/ShoppingCart/CalculateFreight?cepDestiny=" + cep,
             error: function (data) {
-                console.info(data);
+                ShowErrorMesssage("Ooops, tivemos um erro ao obter o frete! " + data.Message);
             },
             success: function (data) {
+
+                $(".container-freight").html("");
+
+                html = "";
+                for (var i = 0; i < data.length; i++) {
+                    var typeFreight = data[i].tipoFrete;
+                    var value = data[i].valor;
+                    var deadLine = data[i].prazo;
+
+                    html += "<dl class=\"dlist - align\"><dt> <input type=\"radio\" name=\"frete\" value=\"" + tipoFrete + "\" /> </dt ><dd>" + tipoFrete + " - " + numberToReal(value) + " (" + prazo + ") dias úteis</dd></dl>"
+                }
+                $(".container-freight").html(html);
                 console.info(data);
             }
         });
