@@ -21,7 +21,7 @@ namespace mvCommerce.Libraries.Manager.Freight
                     var height = package.Height + product.Height;
                     var dimension = length + width + height;
 
-                    if(weight > 30 || dimension > 200)
+                    if(weight > 30 || dimension > 200 || height > 105 || length > 105 || width > 105)
                     {
                         packages.Add(package);
                         

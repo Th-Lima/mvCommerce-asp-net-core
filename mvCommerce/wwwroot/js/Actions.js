@@ -9,10 +9,10 @@
     });
     $('.money').mask('000.000.000.000.000,00', { reverse: true });
 
-    AjaxUploadImageProduct();
+    AJAXUploadImageProduct();
 });
 
-function AjaxUploadImageProduct() {
+function AJAXUploadImageProduct() {
     $(".img-upload").click(function () {
         $(this).parent().parent().find(".input-file").click();
     });

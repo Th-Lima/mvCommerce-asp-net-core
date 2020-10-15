@@ -1,5 +1,7 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.EntityFrameworkCore.Storage.Internal;
+using Microsoft.Extensions.Configuration;
 using mvCommerce.Models;
+using mvCommerce.Models.Constants;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +14,7 @@ namespace mvCommerce.Libraries.Manager.Freight
     {
         private IConfiguration _configuration;
         private CalcPrecoPrazoWSSoap _service;
-        
+
         public WSCorreiosCalculateFreight(IConfiguration configuration, CalcPrecoPrazoWSSoap service)
         {
             _configuration = configuration;
@@ -25,50 +27,67 @@ namespace mvCommerce.Libraries.Manager.Freight
 
             foreach (var package in packages)
             {
+                var result = await CalculateValueDeadLineFreight(cepDestiny, typeFreight, package);
 
-                valueOfPackages.Add(await CalculateValueDeadLineFreight(cepDestiny, typeFreight, package));
+                if (result != null)
+                {
+                    valueOfPackages.Add(result);
+                }
             }
 
-            ValueDeadlineFreight valuesOfFreights = valueOfPackages.GroupBy(a => a.TypeFreight).Select(list => new ValueDeadlineFreight
+            if (valueOfPackages.Count > 0)
             {
-                TypeFreight = list.First().TypeFreight,
-                Deadline = list.Max(c => c.Deadline),
-                Value = list.Sum(c => c.Value)
-            }).ToList().First();
+                ValueDeadlineFreight valuesOfFreights = valueOfPackages.GroupBy(a => a.TypeFreight).Select(list => new ValueDeadlineFreight
+                {
+                    TypeFreight = list.First().TypeFreight,
+                    Deadline = list.Max(c => c.Deadline),
+                    Value = list.Sum(c => c.Value)
+                }).ToList().First();
 
-            return valuesOfFreights;
+                return valuesOfFreights;
+            }
+            return null;
         }
 
         public async Task<ValueDeadlineFreight> CalculateValueDeadLineFreight(string cepDestiny, string typeFreight, Package package)
         {
-            var cepOrigem = _configuration.GetValue<string>("CepOrigem");
-            var maoPropria = _configuration.GetValue<string>("MaoPropria");
-            var avisoRecebimento = _configuration.GetValue<string>("AvisoRecebimento");
+            var cepOrigem = _configuration.GetValue<string>("Freight:CepOrigem");
+            var maoPropria = _configuration.GetValue<string>("Freight:MaoPropria");
+            var avisoRecebimento = _configuration.GetValue<string>("Freight:AvisoRecebimento");
             var diametro = Math.Max(Math.Max(package.Length, package.Width), package.Height);
 
-            cResultado result =  await _service.CalcPrecoPrazoAsync("", 
-                "", 
-                typeFreight, 
-                cepOrigem, 
-                cepDestiny, 
-                package.Weight.ToString(), 
-                1, 
-                package.Length, 
-                package.Height, 
-                package.Width, 
-                diametro, 
-                maoPropria, 
-                0, 
+            cResultado result = await _service.CalcPrecoPrazoAsync("",
+                "",
+                typeFreight,
+                cepOrigem,
+                cepDestiny,
+                package.Weight.ToString(),
+                1,
+                package.Length,
+                package.Height,
+                package.Width,
+                diametro,
+                maoPropria,
+                0,
                 avisoRecebimento);
 
-            if(result.Servicos[0].Erro == "0")
+            if (result.Servicos[0].Erro == "0")
             {
+                var cleanValue = result.Servicos[0].Valor.Replace(".", "");
+                var finalValue = double.Parse(cleanValue);
+
+
                 return new ValueDeadlineFreight()
                 {
-                    TypeFreight = typeFreight,
+                    TypeFreight = TypeFreightConstant.GetNames(typeFreight),
                     Deadline = int.Parse(result.Servicos[0].PrazoEntrega),
-                    Value = double.Parse(result.Servicos[0].Valor.Replace(".", "").Replace(",", "."))
-                };
+                    Value = finalValue
+                    };
+            }
+            else if (result.Servicos[0].Erro == "008" || result.Servicos[0].Erro == "-888")
+            {
+                //SEDEX10 - Don't delivery in region
+                return null;
             }
             else
             {

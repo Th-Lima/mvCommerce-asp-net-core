@@ -48,7 +48,7 @@ namespace mvCommerce.Controllers
             {
                 _repositoryNewsletter.Register(newsletter);
 
-                TempData["MSG_S"] = "PRONTO! Agora você irá receber nossas promoções diárias, fique ligado!";
+                TempData["MSG_S_Newsletter"] = "PRONTO! Agora você irá receber nossas promoções diárias, fique ligado!";
 
                 return RedirectToAction(nameof(Index));
             }

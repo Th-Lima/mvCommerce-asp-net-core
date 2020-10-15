@@ -103,10 +103,10 @@ namespace mvCommerce.Controllers
                 ValueDeadlineFreight valuesSEDEX10 = await _wSCorreiosCalculateFreight.CalculateFreight(cepDestiny.ToString(), TypeFreightConstant.SEDEX10, packages);
 
                 List<ValueDeadlineFreight> list = new List<ValueDeadlineFreight>();
-                list.Add(valuesPAC);
-                list.Add(valuesSEDEX);
-                list.Add(valuesSEDEX10);
-                
+                if(valuesPAC != null) list.Add(valuesPAC);
+                if(valuesSEDEX != null) list.Add(valuesSEDEX);
+                if(valuesSEDEX10 != null) list.Add(valuesSEDEX10);
+
                 return Ok(list);
             }
             catch (Exception e)

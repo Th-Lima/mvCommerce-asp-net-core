@@ -4,7 +4,32 @@ $(document).ready(function () {
     MoveScrollOrdering();
     ChangeImageProduct();
     ChangeAmountProductCart();
+
+    MaskCEP();
+    AJAXCalculateFreight();
 });
+
+function MaskCEP() {
+    $(".cep").mask("00.000-000");
+}
+
+function AJAXCalculateFreight() {
+    $(".btn-calc-freight").click(function () {
+        var cep = $(".cep").val().replace(".", "").replace("-", "");
+
+        $.ajax({
+            type: "GET",
+            url: "/ShoppingCart/CalculateFreight?cepDestiny=" + cep,
+            error: function (data) {
+                console.info(data);
+            },
+            success: function (data) {
+                console.info(data);
+            }
+        });
+    });
+}
+
 function numberToReal(numero) {
     var numero = numero.toFixed(2).split('.');
     numero[0] = "R$ " + numero[0].split(/(?=(?:...)*$)/).join('.');
