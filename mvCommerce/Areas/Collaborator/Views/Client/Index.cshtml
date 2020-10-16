@@ -5,8 +5,11 @@
 }
 @if (TempData["MSG_S"] != null)
 {
-    <p class="alert alert-success"><b>@TempData["MSG_S"]</b></p>
+    <p class="alert alert-success text-center col-md-8" style="margin:auto; font-size:larger"><b>@TempData["MSG_S"]</b></p>
 }
+<br />
+<br />
+<br />
 <h1>Clientes</h1>
 <br />
 <br />
@@ -16,9 +19,9 @@
         <div class="col">
             <input class="form-control mr-sm-2" name="search" type="search" placeholder="Pesquise pelo nome ou email do cliente" aria-label="Search">
         </div>
-         <button type="submit" class="btn btn-outline-info my-2 my-sm-0">Pesquisar</button>
+        <button type="submit" class="btn btn-outline-info my-2 my-sm-0">Pesquisar</button>
     </div>
-        
+
 </form>
 
 <br />
@@ -57,7 +60,7 @@
             </tbody>
         </table>
     </div>
-    @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page = page, search = search}))
+    @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page = page, search = search }))
 }
 else
 {

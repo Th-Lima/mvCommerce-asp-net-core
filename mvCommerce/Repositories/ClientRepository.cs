@@ -21,7 +21,7 @@ namespace mvCommerce.Repositories
         }
         public Client Login(string email, string password)
         {
-            Client client = _database.Clients.Where(c => c.Email == email && c.Password == password).FirstOrDefault();
+            Client client = _database.Client.Where(c => c.Email == email && c.Password == password).FirstOrDefault();
             return client;
         }
 
@@ -43,14 +43,14 @@ namespace mvCommerce.Repositories
         }
         public Client GetClient(int id)
         {
-            return _database.Clients.Find(id);
+            return _database.Client.Find(id);
         }
         public IPagedList<Client> GetAllClients(int? page, string search)
         {
             int pageNumber = page ?? 1;
             int registerPerPage = _config.GetValue<int>("RegisterPerPage");
 
-            var clientDatabase = _database.Clients.AsQueryable();
+            var clientDatabase = _database.Client.AsQueryable();
             if (!string.IsNullOrEmpty(search))
             {
                 clientDatabase = clientDatabase.Where(a => a.Name.Contains(search.Trim()) || a.Email.Equals(search.Trim()));

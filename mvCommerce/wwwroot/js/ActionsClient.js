@@ -6,16 +6,28 @@ $(document).ready(function () {
     ChangeAmountProductCart();
 
     MaskCEP();
-    AJAXCalculateFreight();
+    CalculateActionBtn();
+    AJAXCalculateFreight(false);
 });
 
 function MaskCEP() {
     $(".cep").mask("00.000-000");
 }
 
-function AJAXCalculateFreight() {
-    $(".btn-calc-freight").click(function () {
-        var cep = $(".cep").val().replace(".", "").replace("-", "");
+function CalculateActionBtn() {
+    $(".btn-calc-freight").click(function (e) {
+        AJAXCalculateFreight(true);
+        e.preventDefault();
+    });
+}
+
+function AJAXCalculateFreight(callByButton) {
+
+
+    var cep = $(".cep").val().replace(".", "").replace("-", "");
+
+    if (cep.length == 8) {
+        $(".container-freight").html("<img id='load-freight' src='\\img\\loader.gif'/>");
 
         $.ajax({
             type: "GET",
@@ -24,10 +36,8 @@ function AJAXCalculateFreight() {
                 ShowErrorMesssage("Ooops, tivemos um erro ao obter o frete! " + data.Message);
             },
             success: function (data) {
-
-                $(".container-freight").html("");
-
                 html = "";
+
                 for (var i = 0; i < data.length; i++) {
                     var typeFreight = data[i].typeFreight;
                     var value = data[i].value;
@@ -39,11 +49,15 @@ function AJAXCalculateFreight() {
                 console.info(data);
             }
         });
-    });
+    } else {
+        if (callByButton) {
+            ShowErrorMesssage("Digite um CEP ou verifique se o CEP digitado está correto");
+        }
+    }
 }
 
 function numberToReal(numero) {
-    var numero = numero.toFixed(3).split('.');
+    var numero = numero.toFixed(2).split('.');
     numero[0] = "R$ " + numero[0].split(/(?=(?:...)*$)/).join('.');
     return numero.join(',');
 }
@@ -90,7 +104,7 @@ function ActionsManager(operation, button) {
      * 
      */
     ChangeScreenProductCart(product, operation);
-   
+
 
     //TODO - Update subValue
 }
@@ -137,7 +151,7 @@ function AJAXToCommunicateUpdateAmountProduct(product) {
             UpdateAmountAndValue(product);
         },
         success: function () {
-
+            AJAXCalculateFreight();
         }
     });
 }
@@ -166,7 +180,7 @@ function UpdateAmountAndValue(product) {
 
 function UpdateSubTotal() {
     var subTotal = 0;
-    
+
     var tagsWithClassPrice = $(".price");
 
     tagsWithClassPrice.each(function () {
@@ -211,7 +225,7 @@ function ChangeOrdering() {
             fragment = "";
         }
 
-        var URL = window.location.protocol + "//" + window.location.host  + window.location.pathname;
+        var URL = window.location.protocol + "//" + window.location.host + window.location.pathname;
 
         var urlWithParameters = URL + "?page=" + page + "&search=" + search + "&ordering=" + ordering + fragment;
 

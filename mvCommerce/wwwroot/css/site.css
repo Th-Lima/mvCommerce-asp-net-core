@@ -98,6 +98,13 @@ li#categories{
 .carousel-inner {
     margin: auto;
 }
+.container-freight {
+    text-align: center;
+}
+#load-freight {
+    height: 40px;
+    width: 40px
+}
 /**
 * CSS - Menu Multilevel Bootstrap 4
 */
