@@ -13,18 +13,18 @@ namespace mvCommerce.Repositories
     public class ClientRepository : IClientRepository
     {
         private IConfiguration _config;
-       private mvCommerceContext _database;
-       public ClientRepository(mvCommerceContext database, IConfiguration config)
-       {
+        private mvCommerceContext _database;
+        public ClientRepository(mvCommerceContext database, IConfiguration config)
+        {
             _database = database;
             _config = config;
-       }
+        }
         public Client Login(string email, string password)
         {
-            Client client = _database.Client.Where(c => c.Email == email && c.Password == password).FirstOrDefault();
+            Client client = _database.Clients.Where(c => c.Email == email && c.Password == password).FirstOrDefault();
             return client;
         }
-       
+
         public void Register(Client client)
         {
             _database.Add(client);
@@ -43,14 +43,14 @@ namespace mvCommerce.Repositories
         }
         public Client GetClient(int id)
         {
-            return _database.Client.Find(id);
+            return _database.Clients.Find(id);
         }
         public IPagedList<Client> GetAllClients(int? page, string search)
         {
             int pageNumber = page ?? 1;
             int registerPerPage = _config.GetValue<int>("RegisterPerPage");
 
-            var clientDatabase = _database.Client.AsQueryable();
+            var clientDatabase = _database.Clients.AsQueryable();
             if (!string.IsNullOrEmpty(search))
             {
                 clientDatabase = clientDatabase.Where(a => a.Name.Contains(search.Trim()) || a.Email.Equals(search.Trim()));

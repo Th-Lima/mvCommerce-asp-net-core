@@ -29,11 +29,11 @@ function AJAXCalculateFreight() {
 
                 html = "";
                 for (var i = 0; i < data.length; i++) {
-                    var typeFreight = data[i].tipoFrete;
-                    var value = data[i].valor;
-                    var deadLine = data[i].prazo;
+                    var typeFreight = data[i].typeFreight;
+                    var value = data[i].value;
+                    var deadline = data[i].deadline;
 
-                    html += "<dl class=\"dlist - align\"><dt> <input type=\"radio\" name=\"frete\" value=\"" + tipoFrete + "\" /> </dt ><dd>" + tipoFrete + " - " + numberToReal(value) + " (" + prazo + ") dias úteis</dd></dl>"
+                    html += "<dl class=\"dlist-align\"><dt> <input type=\"radio\" name=\"frete\" value=\"" + typeFreight + "\" /> </dt ><dd>" + typeFreight + " - " + numberToReal(value) + " (" + deadline + ") dias úteis</dd></dl>"
                 }
                 $(".container-freight").html(html);
                 console.info(data);
@@ -43,7 +43,7 @@ function AJAXCalculateFreight() {
 }
 
 function numberToReal(numero) {
-    var numero = numero.toFixed(2).split('.');
+    var numero = numero.toFixed(3).split('.');
     numero[0] = "R$ " + numero[0].split(/(?=(?:...)*$)/).join('.');
     return numero.join(',');
 }
@@ -143,6 +143,7 @@ function AJAXToCommunicateUpdateAmountProduct(product) {
 }
 
 function ShowErrorMesssage(message) {
+
     $(".alert-danger").css("display", "block");
     $(".alert-danger").text(message);
 
@@ -168,8 +169,8 @@ function UpdateSubTotal() {
     
     var tagsWithClassPrice = $(".price");
 
-    tagsWithClassPrice.each(function(){
-        var valueReal = parseFloat($(this).text().replace("R$", "").replace(".", "").replace(" ", "").replace(",", "."));
+    tagsWithClassPrice.each(function () {
+        var valueReal = parseFloat($(this).text().replace("R$", "").replace(".", "").replace(" ", "").replace(",", ".").replace("Total:", ""));
         subTotal = subTotal + valueReal;
     });
     $(".subtotal").text(numberToReal(subTotal));
