@@ -22,11 +22,19 @@ function CalculateActionBtn() {
 }
 
 function AJAXCalculateFreight(callByButton) {
-
+    if (!callByButton) {
+        if ($.cookie('cart.cep') != undefined) {
+            $(".cep").val($.cookie('cart.cep'));
+        }
+    }
 
     var cep = $(".cep").val().replace(".", "").replace("-", "");
 
     if (cep.length == 8) {
+
+        //Add cookie in the input
+        $.cookie('cart.cep', $(".cep").val());
+
         $(".container-freight").html("<img id='load-freight' src='\\img\\loader.gif'/>");
 
         $.ajax({
