@@ -51,10 +51,14 @@ function AJAXCalculateFreight(callByButton) {
                     var value = data[i].value;
                     var deadline = data[i].deadline;
 
-                    html += "<dl class=\"dlist-align\"><dt> <input type=\"radio\" name=\"frete\" value=\"" + typeFreight + "\" /> </dt ><dd>" + typeFreight + " - " + numberToReal(value) + " (" + deadline + ") dias úteis</dd></dl>"
+                    html += "<dl class=\"dlist-align\"><dt> <input type=\"radio\" name=\"frete\" value=\"" + typeFreight + "\" /><input type=\"hidden\" name=\"value\" value=\"" + value  + "\"/></dt ><dd>" + typeFreight + " - " + numberToReal(value) + " (" + deadline + ") dias úteis</dd></dl>"
                 }
                 $(".container-freight").html(html);
-                console.info(data);
+                $(".container-freight").find("input[type=radio]").change(function () {
+                    var valueFreight = parseFloat($(this).parent().find("input[type=hidden]").val());
+                    $(".freight").text(numberToReal(valueFreight));
+                });
+                //console.info(data);
             }
         });
     } else {
