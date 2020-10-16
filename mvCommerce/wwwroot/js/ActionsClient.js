@@ -36,6 +36,8 @@ function AJAXCalculateFreight(callByButton) {
         $.cookie('cart.cep', $(".cep").val());
 
         $(".container-freight").html("<img id='load-freight' src='\\img\\loader.gif'/>");
+        $(".freight").text("R$ 0,00");
+        $(".total").text("R$ 0,00");
 
         $.ajax({
             type: "GET",
@@ -56,7 +58,14 @@ function AJAXCalculateFreight(callByButton) {
                 $(".container-freight").html(html);
                 $(".container-freight").find("input[type=radio]").change(function () {
                     var valueFreight = parseFloat($(this).parent().find("input[type=hidden]").val());
+
                     $(".freight").text(numberToReal(valueFreight));
+                    var subtotal = parseFloat($(".subtotal").text().replace("R$", "").replace(".", "").replace(",", "."));
+                    //console.info(subtotal);
+
+                    var total = valueFreight + subtotal
+
+                    $(".total").text(numberToReal(total));
                 });
                 //console.info(data);
             }
