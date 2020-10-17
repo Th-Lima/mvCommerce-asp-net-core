@@ -5,12 +5,12 @@ using System.Linq;
 
 namespace mvCommerce.Libraries.ShoppingCart
 {
-    public class ShoppingCart
+    public class CookieShoppingCart
     {
         private Cookie.Cookie _cookie;
         private string Key = "_cart.shopping";
 
-        public ShoppingCart(Cookie.Cookie cookie)
+        public CookieShoppingCart(Cookie.Cookie cookie)
         {
             _cookie = cookie;
         }

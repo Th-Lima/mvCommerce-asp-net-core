@@ -40,6 +40,7 @@ namespace mvCommerce.Libraries.Manager.Freight
                 ValueDeadlineFreight valuesOfFreights = valueOfPackages.GroupBy(a => a.TypeFreight).Select(list => new ValueDeadlineFreight
                 {
                     TypeFreight = list.First().TypeFreight,
+                    ServiceCode = list.First().ServiceCode,
                     Deadline = list.Max(c => c.Deadline),
                     Value = list.Sum(c => c.Value)
                 }).ToList().First();
@@ -80,6 +81,7 @@ namespace mvCommerce.Libraries.Manager.Freight
                 return new ValueDeadlineFreight()
                 {
                     TypeFreight = TypeFreightConstant.GetNames(typeFreight),
+                    ServiceCode = typeFreight,
                     Deadline = int.Parse(result.Servicos[0].PrazoEntrega),
                     Value = finalValue
                     };

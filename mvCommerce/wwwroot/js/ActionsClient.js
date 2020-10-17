@@ -29,6 +29,7 @@ function AJAXCalculateFreight(callByButton) {
     }
 
     var cep = $(".cep").val().replace(".", "").replace("-", "");
+    $.removeCookie("cart.typefreight");
 
     if (cep.length == 8) {
 
@@ -59,6 +60,8 @@ function AJAXCalculateFreight(callByButton) {
                 $(".container-freight").find("input[type=radio]").change(function () {
                     var valueFreight = parseFloat($(this).parent().find("input[type=hidden]").val());
 
+                    $.cookie("cart.typefreight", $(this).val());
+
                     $(".freight").text(numberToReal(valueFreight));
                     var subtotal = parseFloat($(".subtotal").text().replace("R$", "").replace(".", "").replace(",", "."));
                     //console.info(subtotal);
@@ -72,6 +75,7 @@ function AJAXCalculateFreight(callByButton) {
         });
     } else {
         if (callByButton) {
+            $(".container-freight").html("");
             ShowErrorMesssage("Digite um CEP ou verifique se o CEP digitado está correto");
         }
     }

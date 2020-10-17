@@ -16,14 +16,14 @@ namespace mvCommerce.Controllers
 {
     public class ShoppingCartController : Controller
     {
-        private ShoppingCart _shoppingCart;
+        private CookieShoppingCart _shoppingCart;
         private IProductRepository _productRepository;
         private IMapper _mapper;
         private WSCorreiosCalculateFreight _wSCorreiosCalculateFreight;
         private CalculatePackage _calculatePackage;
 
         public ShoppingCartController(
-            ShoppingCart shoppingCart,
+            CookieShoppingCart shoppingCart,
             IProductRepository productRepository,
             IMapper mapper,
             WSCorreiosCalculateFreight wSCorreiosCalculateFreight,
