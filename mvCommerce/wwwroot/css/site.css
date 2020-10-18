@@ -19,8 +19,10 @@ button {
 .btn-continue {
     box-shadow: 3px 3px 3px #a9a9a9;
     color:white;
+    height:55px;
+    font-size:x-large;
 }
-}
+
 #addCart {
     border: none;
 }

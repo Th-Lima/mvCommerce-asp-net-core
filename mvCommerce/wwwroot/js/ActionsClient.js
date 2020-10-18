@@ -62,6 +62,7 @@ function AJAXCalculateFreight(callByButton) {
                     $.cookie("cart.typefreight", $(this).val());
 
                     $(".btn-continue").removeClass("disabled");
+                    $(".select-freight").addClass("text-hide");
 
                     var valueFreight = parseFloat($(this).parent().find("input[type=hidden]").val());
 
