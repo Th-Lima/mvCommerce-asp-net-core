@@ -37,7 +37,7 @@ namespace mvCommerce.Libraries.ShoppingCart
             }
         }
 
-        public void RemoveAll()
+        public void Remove()
         {
             _cookie.Remove(Key);
         }

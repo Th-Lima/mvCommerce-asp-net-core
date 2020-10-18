@@ -16,8 +16,13 @@ label {
 button {
     box-shadow: 3px 3px 3px #a9a9a9;
 }
+.btn-continue {
+    box-shadow: 3px 3px 3px #a9a9a9;
+    color:white;
+}
+}
 #addCart {
-    border:none;
+    border: none;
 }
 #dropdownMenu1 {
     box-shadow: none;

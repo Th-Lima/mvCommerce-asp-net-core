@@ -22,6 +22,7 @@ function CalculateActionBtn() {
 }
 
 function AJAXCalculateFreight(callByButton) {
+    $(".btn-continue").addClass("disabled");
     if (!callByButton) {
         if ($.cookie('cart.cep') != undefined) {
             $(".cep").val($.cookie('cart.cep'));
@@ -58,11 +59,16 @@ function AJAXCalculateFreight(callByButton) {
                 }
                 $(".container-freight").html(html);
                 $(".container-freight").find("input[type=radio]").change(function () {
-                    var valueFreight = parseFloat($(this).parent().find("input[type=hidden]").val());
-
                     $.cookie("cart.typefreight", $(this).val());
 
+                    $(".btn-continue").removeClass("disabled");
+
+                    var valueFreight = parseFloat($(this).parent().find("input[type=hidden]").val());
+
+                    
+
                     $(".freight").text(numberToReal(valueFreight));
+
                     var subtotal = parseFloat($(".subtotal").text().replace("R$", "").replace(".", "").replace(",", "."));
                     //console.info(subtotal);
 

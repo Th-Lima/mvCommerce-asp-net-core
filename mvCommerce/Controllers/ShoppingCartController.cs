@@ -16,24 +16,27 @@ namespace mvCommerce.Controllers
 {
     public class ShoppingCartController : Controller
     {
-        private CookieShoppingCart _shoppingCart;
+        private CookieShoppingCart _cookieShoppingCart;
         private IProductRepository _productRepository;
         private IMapper _mapper;
         private WSCorreiosCalculateFreight _wSCorreiosCalculateFreight;
         private CalculatePackage _calculatePackage;
+        private CookieValueDeadlineFreight _cookieValueDeadlineFreight;
 
         public ShoppingCartController(
-            CookieShoppingCart shoppingCart,
+            CookieShoppingCart cookieShoppingCart,
             IProductRepository productRepository,
             IMapper mapper,
             WSCorreiosCalculateFreight wSCorreiosCalculateFreight,
-            CalculatePackage calculatePackage)
+            CalculatePackage calculatePackage,
+            CookieValueDeadlineFreight cookieValueDeadlineFreight)
         {
-            _shoppingCart = shoppingCart;
+            _cookieShoppingCart = cookieShoppingCart;
             _productRepository = productRepository;
             _mapper = mapper;
             _wSCorreiosCalculateFreight = wSCorreiosCalculateFreight;
             _calculatePackage = calculatePackage;
+            _cookieValueDeadlineFreight = cookieValueDeadlineFreight;
         }
 
         public IActionResult Index()
@@ -54,7 +57,7 @@ namespace mvCommerce.Controllers
             else
             {
                 var item = new ProductItem() { Id = id, AmountProductsCart = 1 };
-                _shoppingCart.Register(item);
+                _cookieShoppingCart.Register(item);
 
                 TempData["MSG_S"] = Message.MSG_S004;
                 return RedirectToAction("Index", "Home");
@@ -79,14 +82,14 @@ namespace mvCommerce.Controllers
             {
                 //Ok
                 var item = new ProductItem() { Id = id, AmountProductsCart = amount };
-                _shoppingCart.Update(item);
+                _cookieShoppingCart.Update(item);
                 return RedirectToAction(nameof(Index));
             }
         }
 
         public IActionResult RemoveItem(int id)
         {
-            _shoppingCart.Remove(new ProductItem() { Id = id });
+            _cookieShoppingCart.Remove(new ProductItem() { Id = id });
             return RedirectToAction(nameof(Index));
         }
 
@@ -107,17 +110,20 @@ namespace mvCommerce.Controllers
                 if(valuesSEDEX != null) list.Add(valuesSEDEX);
                 if(valuesSEDEX10 != null) list.Add(valuesSEDEX10);
 
+                _cookieValueDeadlineFreight.Register(list);
+
                 return Ok(list);
             }
             catch (Exception e)
             {
+                _cookieValueDeadlineFreight.Remove();
                 return BadRequest(e);
             }
         }
 
         private List<ProductItem> LoadProductDb()
         {
-            List<ProductItem> productItemInCart = _shoppingCart.Consult();
+            List<ProductItem> productItemInCart = _cookieShoppingCart.Consult();
             List<ProductItem> productItemComplete = new List<ProductItem>();
 
             foreach (var item in productItemInCart)
