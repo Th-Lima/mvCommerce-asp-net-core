@@ -70,9 +70,7 @@
                                 <dt class="col-sm-4">Quantidade:</dt>
                                 <dd class="col-sm-8">@Model.Amount</dd>
                             </dl>
-
-                           
-                            <button asp-controller="ShoppingCart" asp-action="AddItem" asp-route-id="@Model.Id" class="btn  btn-outline-info"> <i class="fas fa-shopping-cart"></i>Adicionar no Carrinho</button>
+                            <a asp-controller="ShoppingCart" asp-action="AddItem" asp-route-id="@Model.Id" class="btn btn-outline-info" style="box-shadow: 3px 3px 3px #a9a9a9"> <i class="fas fa-shopping-cart"></i> Adicionar no Carrinho</a>
                         </article>
                     </aside>
                 </div> 

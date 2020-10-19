@@ -16,7 +16,7 @@ label {
 button {
     box-shadow: 3px 3px 3px #a9a9a9;
 }
-.btn-continue {
+.btn-pay {
     box-shadow: 3px 3px 3px #a9a9a9;
     color:white;
     height:55px;
@@ -116,6 +116,16 @@ li#categories{
     border:1px solid;
     border-color:red;
     border-radius: 0px 6px 0px 6px;
+}
+.dlist-align dt{
+    width:65px;
+}
+.dlist-align dd {
+    margin-left:65px;
+    text-align: left;
+}
+.control-inline{
+    flex-wrap:nowrap;
 }
 /**
 * CSS - Menu Multilevel Bootstrap 4
