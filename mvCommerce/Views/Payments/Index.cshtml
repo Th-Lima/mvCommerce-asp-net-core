@@ -1,4 +1,4 @@
-﻿
+﻿@model List<mvCommerce.Models.ProductAggregator.ProductItem>
 @{
     ViewData["Title"] = "Payments";
 }
@@ -6,13 +6,13 @@
 <br />
 <br />
 <section class="container">
-    
+
     <div class="row">
 
         <aside class="col-sm-6">
 
             <h4 class="subtitle-doc">
-                 Detalhes da compra
+                Detalhes da compra
             </h4>
             <div id="code_payment">
 
@@ -21,40 +21,34 @@
                         <p class="alert alert-success">Total: R$ 1520,11</p>
                         <div id="code_itemside_img2">
                             <div class="box items-bordered-wrap">
-                                <figure class="itemside">
-                                    <div class="aside"><img src="images/items/4.jpg" class="img-sm"></div>
-                                    <figcaption class="text-wrap align-self-center">
-                                        <h6 class="title"><a href="#">Some name of item goes here nice</a></h6>
-                                        <div class="price-wrap">
-                                            <span class="price-new">$1280</span>
-                                            <del class="price-old text-muted">$1980</del>
-                                        </div> <!-- price-wrap.// -->
-                                    </figcaption>
-                                </figure>
-                                <figure class="itemside">
-                                    <div class="aside"><img src="images/items/5.jpg" class="img-sm"></div>
-                                    <figcaption class="text-wrap align-self-center">
-                                        <h6 class="title"><a href="#">Some name of item goes here nice</a></h6>
-                                        <div class="price-wrap">
-                                            <span class="price-new">$1280</span>
-                                        </div> <!-- price-wrap.// -->
-                                    </figcaption>
-                                </figure>
-                                <figure class="itemside">
-                                    <div class="aside"><img src="images/items/6.jpg" class="img-sm"></div>
-                                    <figcaption class="text-wrap align-self-center">
-                                        <h6 class="title"><a href="#">Some name of item goes here nice</a></h6>
-                                        <div class="price-wrap">
-                                            <span class="price-new">$1280</span>
-                                        </div> <!-- price-wrap.// -->
-                                    </figcaption>
-                                </figure>
-                            </div> <!-- box.// -->
+                                @foreach(var item in Model)
+                                {
+                                    <figure class="itemside">
+                                        <div class="aside">
+                                            @if (item.Images != null && item.Images.Count > 0)
+                                            {
+                                                <a href="@item.Images.ElementAt(0).Path" data-fancybox><img src="@item.Images.ElementAt(0).Path" class="img-sm"></a>
+                                            }
+                                            else
+                                            {
+                                                <a href="~/img/default-img.png" data-fancybox><img src="~/img/default-img.png"></a>
+                                            }
+                                        </div>
+                                        <figcaption class="text-wrap align-self-center">
+                                            <h6 class="title">@item.Name</h6>
+                                            <div class="price-wrap">
+                                                <span class="price-new">@item.Price.ToString("C")</span>
+                                            </div> 
+                                        </figcaption>
+                                    </figure>
+                                }
+
+                            </div> 
 
                         </div>
-                </article> <!-- card.// -->
+                </article> 
 
-            </div> <!-- code-wrap.// -->
+            </div> 
 
         </aside>
         <aside class="col-sm-6">
@@ -69,17 +63,17 @@
 
                         <ul class="nav bg radius nav-pills nav-fill mb-3" role="tablist">
                             <li class="nav-item">
-                                <a class="btn btn-outline-dark nav-link active mr-2" data-toggle="pill" href="#nav-tab-card">
+                                <a class="btn btn-outline-info nav-link active mr-2" data-toggle="pill" href="#nav-tab-card">
                                     <i class="fa fa-credit-card"></i> Cartão de crédito
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link btn btn-outline-dark  mr-2" data-toggle="pill" href="#nav-tab-paypal">
+                                <a class="nav-link btn btn-outline-info  mr-2" data-toggle="pill" href="#nav-tab-paypal">
                                     <i class="fab fa-paypal"></i> Paypal
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link btn btn-outline-dark" data-toggle="pill" href="#nav-tab-bank">
+                                <a class="nav-link btn btn-outline-info" data-toggle="pill" href="#nav-tab-bank">
                                     <i class="fa fa-university"></i> Bank Transfer
                                 </a>
                             </li>
@@ -93,7 +87,7 @@
                                         <label for="username">Nome completo (no cartão)</label>
                                         <input type="text" class="form-control" name="username" placeholder=""
                                                required="">
-                                    </div> <!-- form-group.// -->
+                                    </div> 
 
                                     <div class="form-group">
                                         <label for="cardNumber">Número do cartão</label>
@@ -108,7 +102,7 @@
                                                 </span>
                                             </div>
                                         </div>
-                                    </div> <!-- form-group.// -->
+                                    </div> 
 
                                     <div class="row">
                                         <div class="col-sm-8">
@@ -129,14 +123,14 @@
                                                     <i class="fa fa-question-circle"></i>
                                                 </label>
                                                 <input type="number" class="form-control" required="">
-                                            </div> <!-- form-group.// -->
+                                            </div>
                                         </div>
-                                    </div> <!-- row.// -->
+                                    </div> 
                                     <button class="subscribe btn btn-outline-info btn-block" type="button">
                                         Confirmar
                                     </button>
                                 </form>
-                            </div> <!-- tab-pane.// -->
+                            </div> 
                             <div class="tab-pane fade" id="nav-tab-paypal">
                                 <p>Paypal is easiest way to pay online</p>
                                 <p>
@@ -170,14 +164,14 @@
                                     elit, sed do eiusmod
                                     tempor incididunt ut labore et dolore magna aliqua.
                                 </p>
-                            </div> <!-- tab-pane.// -->
-                        </div> <!-- tab-content .// -->
+                            </div> 
+                        </div>
 
-                    </div> <!-- card-body.// -->
-                </article> <!-- card.// -->
+                    </div>
+                </article> 
 
-            </div> <!-- code-wrap.// -->
+            </div> 
 
-        </aside> <!-- col.// -->
+        </aside> 
     </div>
 </section>

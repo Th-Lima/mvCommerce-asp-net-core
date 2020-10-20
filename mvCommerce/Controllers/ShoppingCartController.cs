@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using mvCommerce.Controllers.Base;
 using mvCommerce.Libraries.Lang;
 using mvCommerce.Libraries.Manager.Freight;
 using mvCommerce.Libraries.ShoppingCart;
@@ -14,30 +15,16 @@ using mvCommerce.Repositories.Contracts;
 
 namespace mvCommerce.Controllers
 {
-    public class ShoppingCartController : Controller
+    public class ShoppingCartController : BaseController
     {
-        private CookieShoppingCart _cookieShoppingCart;
-        private IProductRepository _productRepository;
-        private IMapper _mapper;
-        private WSCorreiosCalculateFreight _wSCorreiosCalculateFreight;
-        private CalculatePackage _calculatePackage;
-        private CookieValueDeadlineFreight _cookieValueDeadlineFreight;
-
         public ShoppingCartController(
-            CookieShoppingCart cookieShoppingCart,
+             CookieShoppingCart cookieShoppingCart,
             IProductRepository productRepository,
             IMapper mapper,
             WSCorreiosCalculateFreight wSCorreiosCalculateFreight,
             CalculatePackage calculatePackage,
             CookieValueDeadlineFreight cookieValueDeadlineFreight)
-        {
-            _cookieShoppingCart = cookieShoppingCart;
-            _productRepository = productRepository;
-            _mapper = mapper;
-            _wSCorreiosCalculateFreight = wSCorreiosCalculateFreight;
-            _calculatePackage = calculatePackage;
-            _cookieValueDeadlineFreight = cookieValueDeadlineFreight;
-        }
+            : base(cookieShoppingCart, productRepository, mapper, wSCorreiosCalculateFreight, calculatePackage, cookieValueDeadlineFreight) { }
 
         public IActionResult Index()
         {
@@ -106,9 +93,9 @@ namespace mvCommerce.Controllers
                 ValueDeadlineFreight valuesSEDEX10 = await _wSCorreiosCalculateFreight.CalculateFreight(cepDestiny.ToString(), TypeFreightConstant.SEDEX10, packages);
 
                 List<ValueDeadlineFreight> list = new List<ValueDeadlineFreight>();
-                if(valuesPAC != null) list.Add(valuesPAC);
-                if(valuesSEDEX != null) list.Add(valuesSEDEX);
-                if(valuesSEDEX10 != null) list.Add(valuesSEDEX10);
+                if (valuesPAC != null) list.Add(valuesPAC);
+                if (valuesSEDEX != null) list.Add(valuesSEDEX);
+                if (valuesSEDEX10 != null) list.Add(valuesSEDEX10);
 
                 _cookieValueDeadlineFreight.Register(list);
 
@@ -120,24 +107,5 @@ namespace mvCommerce.Controllers
                 return BadRequest(e);
             }
         }
-
-        private List<ProductItem> LoadProductDb()
-        {
-            List<ProductItem> productItemInCart = _cookieShoppingCart.Consult();
-            List<ProductItem> productItemComplete = new List<ProductItem>();
-
-            foreach (var item in productItemInCart)
-            {
-                Product product = _productRepository.GetProduct(item.Id);
-
-                ProductItem productItem = _mapper.Map<ProductItem>(product);
-                productItem.AmountProductsCart = item.AmountProductsCart;
-
-                productItemComplete.Add(productItem);
-            }
-
-            return productItemComplete;
-        }
-
     }
 }
