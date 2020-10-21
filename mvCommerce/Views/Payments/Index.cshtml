@@ -19,7 +19,6 @@
 
                 <article class="card">
                     <div class="card-body p-5">
-                        <p class="alert alert-success">Total: R$ 1520,11</p>
                         <div id="code_itemside_img2">
                             <div class="box items-bordered-wrap">
                                 @foreach (var item in Model)
@@ -61,11 +60,14 @@
                                     </dl>
                                     <dl class="dlist-align">
                                         <dt>Frete:</dt>
-                                        <dd class="text-right resume freight text-center">PAC/SEDEX R$ 0,00</dd>
+                                        <dd class="text-right resume freight text-center">@ViewBag.Freight.TypeFreight - @ViewBag.Freight.Value.ToString("C")</dd>
                                     </dl>
                                     <dl class="dlist-align">
                                         <dt>TOTAL:</dt>
-                                        <dd class="text-right resume total text-center">R$ 0,00</dd>
+                                        @{ 
+                                            var valueFreight = (decimal)ViewBag.Freight.Value;
+                                        }
+                                        <dd class="text-right resume total text-center">@( (subTotal + valueFreight).ToString("C") )</dd>
                                     </dl>
                                 </div>
                                 </aside>

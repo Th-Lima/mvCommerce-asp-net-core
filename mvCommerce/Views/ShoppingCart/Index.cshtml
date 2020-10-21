@@ -142,7 +142,8 @@
             </aside>
             <aside class="col-md-3">
                 <small class="select-freight" style="font-size:small;">Para pagar selecione uma opção de frete</small>
-                <a class="btn btn-info disabled btn-pay  col-md-12" href="#">Pagar</a>
+                <!--TODO - Implementar direcionamento para tela de login caso usuário não identificado-->
+                <a class="btn btn-info disabled btn-pay  col-md-12" asp-action="Index" asp-controller="Payments">Pagar</a>
             </aside>
 
         </div>
