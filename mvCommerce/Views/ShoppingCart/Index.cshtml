@@ -1,4 +1,5 @@
 ﻿@model List<mvCommerce.Models.ProductAggregator.ProductItem>
+@inject mvCommerce.Libraries.Login.ClientLogin _loginClient
 @{
     ViewData["Title"] = "Index";
     decimal subTotal = 0;
@@ -142,8 +143,14 @@
             </aside>
             <aside class="col-md-3">
                 <small class="select-freight" style="font-size:small;">Para pagar selecione uma opção de frete</small>
-                <!--TODO - Implementar direcionamento para tela de login caso usuário não identificado-->
-                <a class="btn btn-info disabled btn-pay  col-md-12" asp-action="Index" asp-controller="Payments">Pagar</a>
+                @if (_loginClient.GetClient() == null)
+                {
+                    //TODO - TELA DE LOGIN/CADASTRO
+                }
+                else
+                {
+                    <a class="btn btn-info disabled btn-pay  col-md-12" asp-action="Index" asp-controller="Payments">Pagar</a>
+                }
             </aside>
 
         </div>

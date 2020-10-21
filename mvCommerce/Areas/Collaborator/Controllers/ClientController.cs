@@ -21,14 +21,14 @@ namespace mvCommerce.Areas.Collaborator.Controllers
 
         public IActionResult Index(int? page, string search)
         {
-            IPagedList<Client> clients = _clientRepository.GetAllClients(page, search);
+            IPagedList<Models.Client> clients = _clientRepository.GetAllClients(page, search);
             return View(clients);
         }
 
         [ValidateHttpReferer]
         public IActionResult EnableOrDisable(int id)
         {
-            Client client = _clientRepository.GetClient(id);
+            Models.Client client = _clientRepository.GetClient(id);
             client.Situation = (client.Situation == SituationConstant.Active) ? SituationConstant.Inactive : SituationConstant.Active;
 
             _clientRepository.Update(client);

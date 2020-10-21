@@ -47,7 +47,7 @@
             <form class="form-inline my-2 my-lg-2" id="formMenu" method="get">
                 <input class="search form-control mr-sm-2" type="text" name="search" value="@search" placeholder="O que você está procurando?">
                 <button id="searchButton" class="btn btn-outline-warning my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
-                <a asp-controller="Home" asp-action="Login" class="btn btn-outline-warning my-2 my-sm-0" id="login"><i class="fas fa-user-alt"></i> Login</a>
+                <a  asp-controller="Home" asp-action="Login" asp-area="Client" class="btn btn-outline-warning my-2 my-sm-0" id="login"><i class="fas fa-user-alt"></i> Login</a>
                 <a asp-controller="ShoppingCart" asp-action="Index" class="btn btn-outline-warning my-2 my-sm-0" id="cart"><i class="fas fa-shopping-cart"></i> Carrinho</a>
             </form>
         </div>
