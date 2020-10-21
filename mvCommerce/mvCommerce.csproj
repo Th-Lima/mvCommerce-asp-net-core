@@ -50,7 +50,6 @@
 
 
   <ItemGroup>
-    <Folder Include="Areas\Client\Data\" />
     <Folder Include="Areas\Client\Models\" />
     <Folder Include="Areas\Collaborator\Models\" />
     <Folder Include="wwwroot\uploads\temp\" />

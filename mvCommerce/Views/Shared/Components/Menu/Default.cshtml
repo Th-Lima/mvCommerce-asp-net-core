@@ -1,4 +1,5 @@
 ﻿@model List<Category>
+@inject mvCommerce.Libraries.Login.ClientLogin _clientLogin
 @{ 
     var search = Context.Request.Query["search"];
 }
@@ -47,7 +48,22 @@
             <form class="form-inline my-2 my-lg-2" id="formMenu" method="get">
                 <input class="search form-control mr-sm-2" type="text" name="search" value="@search" placeholder="O que você está procurando?">
                 <button id="searchButton" class="btn btn-outline-warning my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
-                <a  asp-controller="Home" asp-action="Login" asp-area="Client" class="btn btn-outline-warning my-2 my-sm-0" id="login"><i class="fas fa-user-alt"></i> Login</a>
+                @if (_clientLogin.GetClient() != null)
+                {
+                    if (_clientLogin.GetClient().Name.Length >= 15)
+                    {
+                        string name = _clientLogin.GetClient().Name.Substring(0, Math.Min(15, _clientLogin.GetClient().Name.Length));
+                        <a asp-controller="Home" asp-action="Panel" asp-area="Client" class="btn btn-outline-warning my-2 my-sm-0" id="login"><i class="fas fa-user-alt mr-2"></i>@name ...</a>
+                    }
+                    else
+                    {
+                        <a asp-controller="Home" asp-action="Panel" asp-area="Client" class="btn btn-outline-warning my-2 my-sm-0" id="login"><i class="fas fa-user-alt mr-2"></i>@_clientLogin.GetClient().Name</a>
+                    }
+                }
+                else
+                {
+                    <a asp-controller="Home" asp-action="Login" asp-area="Client" class="btn btn-outline-warning my-2 my-sm-0" id="login"><i class="fas fa-user-alt"></i> Login</a>
+                }
                 <a asp-controller="ShoppingCart" asp-action="Index" class="btn btn-outline-warning my-2 my-sm-0" id="cart"><i class="fas fa-shopping-cart"></i> Carrinho</a>
             </form>
         </div>
