@@ -24,13 +24,20 @@ namespace mvCommerce.Areas.Client.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login([FromForm] Models.Client client)
+        public IActionResult Login([FromForm] Models.Client client, string returnUrl = null)
         {
             Models.Client clientDB = _repositoryClient.Login(client.Email, client.Password);
             if (clientDB != null)
             {
                 _clientLogin.Login(clientDB);
-                return new RedirectResult(Url.Action(nameof(Panel)));
+                if(returnUrl == null)
+                {
+                    return new RedirectResult(Url.Action(nameof(Panel)));
+                }
+                else
+                {
+                    return LocalRedirectPermanent(returnUrl);
+                }
 
             }
             else
