@@ -22,7 +22,7 @@
                                 <p class="alert alert-danger"><b>@Html.Raw(ViewData["MSG_E"])</b></p>
                             }
 
-                            <a asp-action="RegisterClient" asp-controller="Home" class="btn btn-outline-info my-2 my-sm-0 float-right" id="signUp">Cadastre-se</a>
+                            <a asp-action="RegisterClient" asp-controller="Home" asp-route-returnUrl="@Context.Request.Query["returnUrl"]" class="btn btn-outline-info my-2 my-sm-0 float-right" id="signUp">Cadastre-se</a>
                             <small class="float-right mr-2 mt-2">Ainda não é cadastrado ? </small>
                             <h4 class="card-title mb-4 mt-1">Entrar</h4>
                             <form method="post">

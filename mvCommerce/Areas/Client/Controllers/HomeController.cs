@@ -38,7 +38,6 @@ namespace mvCommerce.Areas.Client.Controllers
                 {
                     return LocalRedirectPermanent(returnUrl);
                 }
-
             }
             else
             {
@@ -62,16 +61,23 @@ namespace mvCommerce.Areas.Client.Controllers
         }
 
         [HttpPost]
-        public IActionResult RegisterClient([FromForm] Models.Client client)
+        public IActionResult RegisterClient([FromForm] Models.Client client, string returnUrl = null)
         {
             if (ModelState.IsValid)
             {
                 _repositoryClient.Register(client);
+                _clientLogin.Login(client);
 
-                TempData["MSG_S"] = "Agora você é cadastrado no mvCommerce, aproveite!";
+                TempData["MSG_S"] = "Agora você é cadastrado no CompraTudo, aproveite!";
 
-                //TODO - Implement difference redirects (Painel, Carrinho de Compras etc.)
-                return RedirectToAction(nameof(RegisterClient));
+                if(returnUrl == null)
+                {
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
+                else
+                {
+                    return LocalRedirectPermanent(returnUrl);
+                }
             }
             return View();
         }

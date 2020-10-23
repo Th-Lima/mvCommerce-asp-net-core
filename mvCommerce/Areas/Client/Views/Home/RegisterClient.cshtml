@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="~/css/RegisterClient.css"/>
 </head>
 <main role="main">
-    <form asp-action="RegisterClient" asp-controller="Home" asp-area="Client" method="post">
+    <form method="post">
         <section class="container" style="margin-top: 50px">
             <div class="row">
                 <aside class="col-sm-8">
@@ -25,12 +25,14 @@
                                 }
                                 <div class="form-row">
 
+                                    <!--Nome-->
                                     <div class="col form-group">
                                         <label asp-for="Name">Nome</label>
                                         <input asp-for="Name" type="text" class="form-control" placeholder="Nome">
                                         <span asp-validation-for="Name"></span>
                                     </div>
 
+                                    <!--Data de Nascimento-->
                                     <div class="col form-group">
                                         <label asp-for="BirthDate">Data de Nascimento</label>
                                         <input asp-for="BirthDate" type="text" class="form-control" placeholder="Data de Nascimento">
@@ -43,6 +45,7 @@
                                     <span asp-validation-for="CPF"></span>
                                 </div>
 
+                                <!--Sexo-->
                                 <label>Sexo</label>
                                 <div class="form-group">
                                     <span class="form-check form-check-inline">
@@ -57,19 +60,21 @@
                                     <span asp-validation-for="Sex"></span>
                                 </div>
 
-
+                                <!--Telefone-->
                                 <div class="form-group">
                                     <label asp-for="Phone">Telefone</label>
                                     <input asp-for="Phone" type="text" class="form-control col-4" placeholder="">
                                     <span asp-validation-for="Phone"></span>
                                 </div>
 
+                                <!--Email-->
                                 <div class="form-group">
                                     <label asp-for="Email">Email</label>
                                     <input asp-for="Email" type="email" class="form-control col-7" placeholder="">
                                     <span asp-validation-for="Email"></span>
                                 </div>
 
+                                <!--Senha-->
                                 <div class="form-group">
                                     <label asp-for="Password">Criar senha</label>
                                     <input asp-for="Password" class="form-control col-7" type="password">
@@ -78,6 +83,14 @@
                                         Nunca compartilhe sua senha com outras pessoas.
                                     </small>
                                 </div>
+
+                                <!--Confirmar Senha-->
+                                <div class="form-group">
+                                    <label asp-for="ConfirmationPassword">Confirmar senha</label>
+                                    <input asp-for="ConfirmationPassword" class="form-control col-7" type="password">
+                                    <span asp-validation-for="ConfirmationPassword"></span>
+                                </div>
+
                                 <br />
                                 <br />
                                 <div class="container col-7">
@@ -87,7 +100,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            
+
                             </article>
                             <div class="border-top card-body text-center ">Já possui uma conta? <a asp-controller="Home" asp-action="Login">Clique aqui</a></div>
                         </div>
