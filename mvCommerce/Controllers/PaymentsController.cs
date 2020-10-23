@@ -4,6 +4,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using mvCommerce.Controllers.Base;
 using mvCommerce.Libraries.Cookie;
+using mvCommerce.Libraries.Filter;
 using mvCommerce.Libraries.Lang;
 using mvCommerce.Libraries.Manager.Freight;
 using mvCommerce.Libraries.ShoppingCart;
@@ -12,6 +13,7 @@ using mvCommerce.Repositories.Contracts;
 
 namespace mvCommerce.Controllers
 {
+    [ClientAuthorization]
     public class PaymentsController : BaseController
     {
         private Cookie _cookie;

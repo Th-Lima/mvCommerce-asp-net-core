@@ -24,6 +24,7 @@ namespace mvCommerce.Libraries.Filter
             Client client = _clientLogin.GetClient();
             if (client == null)
             {
+                //TODO - Implementar tela melhor construída -> Acesso Negado/ status 400/ 4XX ...
                context.Result = new ContentResult() { Content = "Acesso negado!" };
             }
         }
