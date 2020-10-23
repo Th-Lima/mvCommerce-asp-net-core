@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using mvCommerce.Database;
 
 namespace mvCommerce.Migrations
 {
     [DbContext(typeof(mvCommerceContext))]
-    partial class mvCommerceContextModelSnapshot : ModelSnapshot
+    [Migration("20201023212353_clientAddAddress")]
+    partial class clientAddAddress
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,18 +48,12 @@ namespace mvCommerce.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Address")
-                        .IsRequired();
-
                     b.Property<DateTime>("BirthDate");
 
                     b.Property<string>("CPF")
                         .IsRequired();
 
                     b.Property<string>("City")
-                        .IsRequired();
-
-                    b.Property<string>("Complement")
                         .IsRequired();
 
                     b.Property<string>("Email")
@@ -72,13 +68,21 @@ namespace mvCommerce.Migrations
                     b.Property<string>("Password")
                         .IsRequired();
 
-                    b.Property<string>("Phone");
+                    b.Property<string>("Phone")
+                        .IsRequired();
 
-                    b.Property<string>("Sex");
+                    b.Property<string>("Sex")
+                        .IsRequired();
 
                     b.Property<string>("Situation");
 
                     b.Property<string>("State")
+                        .IsRequired();
+
+                    b.Property<string>("Street")
+                        .IsRequired();
+
+                    b.Property<string>("StreetNumber")
                         .IsRequired();
 
                     b.Property<string>("Zipcode")

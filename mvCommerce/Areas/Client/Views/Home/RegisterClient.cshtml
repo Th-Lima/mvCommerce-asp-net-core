@@ -41,7 +41,7 @@
                                 </div>
                                 <div class="form-group ">
                                     <label asp-for="CPF">CPF</label>
-                                    <input asp-for="CPF" type="text" class="form-control col-4" placeholder="">
+                                    <input asp-for="CPF" type="text" class="form-control col-4" placeholder="Ex: 000.000.000-00">
                                     <span asp-validation-for="CPF"></span>
                                 </div>
 
@@ -70,7 +70,7 @@
                                 <!--Email-->
                                 <div class="form-group">
                                     <label asp-for="Email">Email</label>
-                                    <input asp-for="Email" type="email" class="form-control col-7" placeholder="">
+                                    <input asp-for="Email" type="email" class="form-control col-7" placeholder="exemplo@@exemplo.com">
                                     <span asp-validation-for="Email"></span>
                                 </div>
 
@@ -89,6 +89,55 @@
                                     <label asp-for="ConfirmationPassword">Confirmar senha</label>
                                     <input asp-for="ConfirmationPassword" class="form-control col-7" type="password">
                                     <span asp-validation-for="ConfirmationPassword"></span>
+                                </div>
+
+
+                                <!--Endereço-->
+                                <hr />
+                                <div class="form-group">
+                                    <h4 class="text-center">Endereço: </h4>
+                                </div>
+                                <hr />
+                                <!--CEP-->
+                                <div class="form-group">
+                                    <label asp-for="Zipcode">CEP</label>
+                                    <input asp-for="Zipcode" class="form-control col-7 cep" placeholder="">
+                                    <span asp-validation-for="Zipcode"></span>
+                                </div>
+
+                                <!--Estado-->
+                                <div class="form-group">
+                                    <label asp-for="State">Estado</label>
+                                    <input asp-for="State" readonly="readonly" class="form-control col-7" placeholder="">
+                                    <span asp-validation-for="State"></span>
+                                </div>
+
+                                <!--Cidade-->
+                                <div class="form-group">
+                                    <label asp-for="City">Cidade</label>
+                                    <input asp-for="City" readonly="readonly" class="form-control col-7" placeholder="">
+                                    <span asp-validation-for="City"></span>
+                                </div>
+
+                                <!--Endereço-->
+                                <div class="form-group">
+                                    <label asp-for="Address">Endereço</label>
+                                    <input asp-for="Address" class="form-control col-7" placeholder="">
+                                    <span asp-validation-for="Address"></span>
+                                </div>
+
+                                <!--Bairro-->
+                                <div class="form-group">
+                                    <label asp-for="Neighborhood">Bairro</label>
+                                    <input asp-for="Neighborhood" class="form-control col-7" placeholder="">
+                                    <span asp-validation-for="Neighborhood"></span>
+                                </div>
+
+                                <!--Complemento-->
+                                <div class="form-group">
+                                    <label asp-for="Complement">Complemento</label>
+                                    <input asp-for="Complement" class="form-control col-7" placeholder="">
+                                    <span asp-validation-for="Complement"></span>
                                 </div>
 
                                 <br />

@@ -10,24 +10,22 @@ namespace mvCommerce.Models
         // PK
         public int Id { get; set; }
 
+        #region DADOS CLIENTE
         [Display(Name = "Nome")]
         [Required(ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E001")]
         [MinLength(4, ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E002")]
         public string Name { get; set; }
 
         [Display(Name = "Data de Nascimento")]
-        [Required(ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E001")]
         public DateTime BirthDate { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E001")]
         public string CPF { get; set; }
 
         [Display(Name = "Sexo")]
-        [Required(ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E001")]
         public string Sex { get; set; }
 
         [Display(Name = "Telefone")]
-        [Required(ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E001")]
         public string Phone { get; set; }
 
         [Display(Name = "Email")]
@@ -47,5 +45,34 @@ namespace mvCommerce.Models
 
         [Display(Name = "Situação")]
         public string Situation { get; set; }
+        #endregion
+
+        #region DADOS CLIENTE - ENDEREÇO
+        [Required(ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E001")]
+        [Display(Name = "Estado")]
+        public string State { get; set; }
+
+        [Required(ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E001")]
+        [Display(Name = "Cidade")]
+        public string City { get; set; }
+
+        [Required(ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E001")]
+        [Display(Name = "Bairro")]
+        public string Neighborhood { get; set; }
+
+        [Required(ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E001")]
+        [Display(Name = "Endereço")]
+        public string Address { get; set; }
+
+        [Required(ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E001")]
+        [Display(Name = "Complemento")]
+        public string Complement { get; set; }
+
+        [Required(ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E001")]
+        [Display(Name = "CEP")]
+        [MinLength(10, ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E002")]
+        [MaxLength(10, ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E003")]
+        public string Zipcode { get; set; }
+        #endregion
     }
 }

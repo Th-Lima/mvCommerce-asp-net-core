@@ -55,7 +55,7 @@ function AJAXCalculateFreight(callByButton) {
                     var value = data[i].value;
                     var deadline = data[i].deadline;
 
-                    html += "<dl class=\"dlist-align\"><dt> <input type=\"radio\" name=\"frete\" value=\"" + typeFreight + "\" /><input type=\"hidden\" name=\"value\" value=\"" + value  + "\"/></dt ><dd>" + typeFreight + " - " + numberToReal(value) + " (" + deadline + ") dias úteis</dd></dl>"
+                    html += "<dl class=\"dlist-align\"><dt> <input type=\"radio\" name=\"frete\" value=\"" + typeFreight + "\" /><input type=\"hidden\" name=\"value\" value=\"" + value + "\"/></dt ><dd>" + typeFreight + " - " + numberToReal(value) + " (" + deadline + ") dias úteis</dd></dl>"
                 }
                 $(".container-freight").html(html);
                 $(".container-freight").find("input[type=radio]").change(function () {
@@ -66,7 +66,7 @@ function AJAXCalculateFreight(callByButton) {
 
                     var valueFreight = parseFloat($(this).parent().find("input[type=hidden]").val());
 
-                    
+
 
                     $(".freight").text(numberToReal(valueFreight));
 
@@ -145,29 +145,19 @@ function ChangeScreenProductCart(product, operation) {
     //TODO - Add validation
     if (operation == "amountLarger") {
 
-        /*if (product.amountProductCartOld == product.amountStore) {
-            alert("Oops, não possuimos estoque suficiente para este produto!");
-        }
 
-        else*/ {
-            product.amountProductCartNew = product.amountProductCartOld + 1;
+        product.amountProductCartNew = product.amountProductCartOld + 1;
 
-            UpdateAmountAndValue(product);
+        UpdateAmountAndValue(product);
 
-            AJAXToCommunicateUpdateAmountProduct(product);
-        }
+        AJAXToCommunicateUpdateAmountProduct(product);
 
     } else if (operation == "amountLess") {
-        /*if (product.amountProductCartOld == 1) {
-            alert("Oops, caso não deseje mais esse produto, clique em remover")
-        }
-        else*/ {
-            product.amountProductCartNew = product.amountProductCartOld - 1;
+        product.amountProductCartNew = product.amountProductCartOld - 1;
 
-            UpdateAmountAndValue(product);
+        UpdateAmountAndValue(product);
 
-            AJAXToCommunicateUpdateAmountProduct(product);
-        }
+        AJAXToCommunicateUpdateAmountProduct(product);
     }
 }
 

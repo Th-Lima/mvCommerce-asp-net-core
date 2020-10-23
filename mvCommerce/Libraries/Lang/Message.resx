@@ -136,10 +136,10 @@
     <value>O valor do campo {0} não está entre {1} e {2}.</value>
   </data>
   <data name="MSG_E007" xml:space="preserve">
-    <value>Quantidade não pode ser 0, se não deseja mais o produto, por favor, remova do carrinho.</value>
+    <value>Quantidade não pode ser 0, se não desejar mais o produto, por favor, remova do carrinho.</value>
   </data>
   <data name="MSG_E008" xml:space="preserve">
-    <value>Quantidade do produto solicitado é maior do que temos em estoque deste produto.</value>
+    <value>Não temos em estoque a quantidade do produto solicitado!</value>
   </data>
   <data name="MSG_E009" xml:space="preserve">
     <value>Não foi selecionado o tipo de envio</value>

@@ -115,7 +115,7 @@ namespace mvCommerce.Libraries.Lang {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Quantidade não pode ser 0, se não deseja mais o produto, por favor, remova do carrinho..
+        ///   Looks up a localized string similar to Quantidade não pode ser 0, se não desejar mais o produto, por favor, remova do carrinho..
         /// </summary>
         public static string MSG_E007 {
             get {
@@ -124,7 +124,7 @@ namespace mvCommerce.Libraries.Lang {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Quantidade do produto solicitado é maior do que temos em estoque deste produto..
+        ///   Looks up a localized string similar to Não temos em estoque a quantidade do produto solicitado!.
         /// </summary>
         public static string MSG_E008 {
             get {
