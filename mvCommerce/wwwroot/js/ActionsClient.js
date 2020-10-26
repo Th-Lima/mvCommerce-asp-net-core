@@ -6,9 +6,43 @@ $(document).ready(function () {
     ChangeAmountProductCart();
 
     MaskCEP();
+    AJAXSearchCEP();
     CalculateActionBtn();
     AJAXCalculateFreight(false);
 });
+
+function AJAXSearchCEP() {
+    $("#CEP").keyup(function () {
+        HideErrorMessage();
+
+        if ($(this).val().length == 10) {
+
+            var cep = RemoveMask($(this).val());
+            $.ajax({
+                dataType: "jsonp",
+                type: "GET",
+                url: "https://viacep.com.br/ws/" + cep + "/json/?callback=callback_name",
+                error: function (data) {
+                    ShowErrorMesssage("Oops, Algo deu errado, tivemos um erro na busca do CEP, tente mais tarde ...");
+                },
+                success: function (data) {
+                    console.info("Ok")
+                    console.info(data)
+
+                    if (data.erro == undefined) {
+                        $("#State").val(data.uf);
+                        $("#City").val(data.localidade);
+                        $("#Address").val(data.logradouro);
+                        $("#Neighborhood").val(data.bairro);
+                    } else {
+                        ShowErrorMesssage("O CEP informado não existe.");
+                    }
+                  
+                }
+            });
+        }
+    });
+}
 
 function MaskCEP() {
     $(".cep").mask("00.000-000");
@@ -256,7 +290,9 @@ function ChangeOrdering() {
 }
 
 
-
+function RemoveMask(value) {
+    return value.replace(".", "").replace("-", "");
+}
 
 /*
  * ---------- Classes --------------

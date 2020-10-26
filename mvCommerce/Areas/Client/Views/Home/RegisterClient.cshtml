@@ -101,42 +101,50 @@
                                 <!--CEP-->
                                 <div class="form-group">
                                     <label asp-for="Zipcode">CEP</label>
-                                    <input asp-for="Zipcode" class="form-control col-7 cep" placeholder="">
+                                    <input asp-for="Zipcode" id="CEP" class="form-control col-3 cep" placeholder="">
                                     <span asp-validation-for="Zipcode"></span>
+                                    <div class="alert alert-danger mt-3" style="display:none"></div>
                                 </div>
 
                                 <!--Estado-->
                                 <div class="form-group">
                                     <label asp-for="State">Estado</label>
-                                    <input asp-for="State" readonly="readonly" class="form-control col-7" placeholder="">
+                                    <input asp-for="State" readonly="readonly" class="form-control col-1" placeholder="">
                                     <span asp-validation-for="State"></span>
                                 </div>
 
                                 <!--Cidade-->
                                 <div class="form-group">
                                     <label asp-for="City">Cidade</label>
-                                    <input asp-for="City" readonly="readonly" class="form-control col-7" placeholder="">
+                                    <input asp-for="City" readonly="readonly" class="form-control col-5" placeholder="">
                                     <span asp-validation-for="City"></span>
                                 </div>
 
                                 <!--Endereço-->
                                 <div class="form-group">
                                     <label asp-for="Address">Endereço</label>
-                                    <input asp-for="Address" class="form-control col-7" placeholder="">
+                                    <input asp-for="Address" class="form-control col-8" placeholder="">
                                     <span asp-validation-for="Address"></span>
                                 </div>
 
                                 <!--Bairro-->
                                 <div class="form-group">
                                     <label asp-for="Neighborhood">Bairro</label>
-                                    <input asp-for="Neighborhood" class="form-control col-7" placeholder="">
+                                    <input asp-for="Neighborhood" class="form-control col-5" placeholder="">
                                     <span asp-validation-for="Neighborhood"></span>
+                                </div>
+
+                                <!--Número-->
+                                <div class="form-group">
+                                    <label asp-for="Number">Número</label>
+                                    <input asp-for="Number" class="form-control col-3" placeholder="">
+                                    <span asp-validation-for="Number"></span>
                                 </div>
 
                                 <!--Complemento-->
                                 <div class="form-group">
                                     <label asp-for="Complement">Complemento</label>
-                                    <input asp-for="Complement" class="form-control col-7" placeholder="">
+                                    <input asp-for="Complement" class="form-control col-8" placeholder="">
                                     <span asp-validation-for="Complement"></span>
                                 </div>
 

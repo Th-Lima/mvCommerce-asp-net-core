@@ -64,9 +64,12 @@ namespace mvCommerce.Models
         [Display(Name = "Endereço")]
         public string Address { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E001")]
         [Display(Name = "Complemento")]
         public string Complement { get; set; }
+
+        [Required(ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E001")]
+        [Display(Name = "Número")]
+        public string Number { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E001")]
         [Display(Name = "CEP")]
