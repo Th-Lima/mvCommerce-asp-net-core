@@ -145,11 +145,11 @@
                 <small class="select-freight" style="font-size:small;">Para pagar selecione uma opção de frete</small>
                 @if (_loginClient.GetClient() == null)
                 {
-                    <a class="btn btn-info disabled btn-pay  col-md-12" asp-action="Login" asp-controller="Home" asp-area="Client" asp-route-returnUrl="@Url.Action("Index", "Payments", new { area = "" })">Pagar</a>
+                    <a class="btn btn-info disabled btn-pay  col-md-12" asp-action="Login" asp-controller="Home" asp-area="Client" asp-route-returnUrl="@Url.Action("AddressDelivery", "ShoppingCart", new { area = "" })">Pagar</a>
                 }
                 else
                 {
-                    <a class="btn btn-info disabled btn-pay  col-md-12" asp-action="Index" asp-controller="Payments">Pagar</a>
+                    <a class="btn btn-info disabled btn-pay  col-md-12" asp-action="AddressDelivery" asp-controller="ShoppingCart">Pagar</a>
                 }
             </aside>
 

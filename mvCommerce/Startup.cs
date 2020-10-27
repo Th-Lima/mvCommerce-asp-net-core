@@ -44,7 +44,6 @@ namespace mvCommerce
             /*
              * Repository pattern 
              */
-            
             services.AddHttpContextAccessor();
             services.AddScoped<IClientRepository, ClientRepository>();
             services.AddScoped<INewsletterRepository, NewsletterRepository>();
@@ -52,7 +51,8 @@ namespace mvCommerce
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IImageRepository, ImageRepository>();
-
+            services.AddScoped<IDeliveryAddressRepository, DeliveryAddressRepository>();
+           
 
             /*
              * SMTP

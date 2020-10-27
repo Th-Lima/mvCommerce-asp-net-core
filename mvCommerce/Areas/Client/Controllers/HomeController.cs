@@ -9,13 +9,15 @@ namespace mvCommerce.Areas.Client.Controllers
     [Area("Client")]
     public class HomeController : Controller
     {
-        public IClientRepository _repositoryClient;
-        public ClientLogin _clientLogin { get; set; }
+        private IClientRepository _repositoryClient;
+        private ClientLogin _clientLogin;
+        private IDeliveryAddressRepository _deliveryRepository;
 
-        public HomeController(IClientRepository clientRepository, ClientLogin clientLogin)
+        public HomeController(IClientRepository clientRepository, ClientLogin clientLogin, IDeliveryAddressRepository deliveryRepository)
         {
             _repositoryClient = clientRepository;
             _clientLogin = clientLogin;
+            _deliveryRepository = deliveryRepository;
         }
 
         [HttpGet]
@@ -95,6 +97,16 @@ namespace mvCommerce.Areas.Client.Controllers
             if (ModelState.IsValid)
             {
                 deliveryAddress.ClientId = _clientLogin.GetClient().Id;
+                _deliveryRepository.Register(deliveryAddress);
+
+                if (returnUrl == null)
+                {
+                    //TODO - LIST OF ADRESSES 
+                }
+                else
+                {
+                    return LocalRedirectPermanent(returnUrl);
+                }
             }
             return View();
         }

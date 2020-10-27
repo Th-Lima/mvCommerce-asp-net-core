@@ -5,26 +5,38 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using mvCommerce.Controllers.Base;
+using mvCommerce.Libraries.Filter;
 using mvCommerce.Libraries.Lang;
+using mvCommerce.Libraries.Login;
 using mvCommerce.Libraries.Manager.Freight;
 using mvCommerce.Libraries.ShoppingCart;
 using mvCommerce.Models;
 using mvCommerce.Models.Constants;
 using mvCommerce.Models.ProductAggregator;
+using mvCommerce.Repositories;
 using mvCommerce.Repositories.Contracts;
 
 namespace mvCommerce.Controllers
 {
     public class ShoppingCartController : BaseController
     {
+        private ClientLogin _clientLogin;
+        private IDeliveryAddressRepository _deliveryAddressRepository;
+
         public ShoppingCartController(
              CookieShoppingCart cookieShoppingCart,
             IProductRepository productRepository,
             IMapper mapper,
             WSCorreiosCalculateFreight wSCorreiosCalculateFreight,
             CalculatePackage calculatePackage,
-            CookieValueDeadlineFreight cookieValueDeadlineFreight)
-            : base(cookieShoppingCart, productRepository, mapper, wSCorreiosCalculateFreight, calculatePackage, cookieValueDeadlineFreight) { }
+            CookieValueDeadlineFreight cookieValueDeadlineFreight,
+            ClientLogin clientLogin,
+            IDeliveryAddressRepository deliveryAddressRepository)
+            : base(cookieShoppingCart, productRepository, mapper, wSCorreiosCalculateFreight, calculatePackage, cookieValueDeadlineFreight)
+        {
+            _clientLogin = clientLogin;
+            _deliveryAddressRepository = deliveryAddressRepository;
+        }
 
         public IActionResult Index()
         {
@@ -74,8 +86,15 @@ namespace mvCommerce.Controllers
             }
         }
 
+        [ClientAuthorization]
         public IActionResult AddressDelivery()
         {
+            Client client = _clientLogin.GetClient();
+
+            IList<DeliveryAddress> deliveryAddresses = _deliveryAddressRepository.GetAllAdressesClient(client.Id);
+
+            ViewBag.Client = client;
+            ViewBag.Address = deliveryAddresses;
             return View();
         }
 
