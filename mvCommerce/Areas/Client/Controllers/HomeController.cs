@@ -90,8 +90,12 @@ namespace mvCommerce.Areas.Client.Controllers
         }
 
         [HttpPost]
-        public IActionResult RegisterDeliveryAddress([FromForm] DeliveryAddress deliveryAddress)
+        public IActionResult RegisterDeliveryAddress([FromForm] DeliveryAddress deliveryAddress, string returnUrl = null)
         {
+            if (ModelState.IsValid)
+            {
+                deliveryAddress.ClientId = _clientLogin.GetClient().Id;
+            }
             return View();
         }
     }
