@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using mvCommerce.Libraries.Filter;
 using mvCommerce.Libraries.Login;
+using mvCommerce.Models;
 using mvCommerce.Repositories.Contracts;
 
 namespace mvCommerce.Areas.Client.Controllers
@@ -30,7 +31,7 @@ namespace mvCommerce.Areas.Client.Controllers
             if (clientDB != null)
             {
                 _clientLogin.Login(clientDB);
-                if(returnUrl == null)
+                if (returnUrl == null)
                 {
                     return new RedirectResult(Url.Action(nameof(Panel)));
                 }
@@ -70,7 +71,7 @@ namespace mvCommerce.Areas.Client.Controllers
 
                 TempData["MSG_S"] = "Agora você é cadastrado no CompraTudo, aproveite!";
 
-                if(returnUrl == null)
+                if (returnUrl == null)
                 {
                     return RedirectToAction("Index", "Home", new { area = "" });
                 }
@@ -79,6 +80,18 @@ namespace mvCommerce.Areas.Client.Controllers
                     return LocalRedirectPermanent(returnUrl);
                 }
             }
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult RegisterDeliveryAddress()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult RegisterDeliveryAddress([FromForm] DeliveryAddress deliveryAddress)
+        {
             return View();
         }
     }

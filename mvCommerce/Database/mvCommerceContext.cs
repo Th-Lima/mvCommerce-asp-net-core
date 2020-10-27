@@ -17,6 +17,7 @@ namespace mvCommerce.Database
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Image> Images { get; set; }
+        public DbSet<DeliveryAddress> DeliveryAdresses { get; set; }
 
         internal mvCommerceContext Where()
         {

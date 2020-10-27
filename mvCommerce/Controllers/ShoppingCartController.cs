@@ -79,19 +79,6 @@ namespace mvCommerce.Controllers
             return View();
         }
 
-        //[HttpGet]
-        //public IActionResult RegisterDeliveryAddress()
-        //{
-
-        //}
-
-        //[HttpPost]
-        //public IActionResult RegisterDeliveryAddress([FromForm] DeliveryAddress)
-        //{
-        //    return View();
-        //}
-
-
         public IActionResult RemoveItem(int id)
         {
             _cookieShoppingCart.Remove(new ProductItem() { Id = id });

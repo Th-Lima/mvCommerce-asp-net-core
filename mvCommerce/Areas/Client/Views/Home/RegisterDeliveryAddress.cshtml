@@ -1,0 +1,111 @@
+﻿@model mvCommerce.Models.DeliveryAddress;
+@{ 
+    ViewData["Title"] = "RegisterAddress";
+}
+<head>
+    <link rel="stylesheet" href="~/css/RegisterClient.css" />
+</head>
+<main role="main">
+    <form method="post">
+        <section class="container" style="margin-top: 50px">
+            <div class="row">
+                <aside class="col-sm-8">
+
+                    <div id="code_register_1">
+                        <div class="card">
+                            <header class="card-header">
+                                <h3 class="subtitle-doc">
+                                    Cadastre o endereço
+                                </h3>
+                            </header>
+                            <article class="card-body">
+                                @if (TempData["MSG_S"] != null)
+                                {
+                                    <p class="alert alert-success"><b>@TempData["MSG_S"]</b></p>
+                                }
+
+                                <!--Endereço-->
+                                <hr />
+                                <div class="form-group">
+                                    <h4 class="text-center">Endereço: </h4>
+                                </div>
+                                <hr />
+                                <!--CEP-->
+                                <div class="form-group">
+                                    <label asp-for="Name">De quem é esse endereço ?</label>
+                                    <input asp-for="Name" id="CEP" class="form-control col-3 cep" placeholder="Ex: Casa da minha mãe">
+                                    <span asp-validation-for="Name"></span>
+                                    <div class="alert alert-danger mt-3" style="display:none"></div>
+                                </div>
+
+                                <!--CEP-->
+                                <div class="form-group">
+                                    <label asp-for="Zipcode">CEP</label>
+                                    <input asp-for="Zipcode" id="CEP" class="form-control col-3 cep" placeholder="">
+                                    <span asp-validation-for="Zipcode"></span>
+                                    <div class="alert alert-danger mt-3" style="display:none"></div>
+                                </div>
+
+                                <!--Estado-->
+                                <div class="form-group">
+                                    <label asp-for="State">Estado</label>
+                                    <input asp-for="State" readonly="readonly" class="form-control col-1" placeholder="">
+                                    <span asp-validation-for="State"></span>
+                                </div>
+
+                                <!--Cidade-->
+                                <div class="form-group">
+                                    <label asp-for="City">Cidade</label>
+                                    <input asp-for="City" readonly="readonly" class="form-control col-5" placeholder="">
+                                    <span asp-validation-for="City"></span>
+                                </div>
+
+                                <!--Endereço-->
+                                <div class="form-group">
+                                    <label asp-for="Address">Endereço</label>
+                                    <input asp-for="Address" class="form-control col-8" placeholder="">
+                                    <span asp-validation-for="Address"></span>
+                                </div>
+
+                                <!--Bairro-->
+                                <div class="form-group">
+                                    <label asp-for="Neighborhood">Bairro</label>
+                                    <input asp-for="Neighborhood" class="form-control col-5" placeholder="">
+                                    <span asp-validation-for="Neighborhood"></span>
+                                </div>
+
+                                <!--Número-->
+                                <div class="form-group">
+                                    <label asp-for="Number">Número</label>
+                                    <input asp-for="Number" class="form-control col-3" placeholder="">
+                                    <span asp-validation-for="Number"></span>
+                                </div>
+
+                                <!--Complemento-->
+                                <div class="form-group">
+                                    <label asp-for="Complement">Complemento</label>
+                                    <input asp-for="Complement" class="form-control col-8" placeholder="">
+                                    <span asp-validation-for="Complement"></span>
+                                </div>
+
+                                <br />
+                                <br />
+                                <div class="container col-7">
+                                    <div class="row">
+                                        <div class="col text-center">
+                                            <button type="submit" class="btn btn-primary btn-block btn-info "> Cadastrar </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </article>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </section>
+    </form>
+</main>
+
+
+
