@@ -1,9 +1,14 @@
 ﻿
 @{
-    ViewData["Title"] = "AddressDelivery";
+    ViewData["Title"] = "Endereço de Entrega";
 }
 
 <div class="container">
+    <br />
+    <br />
+    <div class="alert alert-info">
+        <h6 class="text-center">Escolha um endereço para prosseguir com o pagamento, ou cadastre um novo!</h6>
+    </div>
     <br />
     <br />
     <div class="row">
@@ -11,7 +16,7 @@
             <!--List Address-->
             <!--TODO - lISTAR ENDEREÇOS VINCULADOS AO USUÁRIO-->
             <!--TODO - APRESENTAR O ENDEREÇO DO USUÁRIO (SESSION)-->
-            <table class="table">
+            <table class="table table-hover">
                 <div class="text-center">
                     <h6>Novo endereço </h6><a class="btn btn-outline-info fa fa-plus ml-2" style="width:60px;" asp-action="RegisterDeliveryAddress" asp-controller="Home" asp-area="Client" asp-route-returnUrl="@Url.Action("AddressDelivery", "ShoppingCart", new { area = ""})"></a>
                 </div>
@@ -22,7 +27,7 @@
                             <input type="radio" name="address" value="0"/>
                         </th>
                         <td>
-                            <strong>Endereço </strong>
+                            <strong>Seu endereço</strong>
                             <p>
                                 @ViewBag.Client.Zipcode | @ViewBag.Client.State, @ViewBag.Client.City, @ViewBag.Client.Neighborhood, @ViewBag.Client.Address, @ViewBag.Client.Number, @ViewBag.Client.Complement
                             </p>
@@ -37,7 +42,7 @@
                     {
                         <tr>
                             <th scope="row">
-                                <input type="radio" name="address" value="0" />
+                                <input type="radio" name="address" value="@address.Id" />
                             </th>
                             <td>
                                 <strong>@address.Name </strong>
@@ -56,7 +61,7 @@
                 </tbody>
             </table>
             <div class="float-right">
-                <small>Continuar</small><a asp-action="Index" asp-controller="Payments" class=" ml-2 btn btn-outline-info fa fa-arrow-right" style="width:100px;"></a>
+                <h6 style="font-size:large" class="text-center mt-5">Continuar</h6><a asp-action="Index" asp-controller="Payments" class=" ml-2 btn btn-outline-info fa fa-arrow-right" style="width:100px;"></a>
             </div>
         </div>
         <br />

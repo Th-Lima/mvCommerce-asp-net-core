@@ -15,7 +15,7 @@
                         <div class="card">
                             <header class="card-header">
                                 <h3 class="subtitle-doc">
-                                    Cadastre o endereço
+                                  Cadastrar novo endereço
                                 </h3>
                             </header>
                             <article class="card-body">
@@ -23,17 +23,10 @@
                                 {
                                     <p class="alert alert-success"><b>@TempData["MSG_S"]</b></p>
                                 }
-
-                                <!--Endereço-->
-                                <hr />
-                                <div class="form-group">
-                                    <h4 class="text-center">Endereço: </h4>
-                                </div>
-                                <hr />
-                                <!--CEP-->
+                                <!--Nome-->
                                 <div class="form-group">
                                     <label asp-for="Name">De quem é esse endereço ?</label>
-                                    <input asp-for="Name" id="CEP" class="form-control col-3 cep" placeholder="Ex: Casa da minha mãe">
+                                    <input asp-for="Name" class="form-control col-7" placeholder="Ex: Casa da minha mãe">
                                     <span asp-validation-for="Name"></span>
                                     <div class="alert alert-danger mt-3" style="display:none"></div>
                                 </div>

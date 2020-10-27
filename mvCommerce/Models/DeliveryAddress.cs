@@ -1,10 +1,6 @@
 ﻿using mvCommerce.Libraries.Lang;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace mvCommerce.Models
 {
@@ -13,7 +9,6 @@ namespace mvCommerce.Models
         //PK
         public int Id { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E001")]
         [MinLength(3, ErrorMessageResourceType = typeof(Message), ErrorMessageResourceName = "MSG_E002")]
         public string Name { get; set; }
        
