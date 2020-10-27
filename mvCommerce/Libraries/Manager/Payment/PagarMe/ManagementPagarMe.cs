@@ -114,16 +114,16 @@ namespace mvCommerce.Libraries.Manager.Payment.PagarMe
 
         //    transaction.Billing = new Billing
         //    {
-        //        Name = "Morty",
+        //        Name = client.Name,
         //        Address = new Address()
         //        {
         //            Country = "br",
-        //            State = "sp",
-        //            City = "Cotia",
-        //            Neighborhood = "Rio Cotia",
-        //            Street = "Rua Matrix",
-        //            StreetNumber = "213",
-        //            Zipcode = "04250000"
+        //            State = client.State,
+        //            City = client.City,
+        //            Neighborhood = client.Neighborhood,
+        //            Street = client.Address + " " + client.Complement,
+        //            StreetNumber = client.Number,
+        //            Zipcode = Mask.Remove(client.Zipcode) 
         //        }
         //    };
 
@@ -131,7 +131,7 @@ namespace mvCommerce.Libraries.Manager.Payment.PagarMe
 
         //    transaction.Shipping = new Shipping
         //    {
-        //        Name = "Rick",
+        //        Name = client.Name,
         //        Fee = 100,
         //        DeliveryDate = Today.AddDays(4).ToString("yyyy-MM-dd"),
         //        Expedited = false,

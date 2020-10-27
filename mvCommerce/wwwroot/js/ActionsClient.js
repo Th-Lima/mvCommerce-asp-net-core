@@ -22,7 +22,7 @@ function AJAXSearchCEP() {
                 dataType: "jsonp",
                 type: "GET",
                 url: "https://viacep.com.br/ws/" + cep + "/json/?callback=callback_name",
-                error: function (data) {
+                error: function () {
                     ShowErrorMesssage("Oops, Algo deu errado, tivemos um erro na busca do CEP, tente mais tarde ...");
                 },
                 success: function (data) {
