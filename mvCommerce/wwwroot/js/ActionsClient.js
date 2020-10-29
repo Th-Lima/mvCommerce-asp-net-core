@@ -9,6 +9,7 @@ $(document).ready(function () {
     AJAXSearchCEP();
     CalculateActionBtn();
     AJAXCalculateFreight(false);
+    AJAXCalculateFreightDeliveryAddress();
 });
 
 function AJAXSearchCEP() {
@@ -37,7 +38,7 @@ function AJAXSearchCEP() {
                     } else {
                         ShowErrorMesssage("O CEP informado não existe.");
                     }
-                  
+
                 }
             });
         }
@@ -63,17 +64,76 @@ function AJAXCalculateFreight(callByButton) {
         }
     }
 
-    var cep = $(".cep").val().replace(".", "").replace("-", "");
-    $.removeCookie("cart.typefreight");
+    if ($(".cep").length > 0) {
 
-    if (cep.length == 8) {
+        var cep = RemoveMask($(".cep").val());
+        $.removeCookie("cart.typefreight");
 
-        //Add cookie in the input
-        $.cookie('cart.cep', $(".cep").val());
+        if (cep.length == 8) {
 
-        $(".container-freight").html("<img id='load-freight' src='\\img\\loader.gif'/>");
-        $(".freight").text("R$ 0,00");
-        $(".total").text("R$ 0,00");
+            //Add cookie in the input
+            $.cookie('cart.cep', $(".cep").val());
+
+            $(".container-freight").html("<img id='load-freight' src='\\img\\loader.gif'/>");
+            $(".freight").text("R$ 0,00");
+            $(".total").text("R$ 0,00");
+
+            $.ajax({
+                type: "GET",
+                url: "/ShoppingCart/CalculateFreight?cepDestiny=" + cep,
+                error: function (data) {
+                    ShowErrorMesssage("Ooops, tivemos um erro ao obter o frete! " + data.Message);
+                },
+                success: function (data) {
+                    console.info(data)
+                    html = "";
+
+                    for (var i = 0; i < data.listValues.length; i++) {
+                        var typeFreight = data.listValues[i].typeFreight;
+                        var value = data.listValues[i].value;
+                        var deadline = data.listValues[i].deadline;
+
+                        html += "<dl class=\"dlist-align\"><dt> <input type=\"radio\" name=\"frete\" value=\"" + typeFreight + "\" /><input type=\"hidden\" name=\"value\" value=\"" + value + "\"/></dt ><dd>" + typeFreight + " - " + numberToReal(value) + " (" + deadline + ") dias úteis</dd></dl>"
+                    }
+
+                    $(".container-freight").html(html);
+                    $(".container-freight").find("input[type=radio]").change(function () {
+                        $.cookie("cart.typefreight", $(this).val());
+
+                        $(".btn-pay ").removeClass("disabled");
+                        $(".select-freight").addClass("text-hide");
+
+                        var valueFreight = parseFloat($(this).parent().find("input[type=hidden]").val());
+
+
+
+                        $(".freight").text(numberToReal(valueFreight));
+
+                        var subtotal = parseFloat($(".subtotal").text().replace("R$", "").replace(".", "").replace(",", "."));
+                        //console.info(subtotal);
+
+                        var total = valueFreight + subtotal
+
+                        $(".total").text(numberToReal(total));
+                    });
+                    //console.info(data);
+                }
+            });
+        } else {
+            if (callByButton) {
+                $(".container-freight").html("");
+                ShowErrorMesssage("Digite um CEP ou verifique se o CEP digitado está correto");
+            }
+        }
+
+    }
+}
+
+function AJAXCalculateFreightDeliveryAddress() {
+
+    $("input[name=address]").change(function () {
+        var cep = RemoveMask($(this).parent().find("input[name=cep]"));
+
 
         $.ajax({
             type: "GET",
@@ -82,46 +142,45 @@ function AJAXCalculateFreight(callByButton) {
                 ShowErrorMesssage("Ooops, tivemos um erro ao obter o frete! " + data.Message);
             },
             success: function (data) {
-                console.info(data)
-                html = "";
 
                 for (var i = 0; i < data.listValues.length; i++) {
                     var typeFreight = data.listValues[i].typeFreight;
                     var value = data.listValues[i].value;
                     var deadline = data.listValues[i].deadline;
 
-                    html += "<dl class=\"dlist-align\"><dt> <input type=\"radio\" name=\"frete\" value=\"" + typeFreight + "\" /><input type=\"hidden\" name=\"value\" value=\"" + value + "\"/></dt ><dd>" + typeFreight + " - " + numberToReal(value) + " (" + deadline + ") dias úteis</dd></dl>"
+                    $(".card-title")[i].innerHTML = typeFreight;
+
+                    $(".card-text")[i].innerHTML = "Prazo de " + deadline + "dias.";
+
+                    $(".card-text .text-muted")[i].innerHTML = "<input class=\"mt-4\" type=\"radio\"name=\"freight\" value=\" " + typeFreight + "\" />" + numberToReal(value);
+
                 }
 
-                $(".container-freight").html(html);
-                $(".container-freight").find("input[type=radio]").change(function () {
-                    $.cookie("cart.typefreight", $(this).val());
+                //$(".container-freight").html(html);
+                //$(".container-freight").find("input[type=radio]").change(function () {
+                //    $.cookie("cart.typefreight", $(this).val());
 
-                    $(".btn-pay ").removeClass("disabled");
-                    $(".select-freight").addClass("text-hide");
+                //    $(".btn-pay ").removeClass("disabled");
+                //    $(".select-freight").addClass("text-hide");
 
-                    var valueFreight = parseFloat($(this).parent().find("input[type=hidden]").val());
+                //    var valueFreight = parseFloat($(this).parent().find("input[type=hidden]").val());
 
 
 
-                    $(".freight").text(numberToReal(valueFreight));
+                //    $(".freight").text(numberToReal(valueFreight));
 
-                    var subtotal = parseFloat($(".subtotal").text().replace("R$", "").replace(".", "").replace(",", "."));
-                    //console.info(subtotal);
+                //    var subtotal = parseFloat($(".subtotal").text().replace("R$", "").replace(".", "").replace(",", "."));
+                //    //console.info(subtotal);
 
-                    var total = valueFreight + subtotal
+                //    var total = valueFreight + subtotal
 
-                    $(".total").text(numberToReal(total));
-                });
-                //console.info(data);
+                //    $(".total").text(numberToReal(total));
+                //});
+                ////console.info(data);
             }
         });
-    } else {
-        if (callByButton) {
-            $(".container-freight").html("");
-            ShowErrorMesssage("Digite um CEP ou verifique se o CEP digitado está correto");
-        }
-    }
+
+    });
 }
 
 function numberToReal(numero) {
@@ -293,7 +352,7 @@ function ChangeOrdering() {
 
 
 function RemoveMask(value) {
-    return value.replace(".", "").replace("-", "");
+    return value.toString() .replace(".", "").replace("-", "");
 }
 
 /*

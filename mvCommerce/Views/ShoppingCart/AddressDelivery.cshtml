@@ -13,9 +13,6 @@
         <br />
         <div class="row">
             <div class="col-md-12">
-                <!--List Address-->
-                <!--TODO - lISTAR ENDEREÇOS VINCULADOS AO USUÁRIO-->
-                <!--TODO - APRESENTAR O ENDEREÇO DO USUÁRIO (SESSION)-->
                 <table class="table table-hover">
                     <div class="text-center">
                         <h6>Novo endereço </h6><a class="btn btn-outline-info fa fa-plus ml-2" style="width:60px;" asp-action="RegisterDeliveryAddress" asp-controller="Home" asp-area="Client" asp-route-returnUrl="@Url.Action("AddressDelivery", "ShoppingCart", new { area = ""})"></a>
@@ -25,6 +22,7 @@
                         <tr>
                             <th scope="row">
                                 <input type="radio" name="address" value="0" />
+                                <input type="hidden" name="cep" value="@ViewBag.Client.Zipcode"/>
                             </th>
                             <td>
                                 <strong>Seu endereço</strong>
@@ -39,6 +37,7 @@
                             <tr>
                                 <th scope="row">
                                     <input type="radio" name="address" value="@address.Id" />
+                                    <input type="hidden" name="cep" value="@address.Zipcode" />
                                 </th>
                                 <td>
                                     <strong>@address.Name </strong>
@@ -47,7 +46,7 @@
                                     </p>
                                 </td>
                                 <td>
-                                    <a asp-action="DeleteAddress" asp-controller="Home" asp-area="Client" asp-route-id="@address.Id" class="btn btn-outline-danger alert-danger my-2 my-sm-0 fa fa-trash col-md-8" id="delete" title="Excluir endereço"></a>
+                                    <a asp-action="DeleteAddress" asp-controller="Home" asp-area="Client" asp-route-id="@address.Id" class="btn btn-outline-danger my-2 my-sm-0 fa fa-trash col-md-8" id="delete" title="Excluir endereço"></a>
                                 </td>
                             </tr>
                         }
@@ -60,35 +59,38 @@
                 <div class="card-group">
                     <div class="card">
                         <div class="card-header">
-                            <input type="radio" name="freight" value="PAC" />
+                            <p class="card-text"><small class="text-muted float-right"></small></p>
+                            <input class="mt-4" type="radio" name="freight" value="PAC" />
                         </div>
                         <img src="/img/PAC.png" class="card-img-top" alt="PAC" style="width:340px; margin-top:10px;">
                         <div class="card-body">
                             <h5 class="card-title">PAC</h5>
-                            <p class="card-text">Dias.</p>
-                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                            <p class="card-text"></p>
+                            
                         </div>
                     </div>
                     <div class="card">
                         <div class="card-header">
-                            <input type="radio" name="freight" value="SEDEX" />
+                            <p class="card-text"><small class="text-muted float-right"></small></p>
+                            <input class="mt-4" type="radio" name="freight" value="SEDEX" />
                         </div>
                         <img src="/img/sedex.png" class="card-img-top" alt="SEDEX" style="margin-top:20px">
                         <div class="card-body">
                             <h5 class="card-title">SEDEX</h5>
-                            <p class="card-text">Dias.</p>
-                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                            <p class="card-text"></p>
+                            <p class="card-text"><small class="text-muted"></small></p>
                         </div>
                     </div>
                     <div class="card">
                         <div class="card-header">
-                            <input type="radio" name="freight" value="SEDEX10" />
+                            <p class="card-text"><small class="text-muted float-right"></small></p>
+                            <input class="mt-4" type="radio" name="freight" value="SEDEX10" />
                         </div>
                         <img src="/img/sedex-10.jpg" class="card-img-top" alt="SEDEX10" style="width:350px; margin-left:15px;">
                         <div class="card-body">
                             <h5 class="card-title">SEDEX10</h5>
-                            <p class="card-text">Dias.</p>
-                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                            <p class="card-text"></p>
+                            <p class="card-text"><small class="text-muted"></small></p>
                         </div>
                     </div>
                 </div>
