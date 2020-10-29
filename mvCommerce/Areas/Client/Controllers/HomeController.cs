@@ -11,13 +11,13 @@ namespace mvCommerce.Areas.Client.Controllers
     {
         private IClientRepository _repositoryClient;
         private ClientLogin _clientLogin;
-        private IDeliveryAddressRepository _deliveryRepository;
+        private IDeliveryAddressRepository _deliveryAddressRepository;
 
-        public HomeController(IClientRepository clientRepository, ClientLogin clientLogin, IDeliveryAddressRepository deliveryRepository)
+        public HomeController(IClientRepository clientRepository, ClientLogin clientLogin, IDeliveryAddressRepository deliveryAddressRepository)
         {
             _repositoryClient = clientRepository;
             _clientLogin = clientLogin;
-            _deliveryRepository = deliveryRepository;
+            _deliveryAddressRepository = deliveryAddressRepository;
         }
 
         [HttpGet]
@@ -88,6 +88,7 @@ namespace mvCommerce.Areas.Client.Controllers
         [HttpGet]
         public IActionResult RegisterDeliveryAddress()
         {
+            //TODO - Remover do JS a opção de carregar o CEP quando ele está no cookie para esta tela.
             return View();
         }
 
@@ -97,7 +98,7 @@ namespace mvCommerce.Areas.Client.Controllers
             if (ModelState.IsValid)
             {
                 deliveryAddress.ClientId = _clientLogin.GetClient().Id;
-                _deliveryRepository.Register(deliveryAddress);
+                _deliveryAddressRepository.Register(deliveryAddress);
 
                 if (returnUrl == null)
                 {
@@ -109,6 +110,13 @@ namespace mvCommerce.Areas.Client.Controllers
                 }
             }
             return View();
+        }
+
+        public IActionResult DeleteAddress(int id)
+        {
+            _deliveryAddressRepository.Delete(id);
+
+            return RedirectToAction("AddressDelivery", "ShoppingCart");
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -10,11 +9,12 @@ using mvCommerce.Libraries.Lang;
 using mvCommerce.Libraries.Login;
 using mvCommerce.Libraries.Manager.Freight;
 using mvCommerce.Libraries.ShoppingCart;
+using mvCommerce.Libraries.Text;
 using mvCommerce.Models;
 using mvCommerce.Models.Constants;
 using mvCommerce.Models.ProductAggregator;
-using mvCommerce.Repositories;
 using mvCommerce.Repositories.Contracts;
+using Newtonsoft.Json;
 
 namespace mvCommerce.Controllers
 {
@@ -29,10 +29,10 @@ namespace mvCommerce.Controllers
             IMapper mapper,
             WSCorreiosCalculateFreight wSCorreiosCalculateFreight,
             CalculatePackage calculatePackage,
-            CookieValueDeadlineFreight cookieValueDeadlineFreight,
+            CookieFreight cookieFreight,
             ClientLogin clientLogin,
             IDeliveryAddressRepository deliveryAddressRepository)
-            : base(cookieShoppingCart, productRepository, mapper, wSCorreiosCalculateFreight, calculatePackage, cookieValueDeadlineFreight)
+            : base(cookieShoppingCart, productRepository, mapper, wSCorreiosCalculateFreight, calculatePackage, cookieFreight)
         {
             _clientLogin = clientLogin;
             _deliveryAddressRepository = deliveryAddressRepository;
@@ -104,7 +104,7 @@ namespace mvCommerce.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public async Task<IActionResult> CalculateFreight(int cepDestiny)
+        public async Task<IActionResult> CalculateFreight(string cepDestiny)
         {
             try
             {
@@ -112,22 +112,29 @@ namespace mvCommerce.Controllers
 
                 List<Package> packages = _calculatePackage.CalculatingPackage(products);
 
-                ValueDeadlineFreight valuesPAC = await _wSCorreiosCalculateFreight.CalculateFreight(cepDestiny.ToString(), TypeFreightConstant.PAC, packages);
-                ValueDeadlineFreight valuesSEDEX = await _wSCorreiosCalculateFreight.CalculateFreight(cepDestiny.ToString(), TypeFreightConstant.SEDEX, packages);
-                ValueDeadlineFreight valuesSEDEX10 = await _wSCorreiosCalculateFreight.CalculateFreight(cepDestiny.ToString(), TypeFreightConstant.SEDEX10, packages);
+                ValueDeadlineFreight valuesPAC = await _wSCorreiosCalculateFreight.CalculateFreight(cepDestiny, TypeFreightConstant.PAC, packages);
+                ValueDeadlineFreight valuesSEDEX = await _wSCorreiosCalculateFreight.CalculateFreight(cepDestiny, TypeFreightConstant.SEDEX, packages);
+                ValueDeadlineFreight valuesSEDEX10 = await _wSCorreiosCalculateFreight.CalculateFreight(cepDestiny, TypeFreightConstant.SEDEX10, packages);
 
                 List<ValueDeadlineFreight> list = new List<ValueDeadlineFreight>();
                 if (valuesPAC != null) list.Add(valuesPAC);
                 if (valuesSEDEX != null) list.Add(valuesSEDEX);
                 if (valuesSEDEX10 != null) list.Add(valuesSEDEX10);
 
-                _cookieValueDeadlineFreight.Register(list);
+                
+                var freight = new Freight()
+                {
+                    CEP = cepDestiny,
+                    ShoppingCartCode = GenerateHashAndSerialize(_cookieShoppingCart.Consult()),
+                    ListValues = list
+                };
 
-                return Ok(list);
+                _cookieFreight.Register(freight);
+
+                return Ok(freight);
             }
             catch (Exception e)
             {
-                _cookieValueDeadlineFreight.Remove();
                 return BadRequest(e);
             }
         }

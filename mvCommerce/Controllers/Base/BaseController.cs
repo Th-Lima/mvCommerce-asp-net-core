@@ -4,10 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.WebEncoders.Testing;
 using mvCommerce.Libraries.Manager.Freight;
 using mvCommerce.Libraries.ShoppingCart;
+using mvCommerce.Libraries.Text;
 using mvCommerce.Models.ProductAggregator;
 using mvCommerce.Repositories.Contracts;
+using Newtonsoft.Json;
 
 namespace mvCommerce.Controllers.Base
 {
@@ -18,7 +21,7 @@ namespace mvCommerce.Controllers.Base
         protected IMapper _mapper;
         protected WSCorreiosCalculateFreight _wSCorreiosCalculateFreight;
         protected CalculatePackage _calculatePackage;
-        protected CookieValueDeadlineFreight _cookieValueDeadlineFreight;
+        protected CookieFreight _cookieFreight;
 
         public BaseController(
              CookieShoppingCart cookieShoppingCart,
@@ -26,14 +29,14 @@ namespace mvCommerce.Controllers.Base
             IMapper mapper,
             WSCorreiosCalculateFreight wSCorreiosCalculateFreight,
             CalculatePackage calculatePackage,
-            CookieValueDeadlineFreight cookieValueDeadlineFreight)
+            CookieFreight cookieFreight)
         {
             _cookieShoppingCart = cookieShoppingCart;
             _productRepository = productRepository;
             _mapper = mapper;
             _wSCorreiosCalculateFreight = wSCorreiosCalculateFreight;
             _calculatePackage = calculatePackage;
-            _cookieValueDeadlineFreight = cookieValueDeadlineFreight;
+            _cookieFreight = cookieFreight;
         }
 
         protected List<ProductItem> LoadProductDb()
@@ -52,6 +55,11 @@ namespace mvCommerce.Controllers.Base
             }
 
             return productItemComplete;
+        }
+
+        protected string GenerateHashAndSerialize(object obj)
+        {
+            return StringMD5.MD5Hash(JsonConvert.SerializeObject(obj));
         }
     }
 }

@@ -82,15 +82,17 @@ function AJAXCalculateFreight(callByButton) {
                 ShowErrorMesssage("Ooops, tivemos um erro ao obter o frete! " + data.Message);
             },
             success: function (data) {
+                console.info(data)
                 html = "";
 
-                for (var i = 0; i < data.length; i++) {
-                    var typeFreight = data[i].typeFreight;
-                    var value = data[i].value;
-                    var deadline = data[i].deadline;
+                for (var i = 0; i < data.listValues.length; i++) {
+                    var typeFreight = data.listValues[i].typeFreight;
+                    var value = data.listValues[i].value;
+                    var deadline = data.listValues[i].deadline;
 
                     html += "<dl class=\"dlist-align\"><dt> <input type=\"radio\" name=\"frete\" value=\"" + typeFreight + "\" /><input type=\"hidden\" name=\"value\" value=\"" + value + "\"/></dt ><dd>" + typeFreight + " - " + numberToReal(value) + " (" + deadline + ") dias úteis</dd></dl>"
                 }
+
                 $(".container-freight").html(html);
                 $(".container-freight").find("input[type=radio]").change(function () {
                     $.cookie("cart.typefreight", $(this).val());

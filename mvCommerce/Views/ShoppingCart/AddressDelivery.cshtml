@@ -2,69 +2,104 @@
 @{
     ViewData["Title"] = "Endereço de Entrega";
 }
-
-<div class="container">
-    <br />
-    <br />
-    <div class="alert alert-info">
-        <h6 class="text-center">Escolha um endereço para prosseguir com o pagamento, ou cadastre um novo!</h6>
-    </div>
-    <br />
-    <br />
-    <div class="row">
-        <div class="col-md-12">
-            <!--List Address-->
-            <!--TODO - lISTAR ENDEREÇOS VINCULADOS AO USUÁRIO-->
-            <!--TODO - APRESENTAR O ENDEREÇO DO USUÁRIO (SESSION)-->
-            <table class="table table-hover">
-                <div class="text-center">
-                    <h6>Novo endereço </h6><a class="btn btn-outline-info fa fa-plus ml-2" style="width:60px;" asp-action="RegisterDeliveryAddress" asp-controller="Home" asp-area="Client" asp-route-returnUrl="@Url.Action("AddressDelivery", "ShoppingCart", new { area = ""})"></a>
-                </div>
-                <br />
-                <tbody>
-                    <tr>
-                        <th scope="row">
-                            <input type="radio" name="address" value="0"/>
-                        </th>
-                        <td>
-                            <strong>Seu endereço</strong>
-                            <p>
-                                @ViewBag.Client.Zipcode | @ViewBag.Client.State, @ViewBag.Client.City, @ViewBag.Client.Neighborhood, @ViewBag.Client.Address, @ViewBag.Client.Number, @ViewBag.Client.Complement
-                            </p>
-                        </td>
-                        <td>
-                            <strong>Valor do Frete </strong>
-                            <p>R$ 120,00</p>
-                        </td>
-                    </tr>
-
-                    @foreach (DeliveryAddress address in ViewBag.Address)
-                    {
-                        <tr>
-                            <th scope="row">
-                                <input type="radio" name="address" value="@address.Id" />
-                            </th>
-                            <td>
-                                <strong>@address.Name </strong>
-                                <p>
-                                    @address.Zipcode | @address.State, @address.City, @address.Neighborhood, @address.Address, @address.Number, @address.Complement
-                                </p>
-                            </td>
-                            <td>
-                                <strong>Valor do Frete </strong>
-                                <p>R$ 130,00</p>
-                            </td>
-                        </tr>
-                    }
-
-
-                </tbody>
-            </table>
-            <div class="float-right">
-                <h6 style="font-size:large" class="text-center mt-5">Continuar</h6><a asp-action="Index" asp-controller="Payments" class=" ml-2 btn btn-outline-info fa fa-arrow-right" style="width:100px;"></a>
-            </div>
+<aside class="card mt-5 col-md-8">
+    <div class="container">
+        <br />
+        <br />
+        <div class="alert alert-info">
+            <h6 class="text-center">Escolha um endereço para prosseguir com o pagamento, ou cadastre um novo!</h6>
         </div>
         <br />
         <br />
+        <div class="row">
+            <div class="col-md-12">
+                <!--List Address-->
+                <!--TODO - lISTAR ENDEREÇOS VINCULADOS AO USUÁRIO-->
+                <!--TODO - APRESENTAR O ENDEREÇO DO USUÁRIO (SESSION)-->
+                <table class="table table-hover">
+                    <div class="text-center">
+                        <h6>Novo endereço </h6><a class="btn btn-outline-info fa fa-plus ml-2" style="width:60px;" asp-action="RegisterDeliveryAddress" asp-controller="Home" asp-area="Client" asp-route-returnUrl="@Url.Action("AddressDelivery", "ShoppingCart", new { area = ""})"></a>
+                    </div>
+                    <br />
+                    <tbody>
+                        <tr>
+                            <th scope="row">
+                                <input type="radio" name="address" value="0" />
+                            </th>
+                            <td>
+                                <strong>Seu endereço</strong>
+                                <p>
+                                    @ViewBag.Client.Zipcode | @ViewBag.Client.State, @ViewBag.Client.City, @ViewBag.Client.Neighborhood, @ViewBag.Client.Address, @ViewBag.Client.Number, @ViewBag.Client.Complement
+                                </p>
+                            </td>
+                        </tr>
+
+                        @foreach (DeliveryAddress address in ViewBag.Address)
+                        {
+                            <tr>
+                                <th scope="row">
+                                    <input type="radio" name="address" value="@address.Id" />
+                                </th>
+                                <td>
+                                    <strong>@address.Name </strong>
+                                    <p>
+                                        @address.Zipcode | @address.State, @address.City, @address.Neighborhood, @address.Address, @address.Number, @address.Complement
+                                    </p>
+                                </td>
+                                <td>
+                                    <a asp-action="DeleteAddress" asp-controller="Home" asp-area="Client" asp-route-id="@address.Id" class="btn btn-outline-danger alert-danger my-2 my-sm-0 fa fa-trash col-md-8" id="delete" title="Excluir endereço"></a>
+                                </td>
+                            </tr>
+                        }
+
+
+                    </tbody>
+                </table>
+
+
+                <div class="card-group">
+                    <div class="card">
+                        <div class="card-header">
+                            <input type="radio" name="freight" value="PAC" />
+                        </div>
+                        <img src="/img/PAC.png" class="card-img-top" alt="PAC" style="width:340px; margin-top:10px;">
+                        <div class="card-body">
+                            <h5 class="card-title">PAC</h5>
+                            <p class="card-text">Dias.</p>
+                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <input type="radio" name="freight" value="SEDEX" />
+                        </div>
+                        <img src="/img/sedex.png" class="card-img-top" alt="SEDEX" style="margin-top:20px">
+                        <div class="card-body">
+                            <h5 class="card-title">SEDEX</h5>
+                            <p class="card-text">Dias.</p>
+                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <input type="radio" name="freight" value="SEDEX10" />
+                        </div>
+                        <img src="/img/sedex-10.jpg" class="card-img-top" alt="SEDEX10" style="width:350px; margin-left:15px;">
+                        <div class="card-body">
+                            <h5 class="card-title">SEDEX10</h5>
+                            <p class="card-text">Dias.</p>
+                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="float-right">
+                    <h6 style="font-size:large" class="text-center mt-5">Continuar</h6><a asp-action="Index" asp-controller="Payments" class=" ml-2 btn btn-outline-info fa fa-arrow-right mb-5" style="width:100px;"></a>
+                </div>
+            </div>
+            <br />
+            <br />
+        </div>
     </div>
-</div>
+</aside>

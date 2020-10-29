@@ -24,7 +24,7 @@ namespace mvCommerce.Controllers
         IMapper mapper,
         WSCorreiosCalculateFreight wSCorreiosCalculateFreight,
         CalculatePackage calculatePackage,
-        CookieValueDeadlineFreight cookieValueDeadlineFreight,
+        CookieFreight cookieValueDeadlineFreight,
         Cookie cookie)
         : base(cookieShoppingCart, productRepository, mapper, wSCorreiosCalculateFreight, calculatePackage, cookieValueDeadlineFreight)
         {
@@ -37,14 +37,14 @@ namespace mvCommerce.Controllers
 
             if (typeFreightSelectedByUser != null)
             {
-                var freight = _cookieValueDeadlineFreight.Consult().Where(f => f.TypeFreight == typeFreightSelectedByUser).FirstOrDefault();
+            //    var freight = _cookieFreight.Consult().Where(f => f.TypeFreight == typeFreightSelectedByUser).FirstOrDefault();
 
-                if (freight != null)
-                {
-                    ViewBag.Freight = freight;
-                    List<ProductItem> products = LoadProductDb();
-                    return View(products);
-                }
+            //    if (freight != null)
+            //    {
+            //        ViewBag.Freight = freight;
+            //        List<ProductItem> products = LoadProductDb();
+            //        return View(products);
+            //}
             }
             TempData["MSG_E"] = Message.MSG_E009;
             return RedirectToAction("Index", "ShoppingCart");

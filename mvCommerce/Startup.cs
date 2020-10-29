@@ -75,7 +75,7 @@ namespace mvCommerce
             });
             services.AddScoped<SendEmail>();
             services.AddScoped<CookieShoppingCart>();
-            services.AddScoped<CookieValueDeadlineFreight>();
+            services.AddScoped<CookieFreight>();
             services.AddScoped<Libraries.Cookie.Cookie>();
             services.AddScoped<WSCorreiosCalculateFreight>();
             services.AddScoped<CalculatePackage>();
