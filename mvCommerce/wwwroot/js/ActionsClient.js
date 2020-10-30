@@ -134,14 +134,19 @@ function AJAXCalculateFreightDeliveryAddress() {
     $("input[name=address]").change(function () {
         var cep = RemoveMask($(this).parent().find("input[name=cep]").val());
 
+        LoadingCardsDeliveryAddress();
 
         $.ajax({
             type: "GET",
             url: "/ShoppingCart/CalculateFreight?cepDestiny=" + cep,
             error: function (data) {
                 ShowErrorMesssage("Ooops, tivemos um erro ao obter o frete! " + data.Message);
+
+                ClearDataDeliveryAddressCards();
             },
             success: function (data) {
+
+                ClearDataDeliveryAddressCards();
 
                 for (var i = 0; i < data.listValues.length; i++) {
                     var typeFreight = data.listValues[i].typeFreight;
@@ -154,7 +159,21 @@ function AJAXCalculateFreightDeliveryAddress() {
 
                     $(".card-footer .text")[i].innerHTML = "<input class=\"mt-4\ mr-3\" type=\"radio\"name=\"freight\" value=\" " + typeFreight + "\" />" + "<strong>" +  numberToReal(value) + "</strong>";
 
+                    console.info("cart.typefreight" + " - " + typeFreight)
+                    console.info($.cookie("cart.typefreight") == typeFreight);
+                    if ($.cookie("cart.typefreight") != undefined && $.cookie("cart.typefreight") == typeFreight) {
+                        $(".card-footer .text").find("input[name=freight]").attr("checked", "checked");
+                        $(".btn-continue").removeClass("disabled");
+                    }
                 }
+
+                $(".card-footer .text").find("input[name=freight]").change(function () {
+                    $.cookie("cart.typefreight", $(this).val());
+                    $(".btn-continue").removeClass("disabled");
+                    $(this).parent().parent().css("background-color", "#daeefe")
+                });
+
+
 
                 //$(".container-freight").html(html);
                 //$(".container-freight").find("input[type=radio]").change(function () {
@@ -181,6 +200,23 @@ function AJAXCalculateFreightDeliveryAddress() {
         });
 
     });
+}
+
+function LoadingCardsDeliveryAddress() {
+    for (var i = 0; i < 3; i++) {
+        $(".card-text")[i].innerHTML = "<img id='load-freight' src='\\img\\loader.gif'/>";
+    }
+}
+
+function ClearDataDeliveryAddressCards() {
+
+    for (var i = 0; i < 3; i++) {
+        $(".card-title")[i].innerHTML = "-";
+
+        $(".card-text")[i].innerHTML = "-";
+
+        $(".card-footer .text")[i].innerHTML = "-";
+    }
 }
 
 function numberToReal(numero) {
