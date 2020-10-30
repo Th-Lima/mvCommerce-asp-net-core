@@ -132,7 +132,7 @@ function AJAXCalculateFreight(callByButton) {
 function AJAXCalculateFreightDeliveryAddress() {
 
     $("input[name=address]").change(function () {
-        var cep = RemoveMask($(this).parent().find("input[name=cep]"));
+        var cep = RemoveMask($(this).parent().find("input[name=cep]").val());
 
 
         $.ajax({
@@ -150,9 +150,9 @@ function AJAXCalculateFreightDeliveryAddress() {
 
                     $(".card-title")[i].innerHTML = typeFreight;
 
-                    $(".card-text")[i].innerHTML = "Prazo de " + deadline + "dias.";
+                    $(".card-text")[i].innerHTML = "Prazo de " + deadline + " dias.";
 
-                    $(".card-text .text-muted")[i].innerHTML = "<input class=\"mt-4\" type=\"radio\"name=\"freight\" value=\" " + typeFreight + "\" />" + numberToReal(value);
+                    $(".card-footer .text")[i].innerHTML = "<input class=\"mt-4\ mr-3\" type=\"radio\"name=\"freight\" value=\" " + typeFreight + "\" />" + "<strong>" +  numberToReal(value) + "</strong>";
 
                 }
 

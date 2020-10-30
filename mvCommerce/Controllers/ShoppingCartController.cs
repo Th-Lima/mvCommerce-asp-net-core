@@ -104,7 +104,7 @@ namespace mvCommerce.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public async Task<IActionResult> CalculateFreight(string cepDestiny)
+        public async Task<IActionResult> CalculateFreight(int cepDestiny)
         {
             try
             {
@@ -112,9 +112,9 @@ namespace mvCommerce.Controllers
 
                 List<Package> packages = _calculatePackage.CalculatingPackage(products);
 
-                ValueDeadlineFreight valuesPAC = await _wSCorreiosCalculateFreight.CalculateFreight(cepDestiny, TypeFreightConstant.PAC, packages);
-                ValueDeadlineFreight valuesSEDEX = await _wSCorreiosCalculateFreight.CalculateFreight(cepDestiny, TypeFreightConstant.SEDEX, packages);
-                ValueDeadlineFreight valuesSEDEX10 = await _wSCorreiosCalculateFreight.CalculateFreight(cepDestiny, TypeFreightConstant.SEDEX10, packages);
+                ValueDeadlineFreight valuesPAC = await _wSCorreiosCalculateFreight.CalculateFreight(cepDestiny.ToString(), TypeFreightConstant.PAC, packages);
+                ValueDeadlineFreight valuesSEDEX = await _wSCorreiosCalculateFreight.CalculateFreight(cepDestiny.ToString(), TypeFreightConstant.SEDEX, packages);
+                ValueDeadlineFreight valuesSEDEX10 = await _wSCorreiosCalculateFreight.CalculateFreight(cepDestiny.ToString(), TypeFreightConstant.SEDEX10, packages);
 
                 List<ValueDeadlineFreight> list = new List<ValueDeadlineFreight>();
                 if (valuesPAC != null) list.Add(valuesPAC);
@@ -124,7 +124,7 @@ namespace mvCommerce.Controllers
                 
                 var freight = new Freight()
                 {
-                    CEP = cepDestiny,
+                    CEP = cepDestiny.ToString(),
                     ShoppingCartCode = GenerateHashAndSerialize(_cookieShoppingCart.Consult()),
                     ListValues = list
                 };
