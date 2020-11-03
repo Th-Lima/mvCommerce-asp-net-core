@@ -134,7 +134,11 @@ function AJAXCalculateFreightDeliveryAddress() {
     $("input[name=address]").change(function () {
         var cep = RemoveMask($(this).parent().find("input[name=cep]").val());
 
+        ClearDataDeliveryAddressCards();
+
         LoadingCardsDeliveryAddress();
+
+        $(".btn-continue").addClass("disabled");
 
         $.ajax({
             type: "GET",
