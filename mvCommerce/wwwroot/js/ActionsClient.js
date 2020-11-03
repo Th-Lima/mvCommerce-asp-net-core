@@ -157,20 +157,21 @@ function AJAXCalculateFreightDeliveryAddress() {
 
                     $(".card-text")[i].innerHTML = "Prazo de " + deadline + " dias.";
 
-                    $(".card-footer .text")[i].innerHTML = "<input class=\"mt-4\ mr-3\" type=\"radio\"name=\"freight\" value=\" " + typeFreight + "\" />" + "<strong>" +  numberToReal(value) + "</strong>";
+                    $(".card-footer .text")[i].innerHTML = "<input class=\"mt-4\ mr-3\" type=\"radio\"name=\"freight\" value=\" " + typeFreight + "\" />" + "<strong>" + numberToReal(value) + "</strong>";
 
-                    console.info("cart.typefreight" + " - " + typeFreight)
-                    console.info($.cookie("cart.typefreight") == typeFreight);
+                    //console.info("cart.typefreight" + " - " + typeFreight)
+                    //console.info($.cookie("cart.typefreight") == typeFreight);
                     if ($.cookie("cart.typefreight") != undefined && $.cookie("cart.typefreight") == typeFreight) {
-                        $(".card-footer .text").find("input[name=freight]").attr("checked", "checked");
+                        $(".card-footer .text input[name=freight]").eq(i).attr("checked", "checked");
+                        SelectTypeFreightStyle($(".card-footer .text").find("input[name=freight]").eq(i));
                         $(".btn-continue").removeClass("disabled");
                     }
                 }
 
                 $(".card-footer .text").find("input[name=freight]").change(function () {
-                    $.cookie("cart.typefreight", $(this).val());
+                    $.cookie("cart.typefreight", $(this).val(), { path: '/' });
                     $(".btn-continue").removeClass("disabled");
-                    $(this).parent().parent().css("background-color", "#daeefe")
+                    SelectTypeFreightStyle($(this));
                 });
 
 
@@ -201,6 +202,16 @@ function AJAXCalculateFreightDeliveryAddress() {
 
     });
 }
+function SelectTypeFreightStyle(obj) {
+
+    $(".card-body").css("background-color", "white");
+    $(".card-footer").css("background-color", "rgba(0,0,0,.03)");
+
+
+    obj.parent().parent().parent().find(".card-footer").css("background-color", "#daeefe");
+    obj.parent().parent().parent().find(".card-body").css("background-color", "#daeefe");
+}
+
 
 function LoadingCardsDeliveryAddress() {
     for (var i = 0; i < 3; i++) {
