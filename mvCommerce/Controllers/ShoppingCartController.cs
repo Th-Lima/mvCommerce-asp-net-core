@@ -19,23 +19,18 @@ namespace mvCommerce.Controllers
 {
     public class ShoppingCartController : BaseController
     {
-        private ClientLogin _clientLogin;
-        private IDeliveryAddressRepository _deliveryAddressRepository;
 
         public ShoppingCartController(
-             CookieShoppingCart cookieShoppingCart,
+            ClientLogin clientLogin,
+            CookieShoppingCart cookieShoppingCart,
             IProductRepository productRepository,
+            IDeliveryAddressRepository deliveryAddressRepository,
             IMapper mapper,
             WSCorreiosCalculateFreight wSCorreiosCalculateFreight,
             CalculatePackage calculatePackage,
-            CookieFreight cookieFreight,
-            ClientLogin clientLogin,
-            IDeliveryAddressRepository deliveryAddressRepository)
-            : base(cookieShoppingCart, productRepository, mapper, wSCorreiosCalculateFreight, calculatePackage, cookieFreight)
-        {
-            _clientLogin = clientLogin;
-            _deliveryAddressRepository = deliveryAddressRepository;
-        }
+            CookieFreight cookieFreight
+            )
+            : base(clientLogin, cookieShoppingCart, productRepository, deliveryAddressRepository, mapper, wSCorreiosCalculateFreight, calculatePackage, cookieFreight) { }
 
         public IActionResult Index()
         {
@@ -92,6 +87,8 @@ namespace mvCommerce.Controllers
 
             IList<DeliveryAddress> deliveryAddresses = _deliveryAddressRepository.GetAllAdressesClient(client.Id);
 
+            ViewBag.Products = LoadProductDb();
+
             ViewBag.Client = client;
             ViewBag.Address = deliveryAddresses;
             return View();
@@ -108,7 +105,7 @@ namespace mvCommerce.Controllers
             try
             {
                 //Verify if exists at freight the calculate for same CEP and products
-                Freight freight = _cookieFreight.Consult().Where(a => a.CEP == cepDestiny.ToString() && a.ShoppingCartCode == GenerateHashAndSerialize(_cookieShoppingCart.Consult())).FirstOrDefault();
+                Freight freight = _cookieFreight.Consult().Where(a => a.CEP == cepDestiny && a.ShoppingCartCode == GenerateHashAndSerialize(_cookieShoppingCart.Consult())).FirstOrDefault();
                 if (freight != null)
                 {
                     return Ok(freight);
@@ -131,7 +128,7 @@ namespace mvCommerce.Controllers
 
                     freight = new Freight()
                     {
-                        CEP = cepDestiny.ToString(),
+                        CEP = cepDestiny,
                         ShoppingCartCode = GenerateHashAndSerialize(_cookieShoppingCart.Consult()),
                         ListValues = list
                     };

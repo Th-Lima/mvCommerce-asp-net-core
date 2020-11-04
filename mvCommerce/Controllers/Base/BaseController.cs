@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.WebEncoders.Testing;
+using mvCommerce.Libraries.Login;
 using mvCommerce.Libraries.Manager.Freight;
 using mvCommerce.Libraries.ShoppingCart;
 using mvCommerce.Libraries.Text;
@@ -16,27 +13,33 @@ namespace mvCommerce.Controllers.Base
 {
     public class BaseController : Controller
     {
+        protected ClientLogin _clientLogin;
         protected CookieShoppingCart _cookieShoppingCart;
         protected IProductRepository _productRepository;
+        protected IDeliveryAddressRepository _deliveryAddressRepository;
         protected IMapper _mapper;
         protected WSCorreiosCalculateFreight _wSCorreiosCalculateFreight;
         protected CalculatePackage _calculatePackage;
         protected CookieFreight _cookieFreight;
 
         public BaseController(
+            ClientLogin clientLogin,
              CookieShoppingCart cookieShoppingCart,
             IProductRepository productRepository,
+            IDeliveryAddressRepository deliveryAddressRepository,
             IMapper mapper,
             WSCorreiosCalculateFreight wSCorreiosCalculateFreight,
             CalculatePackage calculatePackage,
             CookieFreight cookieFreight)
         {
+            _clientLogin = clientLogin;
             _cookieShoppingCart = cookieShoppingCart;
             _productRepository = productRepository;
             _mapper = mapper;
             _wSCorreiosCalculateFreight = wSCorreiosCalculateFreight;
             _calculatePackage = calculatePackage;
             _cookieFreight = cookieFreight;
+            _deliveryAddressRepository = deliveryAddressRepository;
         }
 
         protected List<ProductItem> LoadProductDb()

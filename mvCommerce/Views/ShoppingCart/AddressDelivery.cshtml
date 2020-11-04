@@ -1,6 +1,15 @@
 ﻿
 @{
     ViewData["Title"] = "Endereço de Entrega";
+
+    var products = (List<ProductItem>)ViewBag.Products;
+    decimal total = 0;
+
+    foreach(ProductItem item in products)
+    {
+        decimal result = item.Price * item.AmountProductsCart;
+        total += result;
+    }
 }
 <aside class="card mt-5 col-md-8">
     <div class="container">
@@ -21,7 +30,7 @@
                     <tbody>
                         <tr>
                             <th scope="row">
-                                <input type="radio" name="address" value="0" />
+                                <input type="radio" name="address" value="0-end" />
                                 <input type="hidden" name="cep" value="@ViewBag.Client.Zipcode" />
                             </th>
                             <td>
@@ -36,7 +45,7 @@
                         {
                             <tr>
                                 <th scope="row">
-                                    <input type="radio" name="address" value="@address.Id" />
+                                    <input type="radio" name="address" value="@address.Id-end" />
                                     <input type="hidden" name="cep" value="@address.Zipcode" />
                                 </th>
                                 <td>
@@ -102,21 +111,21 @@
                     <div class="box">
                         <div class="card-body">
                             <h4 class="card-title">Produtos</h4>
-                            <p class="card-text">R$ 2.000,00</p>
+                            <p class="card-text text-product">@total.ToString("C")</p>
                         </div>
                     </div>
 
                     <div class="box">
                         <div class="card-body">
                             <h4 class="card-title">Frete</h4>
-                            <p class="card-text">R$ 63,80</p>
+                            <p class="card-text text-freight">-</p>
                         </div>
                     </div>
 
                     <div class="box">
                         <div class="card-body">
                             <h4 class="card-title">Total</h4>
-                            <p>R$ 2.063,80</p>
+                            <p class="card-text text-total">-</p>
                         </div>
                     </div>
                 </div>

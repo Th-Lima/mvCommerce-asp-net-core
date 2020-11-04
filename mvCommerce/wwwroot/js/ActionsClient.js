@@ -132,6 +132,9 @@ function AJAXCalculateFreight(callByButton) {
 function AJAXCalculateFreightDeliveryAddress() {
 
     $("input[name=address]").change(function () {
+
+        $.cookie("ShoppingCart.Address", $(this).val(), {path: "/"})
+
         var cep = RemoveMask($(this).parent().find("input[name=cep]").val());
 
         ClearDataDeliveryAddressCards();
@@ -150,6 +153,7 @@ function AJAXCalculateFreightDeliveryAddress() {
             },
             success: function (data) {
 
+                ClearValues();
                 ClearDataDeliveryAddressCards();
 
                 for (var i = 0; i < data.listValues.length; i++) {
@@ -161,13 +165,15 @@ function AJAXCalculateFreightDeliveryAddress() {
 
                     $(".card-text")[i].innerHTML = "Prazo de " + deadline + " dias.";
 
-                    $(".card-footer .text")[i].innerHTML = "<input class=\"mt-4\ mr-3\" type=\"radio\"name=\"freight\" value=\" " + typeFreight + "\" />" + "<strong>" + numberToReal(value) + "</strong>";
+                    $(".card-footer .text")[i].innerHTML = "<input class=\"mt-4\ mr-3\" type=\"radio\"name=\"freight\" value=\" " + typeFreight + "\" id='" + typeFreight + "' /> " + " <strong> " + numberToReal(value) + "</strong > ";
 
                     //console.info("cart.typefreight" + " - " + typeFreight)
                     //console.info($.cookie("cart.typefreight") == typeFreight);
+
                     if ($.cookie("cart.typefreight") != undefined && $.cookie("cart.typefreight") == typeFreight) {
                         $(".card-footer .text input[name=freight]").eq(i).attr("checked", "checked");
                         SelectTypeFreightStyle($(".card-footer .text").find("input[name=freight]").eq(i));
+
                         $(".btn-continue").removeClass("disabled");
                     }
                 }
@@ -206,6 +212,9 @@ function AJAXCalculateFreightDeliveryAddress() {
 
     });
 }
+
+
+
 function SelectTypeFreightStyle(obj) {
 
     $(".card-body").css("background-color", "white");
@@ -214,8 +223,25 @@ function SelectTypeFreightStyle(obj) {
 
     obj.parent().parent().parent().find(".card-footer").css("background-color", "#daeefe");
     obj.parent().parent().parent().find(".card-body").css("background-color", "#daeefe");
+
+    UpdateValues();
 }
 
+function UpdateValues() {
+    var freight = parseFloat($(".card-footer input[name=freight]:checked").parent().find("strong").text().replace("R$", "").replace(".", "").replace(",", "."));
+        
+    var product = parseFloat($(".text-product").text().replace("R$", "").replace(".", "").replace(",", "."));
+
+    var total = freight + product;
+  
+    $(".text-freight").text(numberToReal(freight));
+    $(".text-total").text(numberToReal(total));
+}
+
+function ClearValues() {
+    $(".text-freight").text("");
+    $(".text-total").text("");
+}
 
 function LoadingCardsDeliveryAddress() {
     for (var i = 0; i < 3; i++) {

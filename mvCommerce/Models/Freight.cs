@@ -4,7 +4,7 @@ namespace mvCommerce.Models
 {
     public class Freight
     {
-        public string CEP { get; set; }
+        public int CEP { get; set; }
         
         //HashCode MDS
         public string ShoppingCartCode { get; set; }
