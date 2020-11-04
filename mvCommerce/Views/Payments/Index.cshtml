@@ -27,7 +27,7 @@
                                         <div class="aside">
                                             @if (item.Images != null && item.Images.Count > 0)
                                             {
-                                                <a href="@item.Images.ElementAt(0).Path" data-fancybox><img src="@item.Images.ElementAt(0).Path" class="img-sm"></a>
+                                                <a href="@item.Images.ElementAt(0).Path" data-fancybox><img src="@(((List<Image>)item.Images).First().Path)" class="img-sm"></a>
                                             }
                                             else
                                             {
