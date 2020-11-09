@@ -62,7 +62,7 @@ namespace mvCommerce.Controllers
 
                 if (freight != null)
                 {
-                    ViewBag.Freight = freight.ListValues.Where(f => f.TypeFreight == typeFreightSelectedByUser).FirstOrDefault();
+                    ViewBag.Freight = freight.ListValues.Where(f => f.TypeFreight == typeFreightSelectedByUser).First();
                     List<ProductItem> products = LoadProductDb();
                     return View(products);
                 }
