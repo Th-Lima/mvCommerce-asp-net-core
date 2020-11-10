@@ -45,31 +45,32 @@
                 <a class="nav-link" href="/Home/Contact"><i class="far fa-address-book"></i> Contato </a>
             </li>
         </ul>
-        <form class="form-inline my-2 my-lg-2" id="formMenu" method="get">
-            <input class="search form-control mr-1" type="text" name="search" value="@search" placeholder="O que você está procurando?">
-            <button id="searchButton" class="btn btn-outline-warning mr-5 " type="submit"><i class="fas fa-search"></i></button>
-            <hr  class="mr-5" style="height: 20px; border-left: 2px solid; color:white">
+        <div class="container">
+            <div class="row">
+                <form class="form-inline my-2 my-lg-2" id="formMenu" method="get" style="margin:auto;">
+                    <input class="search form-control" type="text" name="search" value="@search" placeholder="O que você está procurando?">
+                    <button  id="searchButton" class="btn " type="submit"><i class="fas fa-search"></i></button>
+                </form>
+            </div>
+        </div>
+        @if (_clientLogin.GetClient() != null)
+        {
+            <div class="dropdown">
+                <button class="btn btn-outline-warning dropdown-toggle mr-2" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-user-alt mr-2"></i>@_clientLogin.GetClient().Name
 
-
-            @if (_clientLogin.GetClient() != null)
-            {
-                <div class="dropdown">
-                    <button class="btn btn-outline-warning dropdown-toggle mr-2" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-user-alt mr-2"></i>@_clientLogin.GetClient().Name
-
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#">Minha Conta</a>
-                        <a class="dropdown-item" href="#">Meus Pedidos</a>
-                        <a class="dropdown-item" asp-action="Logout" asp-controller="Home" asp-area="Client">Sair</a>
-                    </div>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#">Minha Conta</a>
+                    <a class="dropdown-item" href="#">Meus Pedidos</a>
+                    <a class="dropdown-item" asp-action="Logout" asp-controller="Home" asp-area="Client">Sair</a>
                 </div>
-            }
-            else
-            {
-                <a asp-controller="Home" asp-action="Login" asp-area="Client" class="btn btn-outline-warning my-2 my-sm-0 mr-2" id="login"><i class="fas fa-user-alt"></i> Login</a>
-            }
-            <a asp-controller="ShoppingCart" asp-action="Index" class="btn btn-outline-warning my-2 my-sm-0" id="cart"><i class="fas fa-shopping-cart"></i> Carrinho</a>
-        </form>
+            </div>
+        }
+        else
+        {
+            <a asp-controller="Home" asp-action="Login" asp-area="Client" class="btn btn-outline-warning my-2 my-sm-0 mr-2" id="login"><i class="fas fa-user-alt"></i> Login</a>
+        }
+        <a asp-controller="ShoppingCart" asp-action="Index" class="btn btn-outline-warning my-2 my-sm-0" id="cart"><i class="fas fa-shopping-cart"></i> Carrinho</a>
     </div>
 </nav>
