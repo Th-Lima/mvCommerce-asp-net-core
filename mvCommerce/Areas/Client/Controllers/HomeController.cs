@@ -35,7 +35,7 @@ namespace mvCommerce.Areas.Client.Controllers
                 _clientLogin.Login(clientDB);
                 if (returnUrl == null)
                 {
-                    return new RedirectResult(Url.Action(nameof(Panel)));
+                    return RedirectToAction("Index", "Home", new { area = "" });
                 }
                 else
                 {
@@ -51,10 +51,11 @@ namespace mvCommerce.Areas.Client.Controllers
         }
 
         [HttpGet]
-        [ClientAuthorization]
-        public IActionResult Panel()
+        public IActionResult Logout()
         {
-            return new ContentResult() { Content = "Este é o painel do Cliente" };
+            _clientLogin.Logout();
+
+            return RedirectToAction("Index", "Home", new { area = "" });
         }
 
         [HttpGet]

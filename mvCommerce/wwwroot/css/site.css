@@ -34,8 +34,6 @@ button {
     border: 0;
     color: white;
     background: none;
-    display: block;
-    margin: 5px auto;
     text-align: center;
     border: 2px solid #ffbe76;
     padding: 14px 10px;
@@ -60,14 +58,6 @@ a {
 
 hr {
     background-color: #00CED1;
-}
-
-#login {
-    margin-left: 550px;
-}
-
-#cart {
-    margin-left: 5px;
 }
 
 .card {

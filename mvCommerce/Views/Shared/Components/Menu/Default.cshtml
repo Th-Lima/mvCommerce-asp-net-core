@@ -1,70 +1,75 @@
 ﻿@model List<Category>
 @inject mvCommerce.Libraries.Login.ClientLogin _clientLogin
-@{ 
+@{
     var search = Context.Request.Query["search"];
 }
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-info" id="navMenu">
-        <a class="navbar-brand" href="/"><img class="mr-1" style="height:30px; width:30px;" src="~/img/logo.png" /> CompraTudo</a>
-       
-        <hr style="height: 30px; border-left: 2px solid; color:white" />
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-info" id="navMenu">
+    <a class="navbar-brand" href="/"><img class="mr-1" style="height:30px; width:30px;" src="~/img/logo.png" /> CompraTudo</a>
 
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+    <hr style="height: 30px; border-left: 2px solid; color:white" />
 
-        <div class="collapse navbar-collapse mar" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto" style="margin-left:2px">
-                <li class="nav-item @((ViewContext.RouteData.Values["controller"].ToString() == "Home" && ViewContext.RouteData.Values["action"].ToString() == "Index") ? "active": "")">
-                    <a class="nav-link" href="/"><i class="fas fa-home"></i> Home <span class="sr-only">(current)</span></a>
-                </li>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-                @{
-                    var AllCategories = Model.ToList();
-                }
-                @if (Model != null && Model.Count > 0)
-                {
-                    <div class="dropdown">
-                        <a class=" nav-link dropdown-toggle  @((ViewContext.RouteData.Values["controller"].ToString() == "Home" && ViewContext.RouteData.Values["action"].ToString() == "Category") ? "active": "")" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-list-ul"></i> Categorias
-                        </a>
-                        <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
-                            @{
-                                var mainCategories = AllCategories.Where(c => c.CategoryFatherId == null).ToList();
-                                ViewData["AllCategories"] = AllCategories;
-                            }
-                            @foreach (var category in mainCategories)
-                            {
-                                @await Html.PartialAsync("~/Views/Shared/Components/Menu/_SubMenu.cshtml", new ViewDataDictionary(ViewData) { { "FatherCategory", category } })
-                            }
-                        </ul>
+    <div class="collapse navbar-collapse mar" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto" style="margin-left:2px">
+            <li class="nav-item @((ViewContext.RouteData.Values["controller"].ToString() == "Home" && ViewContext.RouteData.Values["action"].ToString() == "Index") ? "active": "")">
+                <a class="nav-link" href="/"><i class="fas fa-home"></i> Home <span class="sr-only">(current)</span></a>
+            </li>
+
+            @{
+                var AllCategories = Model.ToList();
+            }
+            @if (Model != null && Model.Count > 0)
+            {
+                <div class="dropdown">
+                    <a class=" nav-link dropdown-toggle  @((ViewContext.RouteData.Values["controller"].ToString() == "Home" && ViewContext.RouteData.Values["action"].ToString() == "Category") ? "active": "")" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-list-ul"></i> Categorias
+                    </a>
+                    <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                        @{
+                            var mainCategories = AllCategories.Where(c => c.CategoryFatherId == null).ToList();
+                            ViewData["AllCategories"] = AllCategories;
+                        }
+                        @foreach (var category in mainCategories)
+                        {
+                            @await Html.PartialAsync("~/Views/Shared/Components/Menu/_SubMenu.cshtml", new ViewDataDictionary(ViewData) { { "FatherCategory", category } })
+                        }
+                    </ul>
+                </div>
+            }
+
+            <li class="nav-item  @((ViewContext.RouteData.Values["controller"].ToString() == "Home" && ViewContext.RouteData.Values["action"].ToString() == "Contact") ? "active": "")">
+                <a class="nav-link" href="/Home/Contact"><i class="far fa-address-book"></i> Contato </a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-2" id="formMenu" method="get">
+            <input class="search form-control mr-1" type="text" name="search" value="@search" placeholder="O que você está procurando?">
+            <button id="searchButton" class="btn btn-outline-warning mr-5 " type="submit"><i class="fas fa-search"></i></button>
+            <hr  class="mr-5" style="height: 20px; border-left: 2px solid; color:white">
+
+
+            @if (_clientLogin.GetClient() != null)
+            {
+                <div class="dropdown">
+                    <button class="btn btn-outline-warning dropdown-toggle mr-2" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user-alt mr-2"></i>@_clientLogin.GetClient().Name
+
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">Minha Conta</a>
+                        <a class="dropdown-item" href="#">Meus Pedidos</a>
+                        <a class="dropdown-item" asp-action="Logout" asp-controller="Home" asp-area="Client">Sair</a>
                     </div>
-                }
-
-                <li class="nav-item  @((ViewContext.RouteData.Values["controller"].ToString() == "Home" && ViewContext.RouteData.Values["action"].ToString() == "Contact") ? "active": "")">
-                    <a class="nav-link" href="/Home/Contact"><i class="far fa-address-book"></i> Contato </a>
-                </li>
-            </ul>
-            <form class="form-inline my-2 my-lg-2" id="formMenu" method="get">
-                <input class="search form-control mr-sm-2" type="text" name="search" value="@search" placeholder="O que você está procurando?">
-                <button id="searchButton" class="btn btn-outline-warning my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
-                @if (_clientLogin.GetClient() != null)
-                {
-                    if (_clientLogin.GetClient().Name.Length >= 15)
-                    {
-                        string name = _clientLogin.GetClient().Name.Substring(0, Math.Min(15, _clientLogin.GetClient().Name.Length));
-                        <a asp-controller="Home" asp-action="Panel" asp-area="Client" class="btn btn-outline-warning my-2 my-sm-0" id="login"><i class="fas fa-user-alt mr-2"></i>@name ...</a>
-                    }
-                    else
-                    {
-                        <a asp-controller="Home" asp-action="Panel" asp-area="Client" class="btn btn-outline-warning my-2 my-sm-0" id="login"><i class="fas fa-user-alt mr-2"></i>@_clientLogin.GetClient().Name</a>
-                    }
-                }
-                else
-                {
-                    <a asp-controller="Home" asp-action="Login" asp-area="Client" class="btn btn-outline-warning my-2 my-sm-0" id="login"><i class="fas fa-user-alt"></i> Login</a>
-                }
-                <a asp-controller="ShoppingCart" asp-action="Index" class="btn btn-outline-warning my-2 my-sm-0" id="cart"><i class="fas fa-shopping-cart"></i> Carrinho</a>
-            </form>
-        </div>
-    </nav>
+                </div>
+            }
+            else
+            {
+                <a asp-controller="Home" asp-action="Login" asp-area="Client" class="btn btn-outline-warning my-2 my-sm-0 mr-2" id="login"><i class="fas fa-user-alt"></i> Login</a>
+            }
+            <a asp-controller="ShoppingCart" asp-action="Index" class="btn btn-outline-warning my-2 my-sm-0" id="cart"><i class="fas fa-shopping-cart"></i> Carrinho</a>
+        </form>
+    </div>
+</nav>
