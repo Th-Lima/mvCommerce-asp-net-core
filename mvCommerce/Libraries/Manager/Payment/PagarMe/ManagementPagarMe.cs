@@ -123,7 +123,7 @@ namespace mvCommerce.Libraries.Manager.Payment.PagarMe
         //            Neighborhood = client.Neighborhood,
         //            Street = client.Address + " " + client.Complement,
         //            StreetNumber = client.Number,
-        //            Zipcode = Mask.Remove(client.Zipcode) 
+        //            Zipcode = Mask.Remove(client.Zipcode)
         //        }
         //    };
 

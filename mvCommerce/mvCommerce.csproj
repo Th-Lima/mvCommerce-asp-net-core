@@ -23,7 +23,6 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.2.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.4" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="Pagar.me" Version="2.6.17" />
     <PackageReference Include="System.ServiceModel.Duplex" Version="4.4.*" />
     <PackageReference Include="System.ServiceModel.Http" Version="4.4.*" />
     <PackageReference Include="System.ServiceModel.NetTcp" Version="4.4.*" />
@@ -54,6 +53,13 @@
     <Folder Include="Areas\Client\Models\" />
     <Folder Include="Areas\Collaborator\Models\" />
     <Folder Include="wwwroot\uploads\temp\" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Reference Include="PagarMeCore">
+      <HintPath>..\Librarie\pagarme-net\PagarMeCore\bin\Release\netstandard2.0\PagarMeCore.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 
